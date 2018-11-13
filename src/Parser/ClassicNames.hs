@@ -1,5 +1,7 @@
 module Parser.ClassicNames
-  ( keywords
+  ( firstChars
+  , restChars
+  , keywords
   , parseName
   ) where
 
@@ -10,11 +12,17 @@ import Control.Applicative (liftA2)
 import Control.Monad (mfilter)
 import Text.ParserCombinators.ReadP (ReadP, munch, satisfy)
 
+firstChars :: [Char]
+firstChars = ('_' : ['A'..'Z'] ++ ['a'..'z'])
+
+restChars :: [Char]
+restChars = firstChars ++ ['0'..'9']
+
 first :: Char -> Bool
-first = flip elem ('_' : ['A'..'Z'] ++ ['a'..'z'])
+first = flip elem firstChars
 
 rest :: Char -> Bool
-rest c = first c || c `elem` (['0'..'9'])
+rest = flip elem restChars
 
 keywords :: [String]
 keywords =

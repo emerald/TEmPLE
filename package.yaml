@@ -47,3 +47,4 @@ tests:
     - Emerald
     - tasty
     - tasty-hspec
+    - tasty-quickcheck
