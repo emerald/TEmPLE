@@ -5,11 +5,7 @@ import Parser.Common (token)
 
 import Control.Applicative (liftA2)
 import Control.Monad (mfilter)
-import Text.ParserCombinators.ReadP
-  ( ReadP
-  , munch
-  , satisfy
-  )
+import Text.ParserCombinators.ReadP (ReadP, munch, satisfy)
 
 first :: Char -> Bool
 first = flip elem ('_' : ['A'..'Z'] ++ ['a'..'z'])
