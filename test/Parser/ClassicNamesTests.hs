@@ -4,6 +4,8 @@ import Control.Applicative (liftA2)
 import Control.Monad (forM_)
 import Text.Printf (printf)
 
+import Ast (Name)
+
 import Parser.Common (parse)
 import Parser.ClassicNames (firstChars, restChars, keywords, parseName)
 
@@ -17,7 +19,7 @@ spec_keywords = do
     it (printf "%s is a keyword" keyword) $
       parse parseName keyword `shouldBe` []
 
-data AName = AName String
+data AName = AName Name
   deriving (Eq, Show)
 
 instance Arbitrary AName where
