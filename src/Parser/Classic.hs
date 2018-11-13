@@ -4,15 +4,13 @@ import Ast
 import Parser.Common
 import Parser.ClassicNames
 import Parser.ClassicTypes
+import Parser.ClassicExprs
 
 import Control.Applicative ((*>), liftA3)
 import qualified Control.Applicative as App
 import Text.ParserCombinators.ReadP
 
 type ParseError = ParseErrorImpl [ConstDecl]
-
-parseExpr :: ReadP Expr
-parseExpr = token $ parseName >>= return . EVar
 
 parseConstDecl :: ReadP ConstDecl
 parseConstDecl = liftA3 Const
