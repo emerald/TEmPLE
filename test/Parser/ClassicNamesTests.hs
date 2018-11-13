@@ -1,16 +1,13 @@
 module Parser.ClassicNamesTests where
 
-import Control.Applicative (liftA2)
-import Control.Monad (forM_)
-import Text.Printf (printf)
-
 import Ast (Name)
-
 import Parser.Common (parse)
 import Parser.ClassicNames (firstChars, restChars, keywords, parseName)
 
 import Parser.GenCommon
 
+import Control.Applicative (liftA2)
+import Control.Monad (forM_)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hspec (Spec, it, shouldBe, testSpec)
 import Test.Tasty.QuickCheck
@@ -19,6 +16,7 @@ import Test.Tasty.QuickCheck
   , (===)
   , testProperty
   )
+import Text.Printf (printf)
 
 spec_keywords :: Spec
 spec_keywords = do
