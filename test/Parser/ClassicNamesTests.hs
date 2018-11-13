@@ -9,10 +9,12 @@ import Ast (Name)
 import Parser.Common (parse)
 import Parser.ClassicNames (firstChars, restChars, keywords, parseName)
 
+import Parser.TestCommon
+
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hspec (Spec, it, shouldBe, testSpec)
 import Test.Tasty.QuickCheck
-  ( Arbitrary, Gen, Property
+  ( Arbitrary, Property
   , arbitrary, elements, listOf, suchThat
   , (===)
   , testProperty
@@ -23,9 +25,6 @@ spec_keywords = do
   forM_ keywords $ \ keyword ->
     it (printf "%s is a keyword" keyword) $
       parse parseName keyword `shouldBe` []
-
-spaces :: Gen String
-spaces = listOf $ elements [' ', '\t', '\n', '\r', '\f', '\v']
 
 data ValidName = ValidName String Name
   deriving (Eq, Show)
