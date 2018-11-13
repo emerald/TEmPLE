@@ -16,7 +16,7 @@ import Test.Tasty.QuickCheck
   , arbitrary, elements, listOf, suchThat
   )
 
-data ValidName = ValidName String Name
+newtype ValidName = ValidName (String, Name)
   deriving (Eq, Show)
 
 instance Arbitrary ValidName where
@@ -24,9 +24,9 @@ instance Arbitrary ValidName where
     name <- flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
     text <- fmap (name ++) spaces
-    return $ ValidName text name
+    return $ ValidName (text, name)
 
-data InvalidName = InvalidName String
+newtype InvalidName = InvalidName String
   deriving (Eq, Show)
 
 instance Arbitrary InvalidName where
