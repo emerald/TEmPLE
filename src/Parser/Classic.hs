@@ -1,22 +1,13 @@
 module Parser.Classic where
 
-import Ast
-import Parser.Common
-import Parser.ClassicNames
-import Parser.ClassicTypes
-import Parser.ClassicExprs
+import Ast (ConstDecl)
+import Parser.Common (ParseErrorImpl, parseFile', parseString')
+import Parser.ClassicConstDecls (parseConstDecl)
 
-import Control.Applicative ((*>), liftA3)
-import qualified Control.Applicative as App
-import Text.ParserCombinators.ReadP
+import Control.Applicative ((*>))
+import Text.ParserCombinators.ReadP (ReadP, many, skipSpaces)
 
 type ParseError = ParseErrorImpl [ConstDecl]
-
-parseConstDecl :: ReadP ConstDecl
-parseConstDecl = liftA3 Const
-  (stoken1 "const" *> parseName)
-  (App.optional parseType)
-  (stoken "<-" *> parseExpr)
 
 parseProgram :: ReadP [ConstDecl]
 parseProgram = skipSpaces *> many parseConstDecl
