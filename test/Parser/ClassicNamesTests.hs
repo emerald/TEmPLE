@@ -19,13 +19,18 @@ spec_keywords = do
     it (printf "%s is a keyword" keyword) $
       parse parseName keyword `shouldBe` []
 
-data ValidName = ValidName Name
+spaces :: Gen String
+spaces = listOf $ elements [' ', '\t', '\n', '\r', '\f', '\v']
+
+data ValidName = ValidName String Name
   deriving (Eq, Show)
 
 instance Arbitrary ValidName where
-  arbitrary = fmap ValidName $
-    flip suchThat (not . (`elem` keywords)) $
+  arbitrary = do
+    name <- flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
+    text <- fmap (name ++) spaces
+    return $ ValidName text name
 
 data InvalidName = InvalidName String
   deriving (Eq, Show)
@@ -37,7 +42,7 @@ instance Arbitrary InvalidName where
       (listOf arbitrary)
 
 prop_validName :: ValidName -> Property
-prop_validName (ValidName s) = parse parseName s === [(s, "")]
+prop_validName (ValidName s n) = parse parseName s === [(n, "")]
 
 prop_invalidName :: InvalidName -> Property
 prop_invalidName (InvalidName s) = parse parseName s === []
