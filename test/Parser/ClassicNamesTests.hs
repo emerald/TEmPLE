@@ -1,21 +1,14 @@
 module Parser.ClassicNamesTests where
 
-import Ast (Name)
 import Parser.Common (parse)
-import Parser.ClassicNames (firstChars, restChars, keywords, parseName)
+import Parser.ClassicNames (keywords, parseName)
 
-import Parser.GenCommon
+import Parser.GenClassicNames (ValidName(..), InvalidName(..))
 
-import Control.Applicative (liftA2)
 import Control.Monad (forM_)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hspec (Spec, it, shouldBe, testSpec)
-import Test.Tasty.QuickCheck
-  ( Arbitrary, Property
-  , arbitrary, elements, listOf, suchThat
-  , (===)
-  , testProperty
-  )
+import Test.Tasty.QuickCheck (Property, (===), testProperty)
 import Text.Printf (printf)
 
 spec_keywords :: Spec
@@ -23,25 +16,6 @@ spec_keywords = do
   forM_ keywords $ \ keyword ->
     it (printf "%s is a keyword" keyword) $
       parse parseName keyword `shouldBe` []
-
-data ValidName = ValidName String Name
-  deriving (Eq, Show)
-
-instance Arbitrary ValidName where
-  arbitrary = do
-    name <- flip suchThat (not . (`elem` keywords)) $
-      liftA2 (:) (elements firstChars) (listOf (elements restChars))
-    text <- fmap (name ++) spaces
-    return $ ValidName text name
-
-data InvalidName = InvalidName String
-  deriving (Eq, Show)
-
-instance Arbitrary InvalidName where
-  arbitrary = fmap InvalidName $
-    liftA2 (:)
-      (suchThat arbitrary (not . (`elem` firstChars)))
-      (listOf arbitrary)
 
 prop_validName :: ValidName -> Property
 prop_validName (ValidName s n) = parse parseName s === [(n, "")]
