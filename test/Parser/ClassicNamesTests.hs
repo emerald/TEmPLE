@@ -27,7 +27,7 @@ instance Arbitrary ValidName where
     flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
 
-data InvalidName = InvalidName Name
+data InvalidName = InvalidName String
   deriving (Eq, Show)
 
 instance Arbitrary InvalidName where
