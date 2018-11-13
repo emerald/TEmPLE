@@ -27,8 +27,19 @@ instance Arbitrary ValidName where
     flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
 
+data InvalidName = InvalidName Name
+  deriving (Eq, Show)
+
+instance Arbitrary InvalidName where
+  arbitrary = fmap InvalidName $ liftA2 (:)
+    (suchThat arbitrary (not . (`elem` firstChars)))
+    (listOf arbitrary)
+
 prop_validName :: ValidName -> Property
 prop_validName (ValidName s) = parse parseName s === [(s, "")]
+
+prop_invalidName :: InvalidName -> Property
+prop_invalidName (InvalidName s) = parse parseName s === []
 
 testTree :: IO TestTree
 testTree = fmap (testGroup "ClassicNamesTests") $ sequence
@@ -36,4 +47,7 @@ testTree = fmap (testGroup "ClassicNamesTests") $ sequence
   , return $ testProperty
       "Valid names parse"
       prop_validName
+  , return $ testProperty
+      "Invalid names don't parse"
+      prop_invalidName
   ]
