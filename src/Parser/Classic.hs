@@ -1,7 +1,6 @@
-module Parser.Impl where
+module Parser.Classic where
 
 import Ast
-
 import Data.Char (isSpace)
 import Control.Applicative ((<*), (*>), liftA2, liftA3)
 import qualified Control.Applicative as App

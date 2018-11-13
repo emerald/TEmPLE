@@ -4,7 +4,7 @@ module Parser
   , parseFile
   ) where
 
-import Parser.Impl
+import Parser.Classic
   ( ParseError
   , parseString
   , parseFile
