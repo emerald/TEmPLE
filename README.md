@@ -1,6 +1,7 @@
 # The new Emerald Compiler and Runtime (WIP)
 
 [![Build Status](https://travis-ci.org/emerald/emerald.svg?branch=master)](https://travis-ci.org/emerald/emerald)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](LICENSE)
 
 ## Why?
 
