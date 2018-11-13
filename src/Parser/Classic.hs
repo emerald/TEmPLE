@@ -3,20 +3,13 @@ module Parser.Classic where
 import Ast
 import Parser.Common
 import Parser.ClassicNames
+import Parser.ClassicTypes
 
 import Control.Applicative ((*>), liftA3)
 import qualified Control.Applicative as App
 import Text.ParserCombinators.ReadP
 
 type ParseError = ParseErrorImpl [ConstDecl]
-
-parseType :: ReadP Type
-parseType = (*>) (stoken ":") $ token $ word $
-  [ ("integer", TInt)
-  , ("real", TDouble)
-  , ("character", TChar)
-  , ("string", TString)
-  ]
 
 parseExpr :: ReadP Expr
 parseExpr = token $ parseName >>= return . EVar
