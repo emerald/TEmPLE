@@ -1,5 +1,6 @@
 module Parser.ClassicNamesTests where
 
+import Control.Applicative (liftA2)
 import Control.Monad (forM_)
 import Text.Printf (printf)
 
@@ -21,10 +22,8 @@ data GenName = GenName String
 
 instance Arbitrary GenName where
   arbitrary = fmap GenName $
-    flip suchThat (not . (`elem` keywords)) $ do
-      first <- elements firstChars
-      rest <- listOf (elements restChars)
-      return $ first:rest
+    flip suchThat (not . (`elem` keywords)) $
+      liftA2 (:) (elements firstChars) (listOf (elements restChars))
 
 prop_name :: GenName -> Bool
 prop_name (GenName s) = parse parseName s == [(s, "")]
