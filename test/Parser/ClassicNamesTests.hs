@@ -27,8 +27,8 @@ instance Arbitrary AName where
     flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
 
-prop_name :: AName -> Bool
-prop_name (AName s) = parse parseName s == [(s, "")]
+prop_name :: AName -> Property
+prop_name (AName s) = parse parseName s === [(s, "")]
 
 testTree :: IO TestTree
 testTree = fmap (testGroup "ClassicNamesTests") $ sequence
