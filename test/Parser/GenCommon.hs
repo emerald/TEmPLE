@@ -1,4 +1,4 @@
-module Parser.TestCommon
+module Parser.GenCommon
   ( spaces
   ) where
 

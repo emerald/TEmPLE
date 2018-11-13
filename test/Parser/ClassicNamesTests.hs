@@ -9,7 +9,7 @@ import Ast (Name)
 import Parser.Common (parse)
 import Parser.ClassicNames (firstChars, restChars, keywords, parseName)
 
-import Parser.TestCommon
+import Parser.GenCommon
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hspec (Spec, it, shouldBe, testSpec)
