@@ -45,3 +45,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - Emerald
+    - tasty
+    - tasty-hspec

@@ -1,2 +1,6 @@
+import Parser.ClassicNamesTests (testTree)
+
+import Test.Tasty (defaultMain)
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = testTree >>= defaultMain
