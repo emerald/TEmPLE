@@ -31,9 +31,10 @@ data InvalidName = InvalidName Name
   deriving (Eq, Show)
 
 instance Arbitrary InvalidName where
-  arbitrary = fmap InvalidName $ liftA2 (:)
-    (suchThat arbitrary (not . (`elem` firstChars)))
-    (listOf arbitrary)
+  arbitrary = fmap InvalidName $
+    liftA2 (:)
+      (suchThat arbitrary (not . (`elem` firstChars)))
+      (listOf arbitrary)
 
 prop_validName :: ValidName -> Property
 prop_validName (ValidName s) = parse parseName s === [(s, "")]
