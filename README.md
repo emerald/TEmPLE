@@ -2,7 +2,7 @@
 
 For now, the reasoning is two-fold:
 
-First, while the Emerald programming language offers [an interesting
+First, while the Emerald programming language offers an [interesting
 programming model](https://learn-emerald.org/docs/methodology.html),
 it does so with an arcane syntax, semantics, and implementation. This
 repository seeks to provide a more up-to-date (as of 2018)
