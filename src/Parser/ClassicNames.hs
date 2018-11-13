@@ -1,7 +1,7 @@
 module Parser.ClassicNames where
 
-import Ast
-import Parser.Common
+import Ast (Name)
+import Parser.Common (token)
 
 import Control.Applicative (liftA2)
 import Control.Monad (mfilter)
