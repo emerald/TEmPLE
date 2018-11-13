@@ -1,4 +1,6 @@
-module Parser.ClassicConstDecls where
+module Parser.ClassicConstDecls
+  ( parseConstDecl
+  ) where
 
 import Ast (ConstDecl(..))
 import Parser.Common (stoken, stoken1)

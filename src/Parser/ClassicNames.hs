@@ -1,4 +1,7 @@
-module Parser.ClassicNames where
+module Parser.ClassicNames
+  ( keywords
+  , parseName
+  ) where
 
 import Ast (Name)
 import Parser.Common (token)

@@ -1,4 +1,6 @@
-module Parser.ClassicTypes where
+module Parser.ClassicTypes
+  ( parseType
+  ) where
 
 import Ast
 import Parser.Common

@@ -1,4 +1,6 @@
-module Parser.ClassicExprs where
+module Parser.ClassicExprs
+  ( parseExpr
+  ) where
 
 import Ast (Expr(..))
 import Parser.Common (token)
