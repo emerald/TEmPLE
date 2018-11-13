@@ -17,16 +17,16 @@ spec_keywords = do
     it (printf "%s is a keyword" keyword) $
       parse parseName keyword `shouldBe` []
 
-data GenName = GenName String
+data AName = AName String
   deriving (Eq, Show)
 
-instance Arbitrary GenName where
-  arbitrary = fmap GenName $
+instance Arbitrary AName where
+  arbitrary = fmap AName $
     flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
 
-prop_name :: GenName -> Bool
-prop_name (GenName s) = parse parseName s == [(s, "")]
+prop_name :: AName -> Bool
+prop_name (AName s) = parse parseName s == [(s, "")]
 
 testTree :: IO TestTree
 testTree = fmap (testGroup "ClassicNamesTests") $ sequence
