@@ -19,19 +19,21 @@ spec_keywords = do
     it (printf "%s is a keyword" keyword) $
       parse parseName keyword `shouldBe` []
 
-data AName = AName Name
+data ValidName = ValidName Name
   deriving (Eq, Show)
 
-instance Arbitrary AName where
-  arbitrary = fmap AName $
+instance Arbitrary ValidName where
+  arbitrary = fmap ValidName $
     flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
 
-prop_name :: AName -> Property
-prop_name (AName s) = parse parseName s === [(s, "")]
+prop_validName :: ValidName -> Property
+prop_validName (ValidName s) = parse parseName s === [(s, "")]
 
 testTree :: IO TestTree
 testTree = fmap (testGroup "ClassicNamesTests") $ sequence
   [ testSpec "Keywords" spec_keywords
-  , return $ testProperty "Name" prop_name
+  , return $ testProperty
+      "Valid names parse"
+      prop_validName
   ]
