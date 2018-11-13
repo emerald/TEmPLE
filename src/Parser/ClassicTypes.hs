@@ -2,8 +2,8 @@ module Parser.ClassicTypes
   ( parseType
   ) where
 
-import Ast
-import Parser.Common
+import Ast (Type(..))
+import Parser.Common (stoken, token, word)
 
 import Control.Applicative ((*>))
 import Text.ParserCombinators.ReadP (ReadP)
