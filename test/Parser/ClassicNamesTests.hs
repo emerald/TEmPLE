@@ -12,6 +12,11 @@ import Parser.ClassicNames (firstChars, restChars, keywords, parseName)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hspec (Spec, it, shouldBe, testSpec)
 import Test.Tasty.QuickCheck
+  ( Arbitrary, Gen, Property
+  , arbitrary, elements, listOf, suchThat
+  , (===)
+  , testProperty
+  )
 
 spec_keywords :: Spec
 spec_keywords = do
