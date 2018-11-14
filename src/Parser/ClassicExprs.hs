@@ -9,4 +9,4 @@ import Parser.ClassicNames (parseName)
 import Text.ParserCombinators.ReadP (ReadP)
 
 parseExpr :: ReadP Expr
-parseExpr = token $ parseName >>= return . EVar
+parseExpr = token $ fmap EVar parseName
