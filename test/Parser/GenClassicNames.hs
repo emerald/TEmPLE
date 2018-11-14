@@ -7,7 +7,7 @@ import Ast (Name)
 
 import Parser.ClassicNames (firstChars, restChars, keywords)
 
-import Parser.GenCommon (spaces)
+import Parser.GenCommon (token)
 
 import Control.Applicative (liftA2)
 
@@ -23,7 +23,7 @@ instance Arbitrary ValidName where
   arbitrary = do
     name <- flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
-    text <- fmap (name ++) spaces
+    text <- token name
     return $ ValidName (text, name)
 
 newtype InvalidName = InvalidName String
