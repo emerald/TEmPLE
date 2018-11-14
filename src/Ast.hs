@@ -15,6 +15,8 @@ data Lit
   | LDouble Double
   | LChar Char
   | LString String
+  | LBool Bool
+  | LNil
   deriving (Eq, Show)
 
 data Expr

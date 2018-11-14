@@ -31,6 +31,9 @@ keywords =
   , "real"
   , "character"
   , "string"
+  , "nil"
+  , "true"
+  , "false"
   ]
 
 parseName :: ReadP Name
