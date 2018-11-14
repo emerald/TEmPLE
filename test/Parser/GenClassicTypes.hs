@@ -19,7 +19,7 @@ import Test.Tasty.QuickCheck
 typeClause :: String -> Gen String
 typeClause s = liftA2 (++) (token ":") (token s)
 
-newtype ValidType = ValidType (String, Type)
+newtype ValidType = ValidType { validType :: (String, Type) }
   deriving (Eq, Show)
 
 instance Arbitrary ValidType where
@@ -28,7 +28,7 @@ instance Arbitrary ValidType where
     text <- typeClause s
     return $ ValidType (text, t)
 
-newtype InvalidType = InvalidType String
+newtype InvalidType = InvalidType { invalidType :: String }
   deriving (Eq, Show)
 
 notAType :: String -> Bool

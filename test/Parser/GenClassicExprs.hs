@@ -12,14 +12,14 @@ import Test.Tasty.QuickCheck
   , arbitrary
   )
 
-newtype ValidExpr = ValidExpr (String, Expr)
+newtype ValidExpr = ValidExpr { validExpr :: (String, Expr) }
   deriving (Eq, Show)
 
 instance Arbitrary ValidExpr where
   arbitrary = arbitrary >>= \ (ValidName (s, n)) ->
     return $ ValidExpr (s, (EVar n))
 
-newtype InvalidExpr = InvalidExpr String
+newtype InvalidExpr = InvalidExpr { invalidExpr :: String }
   deriving (Eq, Show)
 
 instance Arbitrary InvalidExpr where

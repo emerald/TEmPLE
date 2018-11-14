@@ -16,7 +16,7 @@ import Test.Tasty.QuickCheck
   , arbitrary, elements, listOf, suchThat
   )
 
-newtype ValidName = ValidName (String, Name)
+newtype ValidName = ValidName { validName :: (String, Name) }
   deriving (Eq, Show)
 
 instance Arbitrary ValidName where
@@ -26,7 +26,7 @@ instance Arbitrary ValidName where
     text <- token name
     return $ ValidName (text, name)
 
-newtype InvalidName = InvalidName String
+newtype InvalidName = InvalidName { invalidName :: String }
   deriving (Eq, Show)
 
 instance Arbitrary InvalidName where
