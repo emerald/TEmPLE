@@ -1,6 +1,6 @@
 module Parser.ClassicNamesTests where
 
-import Parser.Common (parse)
+import Parser.Common (fullParse, parse)
 import Parser.ClassicNames (keywords, parseName)
 
 import Parser.GenClassicNames (ValidName(..), InvalidName(..))
@@ -21,7 +21,8 @@ prop_validName :: ValidName -> Property
 prop_validName (ValidName (s, n)) = parse parseName s === [(n, "")]
 
 prop_invalidName :: InvalidName -> Property
-prop_invalidName (InvalidName s) = parse parseName s === []
+prop_invalidName (InvalidName s)
+  = fullParse parseName s === []
 
 testTree :: IO TestTree
 testTree = fmap (testGroup "ClassicNamesTests") $ sequence
