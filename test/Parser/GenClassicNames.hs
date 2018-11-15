@@ -12,8 +12,8 @@ import Parser.GenCommon (token)
 import Control.Applicative (liftA2)
 
 import Test.Tasty.QuickCheck
-  ( Arbitrary
-  , arbitrary, elements, listOf, suchThat
+  ( Arbitrary, Gen
+  , arbitrary, choose, elements, listOf, shuffle, sized, suchThat
   )
 
 newtype ValidName = ValidName { validName :: (String, Name) }
@@ -29,8 +29,30 @@ instance Arbitrary ValidName where
 newtype InvalidName = InvalidName { invalidName :: String }
   deriving (Eq, Show)
 
+validInvalidFirst :: (Gen Char, Gen Char)
+validInvalidFirst =
+  ( elements firstChars
+  , suchThat arbitrary (not . (`elem` firstChars))
+  )
+
+validInvalidRest :: (Gen Char, Gen Char)
+validInvalidRest =
+  ( elements restChars
+  , suchThat arbitrary (not . (`elem` restChars))
+  )
+
+validInvalid :: Int -> [(Gen Char, Gen Char)]
+validInvalid n
+  = validInvalidFirst : (replicate (n-1) validInvalidRest)
+
 instance Arbitrary InvalidName where
-  arbitrary = fmap InvalidName $
-    liftA2 (:)
-      (suchThat arbitrary (not . (`elem` firstChars)))
-      (listOf arbitrary)
+  arbitrary = fmap InvalidName $ sized $ \ n -> do
+    case n of
+      0 -> return ""
+      _ -> do
+        n_invalid <- choose (1, n)
+        let n_valid = n - n_invalid
+        fs <- shuffle $
+          replicate n_valid fst ++ replicate n_invalid snd
+        let gens = fs <*> validInvalid n
+        sequence gens
