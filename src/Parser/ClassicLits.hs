@@ -24,13 +24,17 @@ parseBool = word
   , ("false", LBool False)
   ]
 
-parseHex :: ReadP Lit
-parseHex = fmap LInt $
-  string "0x" *> readS_to_P readHex
+parseOctHex :: ReadP Lit
+parseOctHex
+  = string "0" *> choice [parseOct, parseHex]
+    where
+      parseHex :: ReadP Lit
+      parseHex = fmap LInt $
+        string "x" *> readS_to_P readHex
 
-parseOct :: ReadP Lit
-parseOct = fmap LInt $
-  string "0" *> readS_to_P readOct
+      parseOct :: ReadP Lit
+      parseOct = fmap LInt $
+        readS_to_P readOct
 
 parseIntFloat :: ReadP Lit
 parseIntFloat = do
@@ -49,8 +53,7 @@ parseIntFloat = do
 parseNum :: ReadP Lit
 parseNum = choice
   [ parseIntFloat
-  , parseHex
-  , parseOct
+  , parseOctHex
   ]
 
 parseLit :: ReadP Lit
