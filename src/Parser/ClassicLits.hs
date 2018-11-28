@@ -36,8 +36,22 @@ parseOctHex
       parseOct = fmap LInt $
         readS_to_P readOct
 
-parseIntFloat :: ReadP Lit
-parseIntFloat = do
+parseFractional :: String -> ReadP Lit
+parseFractional integral = do
+  string "."
+  fractional <- munch isDigit
+  let float = integral ++ "." ++ fractional
+  return $ (LDouble . fst . head) $ readFloat float
+
+parseStartingWithZero :: ReadP Lit
+parseStartingWithZero = do
+  string "0" >> choice
+    [ return (LInt 0)
+    , parseFractional "0"
+    ]
+
+parseStartingWithNonZero :: ReadP Lit
+parseStartingWithNonZero = do
   first <- satisfy (`elem` ['1'..'9'])
   rest <- munch isDigit
   let integral = first:rest
@@ -49,6 +63,12 @@ parseIntFloat = do
       let float = integral ++ "." ++ fractional
       return $ (LDouble . fst . head) $ readFloat float
     ]
+
+parseIntFloat :: ReadP Lit
+parseIntFloat = choice
+  [ parseStartingWithZero
+  , parseStartingWithNonZero
+  ]
 
 parseNum :: ReadP Lit
 parseNum = choice
