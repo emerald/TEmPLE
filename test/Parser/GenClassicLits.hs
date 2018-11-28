@@ -95,5 +95,6 @@ isValidLit :: String -> Bool
 isValidLit "" = False
 isValidLit ('0':'.':cs) = isValidIntegral cs
 isValidLit ('0':'x':cs) = isValidHex cs
+isValidLit ('0':[]) = True
 isValidLit ('0':cs) = isValidOctal cs
 isValidLit cs = isValidIntegral cs
