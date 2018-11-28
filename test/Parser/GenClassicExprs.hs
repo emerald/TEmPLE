@@ -6,15 +6,21 @@ module Parser.GenClassicExprs
 import Ast (Expr(..))
 
 import Parser.GenCommon (token)
-import Parser.GenClassicNames (ValidName(..), InvalidName(..))
+import Parser.GenClassicLits (ValidLit(..), InvalidLit(..), isValidLit)
+import Parser.GenClassicNames (ValidName(..), InvalidName(..), isValidName)
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, oneof, resize, sized
+  , arbitrary, oneof, resize, sized, suchThat
   )
 
 newtype ValidExpr = ValidExpr { validExpr :: (String, Expr) }
   deriving (Eq, Show)
+
+genLitExpr :: Gen ValidExpr
+genLitExpr = do
+  (s, n) <- fmap validLit arbitrary
+  return $ ValidExpr (s, ELit n)
 
 genNameExpr :: Gen ValidExpr
 genNameExpr = do
@@ -31,6 +37,7 @@ genParensExpr = do
 genExpr :: Int -> Gen ValidExpr
 genExpr 0 = oneof
   [ genNameExpr
+  , genLitExpr
   ]
 genExpr n = resize (n `div` 2) $ oneof
   [ genParensExpr
@@ -43,5 +50,7 @@ newtype InvalidExpr = InvalidExpr { invalidExpr :: String }
   deriving (Eq, Show)
 
 instance Arbitrary InvalidExpr where
-  arbitrary = arbitrary >>= \ (InvalidName s) ->
-    return $ InvalidExpr s
+  arbitrary = fmap InvalidExpr $
+    suchThat arbitrary (\s -> not
+        (isValidLit s || isValidName s)
+      )

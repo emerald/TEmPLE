@@ -9,11 +9,12 @@ import Parser.GenClassicConstDecls
   )
 
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.QuickCheck (Property, (===), testProperty)
+import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
 
 prop_validConstDecl :: ValidConstDecl -> Property
 prop_validConstDecl (ValidConstDecl (s, e))
-  = parse parseConstDecl s === [(e, "")]
+  = property $
+      (e, "") `elem` (parse parseConstDecl s)
 
 prop_invalidConstDecl :: InvalidConstDecl -> Property
 prop_invalidConstDecl (InvalidConstDecl s)

@@ -1,13 +1,14 @@
 module Parser.GenClassicNames
   ( ValidName(..)
   , InvalidName(..)
+  , isValidName
   ) where
 
 import Ast (Name)
 
 import Parser.ClassicNames (firstChars, restChars, keywords)
 
-import Parser.GenCommon (token)
+import Parser.GenCommon (allToken, token)
 
 import Control.Applicative (liftA2)
 
@@ -56,3 +57,9 @@ instance Arbitrary InvalidName where
           replicate n_valid fst ++ replicate n_invalid snd
         let gens = fs <*> validInvalid n
         sequence gens
+
+isValidName :: String -> Bool
+isValidName "" = False
+isValidName (c:cs) =
+  (c `elem` firstChars) &&
+    allToken (`elem` restChars) cs

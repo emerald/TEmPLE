@@ -6,11 +6,12 @@ import Parser.ClassicExprs (parseExpr)
 import Parser.GenClassicExprs (ValidExpr(..), InvalidExpr(..))
 
 import Test.Tasty (TestTree, testGroup)
-import Test.Tasty.QuickCheck (Property, (===), testProperty)
+import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
 
 prop_validExpr :: ValidExpr -> Property
 prop_validExpr (ValidExpr (s, e))
-  = parse parseExpr s === [(e, "")]
+  = property $
+      (e, "") `elem` (parse parseExpr s)
 
 prop_invalidExpr :: InvalidExpr -> Property
 prop_invalidExpr (InvalidExpr s)
