@@ -30,3 +30,27 @@ equivalent binary, and whether both compilers produce equivalent
 binaries for some comprehensive suite of test-programs. If so, we will
 have *re-bootstrapped* Emerald, and can proceed with confidence to
 improve the Emerald programming environment.
+
+## Working with Stack
+
+"Stack is a cross-platform program for developing Haskell projects." -
+[The Haskell Tool Stack
+Documentation](https://docs.haskellstack.org/en/stable/README/)
+
+### Build
+
+    stack build
+
+### Test
+
+    stack test
+
+### GHCi
+
+Start up GHCi with the source files loaded:
+
+    stack ghci
+
+Start up GHCi with the test files loaded:
+
+    stack ghci Emerald:Emerald-test
