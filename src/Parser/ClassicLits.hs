@@ -40,7 +40,7 @@ parseOctHex
 parseFractional :: String -> ReadP Lit
 parseFractional integral = do
   string "."
-  fractional <- munch isDigit
+  fractional <- munch1 isDigit
   let float = integral ++ "." ++ fractional
   return $ (LDouble . fst . head) $ readFloat float
 
