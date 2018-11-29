@@ -58,11 +58,7 @@ parseStartingWithNonZero = do
   let integral = first:rest
   choice
     [ return $ (LInt . fst . head) $ readDec integral
-    , do
-      string "."
-      fractional <- munch isDigit
-      let float = integral ++ "." ++ fractional
-      return $ (LDouble . fst . head) $ readFloat float
+    , parseFractional integral
     ]
 
 parseIntFloat :: ReadP Lit
