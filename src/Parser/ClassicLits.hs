@@ -6,13 +6,14 @@ import Ast (Lit(..))
 
 import Parser.Common (token, word)
 
-import Control.Applicative ((*>))
-import Data.Char (isDigit)
+import Control.Applicative ((*>), (<*))
+import Data.Bits (clearBit)
+import Data.Char (chr, isDigit, ord, readLitChar)
 import Numeric (readDec, readFloat, readHex, readOct)
 import Text.ParserCombinators.ReadP
   ( ReadP
-  , choice, munch, satisfy, string
-  , readS_to_P
+  , between, choice, get, many, munch, munch1, satisfy, string
+  , pfail, readS_to_P
   )
 
 parseNil :: ReadP Lit
@@ -76,9 +77,49 @@ parseNum = choice
   , parseOctHex
   ]
 
+
+parseOChar :: ReadP Char
+parseOChar = satisfy (`elem` ['0'..'7'])
+
+parseEscSeq :: ReadP Char
+parseEscSeq = string "\\" *> choice
+  [ satisfy (not . flip elem ('^':['0'..'7'])) >>= \ c -> do
+      let [(c', "")] = (readLitChar . reverse . (:"\\")) c
+      return c'
+  , string "^" *> (flip fmap get $
+      chr . (`clearBit` 7) . (`clearBit` 6). ord)
+  , munch1 (`elem` ['0'..'7']) >>= \ s ->
+      if length s < 4
+      then do
+        let [(i, "")] = readOct s
+        return $ chr i
+      else pfail
+  ]
+
+parseChar :: ReadP Lit
+parseChar =
+  between (string "'") (string "'") $
+    fmap LChar $ choice
+      [ satisfy (not . flip elem ['\\', '\''])
+      , parseEscSeq
+      ]
+
+parseSChar :: ReadP Char
+parseSChar = choice
+  [ satisfy (not . flip elem ['\\', '"'])
+  , parseEscSeq
+  ]
+
+parseString :: ReadP Lit
+parseString =
+  between (string "\"") (string "\"") $
+    fmap LString $ many parseSChar
+
 parseLit :: ReadP Lit
 parseLit = token $ choice
   [ parseNil
   , parseBool
   , parseNum
+  , parseChar
+  , parseString
   ]
