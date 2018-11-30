@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/emerald/emerald.svg?branch=master)](https://travis-ci.org/emerald/emerald)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](LICENSE)
 
+This project is part in The Emerald Programming Language Effort (TEmPLE).
+
 ## Why?
 
 For now, the reasoning is three-fold:
