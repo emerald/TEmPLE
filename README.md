@@ -5,7 +5,7 @@
 
 ## Why?
 
-For now, the reasoning is two-fold:
+For now, the reasoning is three-fold:
 
 First, while the Emerald programming language offers an [interesting
 programming model](https://learn-emerald.org/docs/methodology.html),
@@ -30,6 +30,11 @@ equivalent binary, and whether both compilers produce equivalent
 binaries for some comprehensive suite of test-programs. If so, we will
 have *re-bootstrapped* Emerald, and can proceed with confidence to
 improve the Emerald programming environment.
+
+Third, the tests developed for this compiler, can serve as additional
+tests for the original Emerald compiler. Gradually, this will help
+increase confidence in the correctness of both compiler
+implementations.
 
 ## Working with Stack
 
