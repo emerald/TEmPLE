@@ -4,10 +4,13 @@ module Parser.GenClassicExprs
   ) where
 
 import Ast (Expr(..))
+import Parser.Common (fullParse)
+import Parser.ClassicLits (parseLit)
+import Parser.ClassicNames (parseName)
 
 import Parser.GenCommon (token)
-import Parser.GenClassicLits (ValidLit(..), InvalidLit(..), isValidLit)
-import Parser.GenClassicNames (ValidName(..), InvalidName(..), isValidName)
+import Parser.GenClassicLits (ValidLit(..), InvalidLit(..))
+import Parser.GenClassicNames (ValidName(..), InvalidName(..))
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
@@ -50,7 +53,6 @@ newtype InvalidExpr = InvalidExpr { invalidExpr :: String }
   deriving (Eq, Show)
 
 instance Arbitrary InvalidExpr where
-  arbitrary = fmap InvalidExpr $
-    suchThat arbitrary (\s -> not
-        (isValidLit s || isValidName s)
-      )
+  arbitrary = fmap InvalidExpr $ do
+    suchThat (fmap invalidName arbitrary) $
+      \ s -> length (fullParse parseLit s) == 0
