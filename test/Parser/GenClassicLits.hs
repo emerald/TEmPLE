@@ -1,12 +1,11 @@
 module Parser.GenClassicLits
   ( ValidLit(..)
   , InvalidLit(..)
-  , isValidLit
   ) where
 
 import Ast (Lit(..))
 
-import Parser.GenCommon (allToken, token)
+import Parser.GenCommon (token)
 
 import Control.Applicative (liftA2)
 import Data.Char (isDigit, isOctDigit)
@@ -77,46 +76,3 @@ instance Arbitrary InvalidLit where
     [ return "09"
     , return "0xx"
     ]
-
-isValidIntegral :: String -> Bool
-isValidIntegral "" = False
-isValidIntegral cs = allToken isDigit cs
-
-isValidHex :: String -> Bool
-isValidHex "" = False
-isValidHex cs =
-  allToken (`elem` ['0'..'9'] ++ ['a'..'f'] ++ ['A'..'F']) cs
-
-isValidOctal :: String -> Bool
-isValidOctal "" = False
-isValidOctal cs = allToken (`elem` ['0'..'8']) cs
-
-isValidCharLit :: Char -> String -> (Bool, String)
-isValidCharLit _ "" = (False, "")
-isValidCharLit e [c] = (c == e, "")
-isValidCharLit _ ('\\':'^':_:cs) = (True, cs)
-isValidCharLit _ ('\\':c0:c1:c2:cs)
-  | isOctDigit c0 && isOctDigit c1 && isOctDigit c2 =
-    (True, cs)
-isValidCharLit _ ('\\':c0:c1:cs)
-  | isOctDigit c0 && isOctDigit c1 =
-    (True, cs)
-isValidCharLit _ ('\\':_:cs) = (True, cs)
-isValidCharLit _ (_:cs) = (True, cs)
-
-isValidStringLits :: String -> Bool
-isValidStringLits ('"':cs) = cs == ""
-isValidStringLits s =
-  case isValidCharLit '"' s of
-    (True, s') -> isValidStringLits s'
-    _ -> False
-
-isValidLit :: String -> Bool
-isValidLit "" = False
-isValidLit ('\'':cs) = isValidCharLit '\'' cs == (True, "'")
-isValidLit ('"':cs) = isValidStringLits cs
-isValidLit ('0':'.':cs) = isValidIntegral cs
-isValidLit ('0':'x':cs) = isValidHex cs
-isValidLit ('0':[]) = True
-isValidLit ('0':cs) = isValidOctal cs
-isValidLit cs = isValidIntegral cs

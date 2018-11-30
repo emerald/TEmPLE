@@ -1,12 +1,10 @@
 module Parser.GenCommon
-  ( allToken
-  , invalidOp, invalidOp1
+  ( invalidOp, invalidOp1
   , spaces, spaces1
   , token, token1
   , validOp, validOp1
   ) where
 
-import Data.Char (isSpace)
 import Test.Tasty.QuickCheck
   ( Gen
   , arbitrary, elements, listOf, listOf1, oneof, suchThat
@@ -41,7 +39,3 @@ invalidOp1 s = oneof
   [ return s
   , suchThat arbitrary (/= s) >>= token1
   ]
-
-allToken :: (Char -> Bool) -> String -> Bool
-allToken _ "" = True
-allToken f s @ (c:cs) = (f c && allToken f cs) || all isSpace s
