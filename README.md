@@ -52,6 +52,10 @@ Documentation](https://docs.haskellstack.org/en/stable/README/)
 
     stack test
 
+### Replay tests with a particular QuickCheck seed
+
+    stack test --test-arguments --quickcheck-replay=<seed>
+
 ### GHCi
 
 Start up GHCi with the source files loaded:
