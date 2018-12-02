@@ -45,6 +45,5 @@ newtype InvalidLit
   deriving (Eq, Show)
 
 instance Arbitrary InvalidLit where
-  arbitrary = do
-    s <- fmap invalidNumLit arbitrary
-    return $ InvalidLit s
+  arbitrary =
+    fmap (InvalidLit . invalidNumLit) arbitrary
