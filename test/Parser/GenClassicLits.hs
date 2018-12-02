@@ -13,8 +13,8 @@ import Data.Char (isDigit, isOctDigit)
 import Numeric (showFFloat, showHex, showInt, showOct)
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen, getNonNegative
-  , arbitrary, choose, elements, listOf, oneof
-  , shuffle, sized, suchThat
+  , arbitrary, choose, elements, frequency
+  , listOf, oneof, shuffle, sized, suchThat
   )
 
 newtype ValidLit
@@ -32,10 +32,10 @@ validBool = elements
 
 instance Arbitrary ValidLit where
   arbitrary = do
-    (sl, l) <- oneof
-      [ validNil
-      , validBool
-      , fmap validNumLit arbitrary
+    (sl, l) <- frequency
+      [ (20, validNil)
+      , (20, validBool)
+      , (60, fmap validNumLit arbitrary)
       ]
     s <- token sl
     return $ ValidLit (s, l)
