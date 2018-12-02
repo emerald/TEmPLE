@@ -5,15 +5,16 @@ module Parser.ClassicLits
 import Ast (Lit(..))
 
 import Parser.Common (token, word)
+import Parser.ClassicNumLits (parseNumLit)
 
 import Control.Applicative ((*>), (<*))
 import Data.Bits (clearBit)
-import Data.Char (chr, isDigit, ord, readLitChar)
-import Numeric (readDec, readFloat, readHex, readOct)
+import Data.Char (chr, ord, readLitChar)
+import Numeric (readOct)
 import Text.ParserCombinators.ReadP
   ( ReadP
-  , between, choice, get, many, munch, munch1, satisfy, string
-  , pfail, readS_to_P
+  , between, choice, get, many, munch1, satisfy, string
+  , pfail
   )
 
 parseNil :: ReadP Lit
@@ -24,55 +25,6 @@ parseBool = word
   [ ("true", LBool True)
   , ("false", LBool False)
   ]
-
-parseOctHex :: ReadP Lit
-parseOctHex
-  = string "0" *> choice [parseOct, parseHex]
-    where
-      parseHex :: ReadP Lit
-      parseHex = fmap LInt $
-        string "x" *> readS_to_P readHex
-
-      parseOct :: ReadP Lit
-      parseOct = fmap LInt $
-        readS_to_P readOct
-
-parseFractional :: String -> ReadP Lit
-parseFractional integral = do
-  string "."
-  fractional <- munch1 isDigit
-  let float = integral ++ "." ++ fractional
-  return $ (LDouble . fst . head) $ readFloat float
-
-parseStartingWithZero :: ReadP Lit
-parseStartingWithZero = do
-  string "0" >> choice
-    [ return (LInt 0)
-    , parseFractional "0"
-    ]
-
-parseStartingWithNonZero :: ReadP Lit
-parseStartingWithNonZero = do
-  first <- satisfy (`elem` ['1'..'9'])
-  rest <- munch isDigit
-  let integral = first:rest
-  choice
-    [ return $ (LInt . fst . head) $ readDec integral
-    , parseFractional integral
-    ]
-
-parseIntFloat :: ReadP Lit
-parseIntFloat = choice
-  [ parseStartingWithZero
-  , parseStartingWithNonZero
-  ]
-
-parseNum :: ReadP Lit
-parseNum = choice
-  [ parseIntFloat
-  , parseOctHex
-  ]
-
 
 parseOChar :: ReadP Char
 parseOChar = satisfy (`elem` ['0'..'7'])
@@ -115,7 +67,7 @@ parseLit :: ReadP Lit
 parseLit = token $ choice
   [ parseNil
   , parseBool
-  , parseNum
+  , parseNumLit
   , parseChar
   , parseString
   ]
