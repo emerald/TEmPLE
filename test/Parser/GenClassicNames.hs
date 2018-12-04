@@ -9,6 +9,7 @@ import Parser.ClassicNames (firstChars, restChars, keywords)
 
 import Parser.GenCommon (token)
 
+import Data.Char (isSpace)
 import Control.Applicative (liftA2)
 
 import Test.Tasty.QuickCheck
@@ -29,21 +30,23 @@ instance Arbitrary ValidName where
 newtype InvalidName = InvalidName { invalidName :: String }
   deriving (Eq, Show)
 
-validInvalidFirst :: (Gen Char, Gen Char)
-validInvalidFirst =
-  ( elements firstChars
-  , suchThat arbitrary (not . (`elem` firstChars))
+validInvalidChars :: [Char] -> (Char -> Bool) -> (Gen Char, Gen Char)
+validInvalidChars cs except =
+  ( elements cs
+  , suchThat arbitrary $
+      \c -> not $ (c `elem` cs) || except c
   )
+
+validInvalidFirst :: (Gen Char, Gen Char)
+validInvalidFirst = validInvalidChars firstChars $ const False
 
 validInvalidRest :: (Gen Char, Gen Char)
-validInvalidRest =
-  ( elements restChars
-  , suchThat arbitrary (not . (`elem` restChars))
-  )
+validInvalidRest = validInvalidChars restChars isSpace
 
 validInvalid :: Int -> [(Gen Char, Gen Char)]
-validInvalid n
-  = validInvalidFirst : (replicate (n-1) validInvalidRest)
+validInvalid 0 = []
+validInvalid n =
+  (validInvalidFirst : (replicate (n-1) validInvalidRest))
 
 instance Arbitrary InvalidName where
   arbitrary = fmap InvalidName $ sized $ \ n -> do
