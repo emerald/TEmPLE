@@ -7,6 +7,7 @@ import Ast (Lit(..))
 
 import Parser.GenCommon (token)
 import Parser.GenClassicNumLits
+import Parser.GenClassicTextLits
 
 import Control.Applicative (liftA2)
 import Data.Char (isDigit, isOctDigit)
@@ -33,9 +34,10 @@ validBool = elements
 instance Arbitrary ValidLit where
   arbitrary = do
     (sl, l) <- frequency
-      [ (20, validNil)
-      , (20, validBool)
-      , (60, fmap validNumLit arbitrary)
+      [ (10, validNil)
+      , (10, validBool)
+      , (40, fmap validNumLit arbitrary)
+      , (40, fmap validTextLit arbitrary)
       ]
     s <- token sl
     return $ ValidLit (s, l)

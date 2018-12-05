@@ -1,5 +1,7 @@
 module Parser.ClassicTextLits
-  ( parseTextLit
+  ( isSimpleCChar
+  , isSimpleSChar
+  , parseTextLit
   ) where
 
 import Ast (Lit(LChar, LString))
@@ -29,17 +31,23 @@ parseEscSeq = string "\\" *> choice
       else pfail
   ]
 
+isSimpleCChar :: Char -> Bool
+isSimpleCChar = not . flip elem ['\\', '\'']
+
+isSimpleSChar :: Char -> Bool
+isSimpleSChar = not . flip elem ['\\', '\"']
+
 parseChar :: ReadP Lit
 parseChar =
   between (string "'") (string "'") $
     fmap LChar $ choice
-      [ satisfy (not . flip elem ['\\', '\''])
+      [ satisfy isSimpleCChar
       , parseEscSeq
       ]
 
 parseSChar :: ReadP Char
 parseSChar = choice
-  [ satisfy (not . flip elem ['\\', '"'])
+  [ satisfy isSimpleSChar
   , parseEscSeq
   ]
 
