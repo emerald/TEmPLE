@@ -54,18 +54,18 @@ genUpSeq = do
   let c = escSeqUp_to_C sc
   return (['\\', '^', sc], c)
 
-genOctSeq :: Gen (String, Char)
-genOctSeq = do
+genOctSeq :: (String -> String) -> Gen (String, Char)
+genOctSeq normalize = do
   n <- choose(1, 3)
   s <- vectorOf n (elements ['0'..'7'])
   let [c'] = fullParse (escSeqOct_to_C s) ""
-  return ('\\' : s, c')
+  return ('\\' : normalize s, c')
 
-genEscSeq :: Gen (String, Char)
-genEscSeq = oneof
+genEscSeq :: (String -> String) -> Gen (String, Char)
+genEscSeq octNormalize = oneof
   [ genAnySeq
   , genUpSeq
-  , genOctSeq
+  , genOctSeq octNormalize
   ]
 
 genChar :: (Char -> Bool) -> Gen (String, Char)
@@ -76,13 +76,19 @@ genChar cond = do
 genCharChar :: Gen (String, Char)
 genCharChar = oneof
   [ genChar isSimpleCChar
-  , genEscSeq
+  , genEscSeq id
   ]
+
+octZeroPad :: String -> String
+octZeroPad [] = "000"
+octZeroPad (s @ [_]) = "00" ++ s
+octZeroPad (s @ [_, _]) = "0" ++ s
+octZeroPad s = s
 
 genStringChar :: Gen (String, Char)
 genStringChar = oneof
   [ genChar isSimpleSChar
-  , genEscSeq
+  , genEscSeq octZeroPad
   ]
 
 validChar :: Gen ValidTextLit
