@@ -24,7 +24,7 @@ spec_invalidLits = do
       fullParse parseLit lit `shouldBe` []
 
 prop_validLit :: ValidLit -> Property
-prop_validLit (ValidLit (s, e))
+prop_validLit (ValidLit (s, e, _))
   = fullParse parseLit s === [e]
 
 prop_invalidLit :: InvalidLit -> Property

@@ -22,7 +22,7 @@ newtype ValidExpr = ValidExpr { validExpr :: (String, Expr) }
 
 genLitExpr :: Gen ValidExpr
 genLitExpr = do
-  (s, n) <- fmap validLit arbitrary
+  (s, n, _) <- fmap validLit arbitrary
   return $ ValidExpr (s, ELit n)
 
 genNameExpr :: Gen ValidExpr

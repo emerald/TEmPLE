@@ -14,33 +14,48 @@ import Data.Char (isDigit, isOctDigit)
 import Numeric (showFFloat, showHex, showInt, showOct)
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen, getNonNegative
-  , arbitrary, choose, elements, frequency
+  , arbitrary, shrink
+  , choose, elements, frequency
   , listOf, oneof, shuffle, sized, suchThat
   )
 
 newtype ValidLit
-  = ValidLit { validLit :: (String, Lit) }
+  = ValidLit
+    { validLit :: (String, Lit, [ValidLit])
+    }
   deriving (Eq, Show)
 
-validNil :: Gen (String, Lit)
-validNil = return ("nil", LNil)
+genValidNil :: Gen (String, Lit, [ValidLit])
+genValidNil = return ("nil", LNil, [])
 
-validBool :: Gen (String, Lit)
-validBool = elements
-  [ ("true", LBool True)
-  , ("false", LBool False)
+genValidBool :: Gen (String, Lit, [ValidLit])
+genValidBool = elements
+  [ ("true", LBool True, [])
+  , ("false", LBool False, [])
   ]
+
+genValidNumLit :: Gen (String, Lit, [ValidLit])
+genValidNumLit = do
+  (s, l) <- fmap validNumLit arbitrary
+  return (s, l, [])
+
+textLit_to_Lit :: ValidTextLit -> ValidLit
+textLit_to_Lit (ValidTextLit (s, l, sls))
+  = ValidLit (s, l, error $ show $ length sls)--map textLit_to_Lit sls)
+
+genValidTextLit :: Gen (String, Lit, [ValidLit])
+genValidTextLit = fmap (validLit . textLit_to_Lit) arbitrary
 
 instance Arbitrary ValidLit where
   arbitrary = do
-    (sl, l) <- frequency
-      [ (10, validNil)
-      , (10, validBool)
-      , (40, fmap validNumLit arbitrary)
-      , (40, fmap validTextLit arbitrary)
+    (sl, l, sls) <- frequency
+      [ (10, genValidNil)
+      , (10, genValidBool)
+      , (40, genValidNumLit)
+      , (40, genValidTextLit)
       ]
     s <- token sl
-    return $ ValidLit (s, l)
+    return $ ValidLit (s, l, sls)
 
 newtype InvalidLit
   = InvalidLit { invalidLit :: String }
