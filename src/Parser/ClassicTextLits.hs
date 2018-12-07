@@ -16,7 +16,8 @@ import Data.Char (chr, ord, readLitChar)
 import Numeric (readOct)
 import Text.ParserCombinators.ReadP
   ( ReadP
-  , between, choice, get, many, munch1, satisfy, string
+  , (<++)
+  , between, choice, count, get, many, munch1, satisfy, string
   , pfail
   )
 
@@ -39,14 +40,17 @@ escSeqOct_to_C s =
     [(c, "")] -> return $ chr c
     _ -> pfail
 
+parseOctChar :: ReadP Char
+parseOctChar = satisfy (`elem` ['0'..'7'])
+
 parseEscSeq :: ReadP Char
 parseEscSeq = string "\\" *> choice
   [ satisfy isAnyChar >>= escSeqAny_to_C
   , string "^" *> fmap escSeqUp_to_C get
-  , munch1 (`elem` ['0'..'7']) >>= \ s ->
-      if length s < 4
-      then escSeqOct_to_C s
-      else pfail
+  , ((count 3 parseOctChar)
+    <++ (count 2 parseOctChar)
+    <++ (count 1 parseOctChar)
+    ) >>= escSeqOct_to_C
   ]
 
 isSimpleCChar :: Char -> Bool
