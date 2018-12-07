@@ -1,5 +1,9 @@
 module Parser.ClassicTextLits
-  ( isSimpleCChar
+  ( escSeqAny_to_C
+  , escSeqOct_to_C
+  , escSeqUp_to_C
+  , isAnyChar
+  , isSimpleCChar
   , isSimpleSChar
   , parseTextLit
   ) where
@@ -16,18 +20,32 @@ import Text.ParserCombinators.ReadP
   , pfail
   )
 
+isAnyChar :: Char -> Bool
+isAnyChar = not . (`elem` ('^':['0'..'7']))
+
+escSeqAny_to_C :: Char -> ReadP Char
+escSeqAny_to_C c =
+  case (readLitChar . ('\\':)) [c] of
+    [(c', "")] -> return c
+    _ -> pfail
+
+escSeqUp_to_C :: Char -> Char
+escSeqUp_to_C =
+  chr . (`clearBit` 7) . (`clearBit` 6) . ord
+
+escSeqOct_to_C :: String -> ReadP Char
+escSeqOct_to_C s =
+  case readOct s of
+    [(c, "")] -> return $ chr c
+    _ -> pfail
+
 parseEscSeq :: ReadP Char
 parseEscSeq = string "\\" *> choice
-  [ satisfy (not . flip elem ('^':['0'..'7'])) >>= \ c -> do
-      let [(c', "")] = (readLitChar . reverse . (:"\\")) c
-      return c'
-  , string "^" *> (flip fmap get $
-      chr . (`clearBit` 7) . (`clearBit` 6). ord)
+  [ satisfy isAnyChar >>= escSeqAny_to_C
+  , string "^" *> fmap escSeqUp_to_C get
   , munch1 (`elem` ['0'..'7']) >>= \ s ->
       if length s < 4
-      then do
-        let [(i, "")] = readOct s
-        return $ chr i
+      then escSeqOct_to_C s
       else pfail
   ]
 
