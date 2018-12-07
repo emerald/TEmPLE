@@ -1,4 +1,5 @@
 import qualified Parser.ClassicNamesTests as CNT
+import qualified Parser.ClassicTextLitsTests as CTLT
 import qualified Parser.ClassicLitsTests as CLT
 import qualified Parser.ClassicTypesTests as CTT
 import qualified Parser.ClassicExprsTests as CET
@@ -9,6 +10,7 @@ import Test.Tasty (TestTree, defaultMain, testGroup)
 testTree :: IO TestTree
 testTree = fmap (testGroup "Classic Parser Tests") $ sequence
   [ CNT.testTree
+  , CTLT.testTree
   , CLT.testTree
   , CTT.testTree
   , CET.testTree
