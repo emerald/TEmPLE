@@ -1,6 +1,7 @@
 module Parser.GenClassicExprs
   ( ValidExpr(..)
   , InvalidExpr(..)
+  , validExprString
   ) where
 
 import Ast (Expr(..))
@@ -14,28 +15,43 @@ import Parser.GenClassicNames (ValidName(..), InvalidName(..))
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, oneof, resize, sized, suchThat
+  , arbitrary, shrink
+  , oneof, resize, sized, suchThat
   )
 
-newtype ValidExpr = ValidExpr { validExpr :: (String, Expr) }
-  deriving (Eq, Show)
+newtype ValidExpr
+  = ValidExpr {
+    validExpr :: (String, Expr, [ValidExpr])
+  }
+
+instance Show ValidExpr where
+  show (ValidExpr (s, e, _)) = s ++ " ~/~> " ++ show e
+
+instance Eq ValidExpr where
+  (ValidExpr (s1, l1, _)) == (ValidExpr (s2, l2, _))
+    = (s1, l1) == (s2, l2)
+
+validExprString :: ValidExpr -> String
+validExprString (ValidExpr (s, _, _)) = s
+
+validLitToExpr :: ValidLit -> ValidExpr
+validLitToExpr (ValidLit (s, l, shrunkenLits))
+  = ValidExpr (s, ELit l, map validLitToExpr shrunkenLits)
 
 genLitExpr :: Gen ValidExpr
-genLitExpr = do
-  (s, n, _) <- fmap validLit arbitrary
-  return $ ValidExpr (s, ELit n)
+genLitExpr = fmap validLitToExpr arbitrary
 
 genNameExpr :: Gen ValidExpr
 genNameExpr = do
   (s, n) <- fmap validName arbitrary
-  return $ ValidExpr (s, EVar n)
+  return $ ValidExpr (s, EVar n, [])
 
 genParensExpr :: Gen ValidExpr
 genParensExpr = do
   so <- token "("
-  (se, e) <- fmap validExpr arbitrary
+  (se, e, es) <- fmap validExpr arbitrary
   sc <- token ")"
-  return $ ValidExpr (so ++ se ++ sc, e)
+  return $ ValidExpr (so ++ se ++ sc, e, es)
 
 genExpr :: Int -> Gen ValidExpr
 genExpr 0 = oneof
@@ -48,6 +64,8 @@ genExpr n = resize (n `div` 2) $ oneof
 
 instance Arbitrary ValidExpr where
   arbitrary = sized genExpr
+
+  shrink (ValidExpr (_, _, es)) = es
 
 newtype InvalidExpr = InvalidExpr { invalidExpr :: String }
   deriving (Eq, Show)

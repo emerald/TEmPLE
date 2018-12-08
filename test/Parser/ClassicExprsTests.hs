@@ -9,7 +9,7 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
 
 prop_validExpr :: ValidExpr -> Property
-prop_validExpr (ValidExpr (s, e))
+prop_validExpr (ValidExpr (s, e, _))
   = property $
       (e, "") `elem` (parse parseExpr s)
 

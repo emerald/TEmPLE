@@ -12,7 +12,10 @@ import Parser.GenCommon
   )
 import Parser.GenClassicNames (ValidName(..), InvalidName(..))
 import Parser.GenClassicTypes (ValidType(..), InvalidType(..))
-import Parser.GenClassicExprs (ValidExpr(..), InvalidExpr(..))
+import Parser.GenClassicExprs
+  ( ValidExpr(..), InvalidExpr(..)
+  , validExprString
+  )
 
 import Control.Applicative ((<*>))
 import Test.Tasty.QuickCheck
@@ -56,7 +59,7 @@ instance Arbitrary ValidConstDecl where
     (sn, n) <- fmap validName arbitrary
     (st, t) <- validMaybeType
     sass    <- validAss
-    (se, e) <- fmap validExpr arbitrary
+    (se, e, _) <- fmap validExpr arbitrary
     return (sc ++ sn ++ st ++ sass ++ se, Const n t e)
 
 newtype InvalidConstDecl
@@ -69,7 +72,7 @@ validInvalid =
   , (fmap (fst . validName) arbitrary , fmap invalidName arbitrary)
   , (fmap fst validMaybeType          , fmap invalidType arbitrary)
   , (validAss                         , invalidAss)
-  , (fmap (fst . validExpr) arbitrary , fmap invalidExpr arbitrary)
+  , (fmap validExprString arbitrary   , fmap invalidExpr arbitrary)
   ]
 
 instance Arbitrary InvalidConstDecl where
