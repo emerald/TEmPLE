@@ -97,27 +97,27 @@ validChar = do
   return $ ValidTextLit
     ("'" ++ s ++ "'", LChar c, [])
 
-shrink' :: [(String, Char)] -> [ValidTextLit]
-shrink' [] = []
-shrink' [t] = [validString' [t]]
-shrink' ts =
+shrinkChars :: [(String, Char)] -> [ValidTextLit]
+shrinkChars [] = []
+shrinkChars [t] = [charsToTextLit [t]]
+shrinkChars ts =
   let (tsl, tsr) = splitAt ((length ts) `div` 2) ts in
-  fmap validString' [tsl, tsr] ++ shrink' tsl ++ shrink' tsr
+  fmap charsToTextLit [tsl, tsr] ++ shrinkChars tsl ++ shrinkChars tsr
 
-validString'' :: String -> String -> [ValidTextLit] -> ValidTextLit
-validString'' ss cs ls =
+stringToTextLit :: String -> String -> [ValidTextLit] -> ValidTextLit
+stringToTextLit ss cs ls =
   ValidTextLit
     ("\"" ++ ss ++ "\"", LString cs, ls)
 
-validString' :: [(String, Char)] -> ValidTextLit
-validString' [(s, c)] = validString'' s [c] []
-validString' ts =
+charsToTextLit :: [(String, Char)] -> ValidTextLit
+charsToTextLit [(s, c)] = stringToTextLit s [c] []
+charsToTextLit ts =
   let ss = concat $ map fst ts in
   let cs = map snd ts in
-  validString'' ss cs (shrink' ts)
+  stringToTextLit ss cs (shrinkChars ts)
 
 validString :: Gen ValidTextLit
-validString = listOf genStringChar >>= return . validString'
+validString = listOf genStringChar >>= return . charsToTextLit
 
 instance Arbitrary ValidTextLit where
   arbitrary = oneof
