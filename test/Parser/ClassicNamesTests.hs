@@ -18,7 +18,7 @@ spec_keywords = do
       parse parseName keyword `shouldBe` []
 
 prop_validName :: ValidName -> Property
-prop_validName (ValidName (s, n)) = parse parseName s === [(n, "")]
+prop_validName (ValidName (s, n, _)) = parse parseName s === [(n, "")]
 
 prop_invalidName :: InvalidName -> Property
 prop_invalidName (InvalidName s)

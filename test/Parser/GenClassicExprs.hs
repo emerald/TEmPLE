@@ -41,10 +41,12 @@ validLitToExpr (ValidLit (s, l, shrunkenLits))
 genLitExpr :: Gen ValidExpr
 genLitExpr = fmap validLitToExpr arbitrary
 
+validNameToExpr :: ValidName -> ValidExpr
+validNameToExpr (ValidName (s, n, shrunkenNames))
+  = ValidExpr (s, EVar n, map validNameToExpr shrunkenNames)
+
 genNameExpr :: Gen ValidExpr
-genNameExpr = do
-  (s, n) <- fmap validName arbitrary
-  return $ ValidExpr (s, EVar n, [])
+genNameExpr = fmap validNameToExpr arbitrary
 
 genParensExpr :: Gen ValidExpr
 genParensExpr = do

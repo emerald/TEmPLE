@@ -1,31 +1,68 @@
 module Parser.GenClassicNames
   ( ValidName(..)
   , InvalidName(..)
+  , validNameString
   ) where
 
 import Ast (Name)
 
 import Parser.ClassicNames (firstChars, restChars, keywords)
 
-import Parser.GenCommon (token)
+import Parser.GenCommon (spaces)
 
 import Data.Char (isSpace)
+import Data.List (subsequences)
 import Control.Applicative (liftA2)
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, choose, elements, listOf, shuffle, sized, suchThat
+  , arbitrary, shrink
+  , choose, elements, listOf
+  , shuffle, sized, suchThat
   )
 
-newtype ValidName = ValidName { validName :: (String, Name) }
-  deriving (Eq, Show)
+newtype ValidName
+  = ValidName {
+    validName :: (String, Name, [ValidName])
+  }
+
+instance Show ValidName where
+  show (ValidName (s, n, _)) = s ++ " ~/~> " ++ show n
+
+instance Eq ValidName where
+  (ValidName (s1, l1, _)) == (ValidName (s2, l2, _))
+    = (s1, l1) == (s2, l2)
+
+validNameString :: ValidName -> String
+validNameString (ValidName (s, _, _)) = s
+
+shrinkName :: String -> [ValidName]
+shrinkName name =
+  let (first:rest) = name
+  in  if length rest > 0
+      then let smallerRest = take (length rest -1) rest
+           in  map (vanillaName first) (reverse $ subsequences smallerRest)
+      else []
+    where
+      vanillaName :: Char -> String -> ValidName
+      vanillaName first rest =
+        let name = first:rest in ValidName (name, name, [])
 
 instance Arbitrary ValidName where
   arbitrary = do
     name <- flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
-    text <- token name
-    return $ ValidName (text, name)
+    tail <- spaces
+    let text = name ++ tail
+    let shrunkenText =  if length tail > 0
+                        then [ValidName (name, name, [])]
+                        else []
+    let shrunkenName = shrinkName name
+    return $ ValidName (text, name, shrunkenText ++ shrunkenName)
+    where
+      vanillaName :: Char -> String -> ValidName
+      vanillaName first rest =
+        let name = first:rest in ValidName (name, name, [])
 
 newtype InvalidName = InvalidName { invalidName :: String }
   deriving (Eq, Show)

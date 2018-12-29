@@ -10,7 +10,10 @@ import Parser.GenCommon
   , token, token1
   , validOp, validOp1
   )
-import Parser.GenClassicNames (ValidName(..), InvalidName(..))
+import Parser.GenClassicNames
+  ( ValidName(..), InvalidName(..)
+  , validNameString
+  )
 import Parser.GenClassicTypes (ValidType(..), InvalidType(..))
 import Parser.GenClassicExprs
   ( ValidExpr(..), InvalidExpr(..)
@@ -56,7 +59,7 @@ validMaybeType = oneof
 instance Arbitrary ValidConstDecl where
   arbitrary = fmap ValidConstDecl $ do
     sc      <- validConst
-    (sn, n) <- fmap validName arbitrary
+    (sn, n, _) <- fmap validName arbitrary
     (st, t) <- validMaybeType
     sass    <- validAss
     (se, e, _) <- fmap validExpr arbitrary
@@ -68,11 +71,11 @@ newtype InvalidConstDecl
 
 validInvalid :: [(Gen String, Gen String)]
 validInvalid =
-  [ (validConst                       , invalidConst)
-  , (fmap (fst . validName) arbitrary , fmap invalidName arbitrary)
-  , (fmap fst validMaybeType          , fmap invalidType arbitrary)
-  , (validAss                         , invalidAss)
-  , (fmap validExprString arbitrary   , fmap invalidExpr arbitrary)
+  [ (validConst                     , invalidConst)
+  , (fmap validNameString arbitrary , fmap invalidName arbitrary)
+  , (fmap fst validMaybeType        , fmap invalidType arbitrary)
+  , (validAss                       , invalidAss)
+  , (fmap validExprString arbitrary , fmap invalidExpr arbitrary)
   ]
 
 instance Arbitrary InvalidConstDecl where
