@@ -40,8 +40,7 @@ improve the Emerald programming environment.
 
 Third, the tests developed for this compiler, can serve as additional
 tests for the original Emerald compiler. Gradually, this will help
-increase confidence in the correctness of both compiler
-implementations.
+increase confidence in the quality of Emerald.
 
 ## Working with Stack
 
