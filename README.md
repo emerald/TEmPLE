@@ -7,7 +7,10 @@ written in Haskell.
 [![Build Status](https://travis-ci.org/emerald/emerald.svg?branch=master)](https://travis-ci.org/emerald/emerald)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](LICENSE)
 
-## Why?
+## Why Reimplement Emerald?
+
+After all, there already exist [several Emerald
+implementations](https://github.com/emerald/src-versions/).
 
 For now, the reasoning is three-fold:
 
