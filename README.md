@@ -7,7 +7,12 @@ written in Haskell.
 [![Build Status](https://travis-ci.org/emerald/emerald.svg?branch=master)](https://travis-ci.org/emerald/emerald)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](LICENSE)
 
-## Why Reimplement Emerald?
+## A Re-Implementation of Emerald
+
+First and foremost, I am working on a re-implementation of the Emerald
+compiler and runtime.
+
+### Why Re-Implement Emerald?
 
 After all, there already exist [several Emerald
 implementations](https://github.com/emerald/src-versions/).
