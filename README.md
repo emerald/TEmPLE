@@ -4,7 +4,7 @@ This workbench serves to improve and advance the Emerald programming
 language. Out of purely divine considerations, the TeMPLE is currently
 written in Haskell.
 
-[![Build Status](https://travis-ci.org/emerald/emerald.svg?branch=master)](https://travis-ci.org/emerald/emerald)
+[![Build Status](https://travis-ci.org/emerald/TEmPLE.svg?branch=master)](https://travis-ci.org/emerald/TEmPLE)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](LICENSE)
 
 ## A Re-Implementation of Emerald
