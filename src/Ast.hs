@@ -8,7 +8,7 @@ data Type
   | TDouble
   | TChar
   | TString
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 data Lit
   = LInt Int
@@ -17,15 +17,15 @@ data Lit
   | LString String
   | LBool Bool
   | LNil
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 data Expr
   = ELit Lit
   | EVar Name
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 data ConstDecl
   = Const Name (Maybe Type) Expr
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 type Compilation = [ConstDecl]
