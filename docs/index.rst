@@ -10,6 +10,8 @@ Welcome to Emerald's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   syntax/classical
+
 
 
 Indices and tables
