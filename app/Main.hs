@@ -17,15 +17,15 @@ failReport s = errReport s >> exitWith (ExitFailure 1)
 parseError :: ParseError -> IO a
 parseError e = failReport $ show e
 
-parseFile' :: FilePath -> IO Compilation
-parseFile' path = do
+parseOrShowError :: FilePath -> IO Compilation
+parseOrShowError path = do
   result <- parseFile path
   case result of
     Right compilation -> pure compilation
     Left e -> parseError e
 
 parseFiles :: [FilePath] -> IO [Compilation]
-parseFiles = mapM parseFile'
+parseFiles = mapM parseOrShowError
 
 noCommand :: IO a
 noCommand = failReport "Tell me what to do!"
