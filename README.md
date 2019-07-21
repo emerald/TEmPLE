@@ -1,8 +1,8 @@
 # TEmPLE - The Emerald Programming Language Effort
 
 This workbench serves to improve and advance the Emerald programming
-language. Out of purely divine considerations, the TeMPLE is currently
-written in Haskell.
+environment. Out of purely divine considerations, the TeMPLE is
+currently written in Haskell.
 
 [![Build Status](https://travis-ci.org/emerald/TEmPLE.svg?branch=master)](https://travis-ci.org/emerald/TEmPLE)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](LICENSE)
@@ -41,7 +41,7 @@ be to see if this compiler can compile the old Emerald compiler to an
 equivalent binary, and whether both compilers produce equivalent
 binaries for some comprehensive suite of test-programs. If so, we will
 have *re-bootstrapped* Emerald, and can proceed with confidence to
-improve the Emerald programming environment.
+improve and advance the Emerald programming environment.
 
 Third, the tests developed for this compiler, can serve as additional
 tests for the original Emerald compiler. Gradually, this will help
