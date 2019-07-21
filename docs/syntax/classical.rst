@@ -23,7 +23,7 @@ A constant declaration declares a name to correspond to the evaluation
 of an expression. Optionally, the programmer can also specify the type
 that they expect the resulting value to conform to:
 
-  constDecl ::= `const` id [ `:` type ] `<-` expr
+*constDecl* ::= **const** *id* [ **:** *type* ] **<-** *expr*
 
 The Emerald compiler will analyse the expression to infer its type. If
 the actual type does not conform to the expected type, a compile-time
