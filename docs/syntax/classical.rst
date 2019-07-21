@@ -16,6 +16,9 @@ no "main method" as such (as you must have in C, C#, Java, etc.). The
 in-order initialization of the constants constitutes the entire
 execution of an Emerald program.
 
+Constant Declarations
+---------------------
+
 A constant declaration declares a name to correspond to the evaluation
 of an expression. Optionally, the programmer can also specify the type
 that they expect the resulting value to conform to::
