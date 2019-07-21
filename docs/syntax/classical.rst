@@ -11,10 +11,10 @@ time, namely `Pascal`_, `Simula`_, and `S`_.
 .. _S: https://en.wikipedia.org/wiki/S_(programming_language)
 
 An Emerald program is a sequence of constant declarations. These
-constants are initialized in the order that they appear in. This
-initialization constitutes the execution of an Emerald program. As
-such, there is no "main" method (e.g., as you would expect in C, C#,
-or Java).
+constants are initialized in the order that they appear in. There is
+no "main method" as such (as you must have in C, C#, Java, etc.). The
+in-order initialization of the constants constitutes the entire
+execution of an Emerald program.
 
 A constant declaration declares a name to correspond to the evaluation
 of an expression. Optionally, the programmer can also specify the type
