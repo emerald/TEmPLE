@@ -31,7 +31,7 @@ Emerald (i.e., it is a bootstrapped compiler). This is excellent
 news—we can be more confident in that Emerald is a truly
 general-purpose language. However, the original, non-Emerald
 implementation of Emerald, from which Emerald was bootstrapped, is no
-longer available. This poses a problem since to run Emerald, you have
+longer available. This poses a problem, since to run Emerald, you have
 to rely on a binary compiled by someone, some time long ago, and which
 has been lying around on the Internet since.
 
