@@ -21,7 +21,7 @@ Constant Declarations
 
 A constant declaration declares a name to correspond to the evaluation
 of an expression. Optionally, the programmer can also specify the type
-that they expect the resulting value to conform to::
+that they expect the resulting value to conform to:
 
   constDecl ::= `const` id [ `:` type ] `<-` expr
 
