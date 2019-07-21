@@ -30,9 +30,11 @@ Formally, the syntax is as follows:
 The Emerald compiler will analyse the expression to infer its type. If
 the actual type does not conform to the expected type, a compile-time
 type error results. Hence, classical Emerald is a **statically-typed
-language**, with (limited) type inference.
+language**, with (limited) type inference. This is akin to C\#.
 
 The correspondence between a *name* and the value that *expr*
 evaluates to remains constant throughout the lifetime of a program,
 and has global scope. The value itself however, is not constant—it is
 mutable, and subject to change throughout the lifetime of a program.
+Hence, classical Emerald is an **emperative language**, just like
+modern-day C\# and Java.
