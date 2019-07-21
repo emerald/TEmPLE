@@ -1,7 +1,7 @@
 Classical Emerald Syntax
 ========================
 
-Emerald was conceived in an academic setting, as an object-oriented
+Emerald was conceived in an academic setting, as an object-based
 language for distributed computing in the early 1980s. As such, its
 classical syntax is inspired by some of the academic giants of the
 time, namely `Pascal`_, `Simula`_, and `S`_.
