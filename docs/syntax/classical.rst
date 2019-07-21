@@ -14,18 +14,25 @@ An Emerald program is a sequence of constant declarations. These
 constants are initialized in the order that they appear in. There is
 no "main method" as such (as you must have in C, C#, Java, etc.). The
 in-order initialization of the constants constitutes the entire
-execution of an Emerald program.
+execution of an Emerald program. Constants therefore, are of paramount
+importance in classical Emerald.
 
 Constant Declarations
 ---------------------
 
 A constant declaration declares a name to correspond to the evaluation
-of an expression. Optionally, the programmer can also specify the type
-that they expect the resulting value to conform to:
+of an expression. Optionally, you can
+specify the type that you expect the resulting value to conform to.
+Formally, the syntax is as follows:
 
-*constDecl* ::= **const** *id* [ **:** *type* ] **<-** *expr*
+*constDecl* ::= **const** *name* [ **:** *type* ] **<-** *expr*
 
 The Emerald compiler will analyse the expression to infer its type. If
 the actual type does not conform to the expected type, a compile-time
-type error results. Hence, Emerald is a statically-typed language,
-with (limited) type inference.
+type error results. Hence, classical Emerald is a **statically-typed
+language**, with (limited) type inference.
+
+The correspondence between a *name* and the value that *expr*
+evaluates to remains constant throughout the lifetime of a program,
+and has global scope. The value itself however, is not constant—it is
+mutable, and subject to change throughout the lifetime of a program.
