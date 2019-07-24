@@ -1,7 +1,7 @@
 module Parser.ClassicConstDeclsTests (testTree) where
 
 import Parser.Common (fullParse, parse)
-import Parser.Classic (classicParser)
+import Parser.Classic (parser)
 import Parser.ClassicConstDecls (parseConstDecl)
 
 import Parser.GenClassicConstDecls
@@ -15,11 +15,11 @@ import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
 prop_validConstDecl :: ValidConstDecl -> Property
 prop_validConstDecl (ValidConstDecl (s, e))
   = property $
-      (e, "") `elem` (parse (parseConstDecl classicParser) s)
+      (e, "") `elem` (parse (parseConstDecl parser) s)
 
 prop_invalidConstDecl :: InvalidConstDecl -> Property
 prop_invalidConstDecl (InvalidConstDecl s)
-  = fullParse (parseConstDecl classicParser) s === []
+  = fullParse (parseConstDecl parser) s === []
 
 testTree :: IO TestTree
 testTree = fmap (testGroup "ClassicConstDeclsTests") $ sequence

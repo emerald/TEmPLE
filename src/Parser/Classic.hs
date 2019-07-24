@@ -11,11 +11,11 @@ import Text.ParserCombinators.ReadP (ReadP, many, skipSpaces)
 
 type ParseError = ParseErrorImpl [ConstDecl]
 
-classicParser :: Parser
-classicParser = Parser parseObject parseConstDecl
+parser :: Parser
+parser = Parser parseObject parseConstDecl
 
 parseProgram :: ReadP [ConstDecl]
-parseProgram = skipSpaces *> many (parseConstDecl classicParser)
+parseProgram = skipSpaces *> many (parseConstDecl parser)
 
 parseString :: String -> Either ParseError [ConstDecl]
 parseString = parseString' parseProgram "String"
