@@ -5,8 +5,8 @@ type Ident
 
 data Type
   = TInt
-  | TDouble
   | TChar
+  | TDouble
   | TString
   deriving (Eq, Ord, Show)
 
