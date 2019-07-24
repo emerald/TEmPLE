@@ -5,7 +5,7 @@ environment. Out of purely divine considerations, the TeMPLE is
 currently written in Haskell.
 
 [![Build Status](https://travis-ci.org/emerald/TEmPLE.svg?branch=master)](https://travis-ci.org/emerald/TEmPLE)
-[![Docs](https://readthedocs.org/projects/pip/badge/?version=latest&style=plastic)](https://emerald-temple.readthedocs.io/en/latest/)
+[![Docs](https://readthedocs.org/projects/pip/badge/?version=latest)](https://emerald-temple.readthedocs.io/en/latest/)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](LICENSE)
 
 ## A Re-Implementation of Emerald
