@@ -19,9 +19,14 @@ data Lit
   | LNil
   deriving (Eq, Ord, Show)
 
+data Object
+  = Object Name [ConstDecl]
+  deriving (Eq, Ord, Show)
+
 data Expr
   = ELit Lit
   | EVar Name
+  | EObj Object
   deriving (Eq, Ord, Show)
 
 data ConstDecl
