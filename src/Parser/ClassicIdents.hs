@@ -27,10 +27,6 @@ rest = flip elem restChars
 keywords :: [String]
 keywords =
   [ "const"
-  , "integer"
-  , "real"
-  , "character"
-  , "string"
   , "nil"
   , "true"
   , "false"
