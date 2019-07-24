@@ -24,14 +24,22 @@ first = flip elem firstChars
 rest :: Char -> Bool
 rest = flip elem restChars
 
-keywords :: [String]
-keywords =
-  [ "const"
-  , "nil"
+literals :: [String]
+literals =
+  [ "nil"
   , "true"
   , "false"
   ]
 
+keywords :: [String]
+keywords =
+  [ "const"
+  , "var"
+  ]
+
+reserved :: [String]
+reserved = literals ++ keywords
+
 parseIdent :: ReadP Ident
-parseIdent = token $ mfilter (not . (`elem` keywords)) $
+parseIdent = token $ mfilter (not . (`elem` reserved)) $
   liftA2 (:) (satisfy first) (munch rest)
