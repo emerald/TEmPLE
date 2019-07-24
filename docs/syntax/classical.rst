@@ -38,3 +38,11 @@ and has global scope. The value itself however, is not constant—it is
 mutable, and subject to change throughout the lifetime of a program.
 Hence, classical Emerald is an **emperative language**, just like
 modern-day C\# and Java.
+
+Identifiers
+-----------
+
+An Emerald identifier is a non-empty sequence of letters, digits, and
+the character ``_``, beginning with a letter or ``_``. Identifiers are
+**case-insensitive**. Some identifiers are reserved as keywords; the
+rest name constants, variables, operations, parameters, and objects.

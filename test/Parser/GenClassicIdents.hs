@@ -1,12 +1,12 @@
-module Parser.GenClassicNames
-  ( ValidName(..)
-  , InvalidName(..)
-  , validNameString
+module Parser.GenClassicIdents
+  ( ValidIdent(..)
+  , InvalidIdent(..)
+  , validIdentString
   ) where
 
-import Ast (Name)
+import Ast (Ident)
 
-import Parser.ClassicNames (firstChars, restChars, keywords)
+import Parser.ClassicIdents (firstChars, restChars, keywords)
 
 import Parser.GenCommon (spaces)
 
@@ -21,50 +21,50 @@ import Test.Tasty.QuickCheck
   , shuffle, sized, suchThat
   )
 
-newtype ValidName
-  = ValidName {
-    validName :: (String, Name, [ValidName])
+newtype ValidIdent
+  = ValidIdent {
+    validIdent :: (String, Ident, [ValidIdent])
   }
 
-instance Show ValidName where
-  show (ValidName (s, n, _)) = s ++ " ~/~> " ++ show n
+instance Show ValidIdent where
+  show (ValidIdent (s, n, _)) = s ++ " ~/~> " ++ show n
 
-instance Eq ValidName where
-  (ValidName (s1, l1, _)) == (ValidName (s2, l2, _))
+instance Eq ValidIdent where
+  (ValidIdent (s1, l1, _)) == (ValidIdent (s2, l2, _))
     = (s1, l1) == (s2, l2)
 
-validNameString :: ValidName -> String
-validNameString (ValidName (s, _, _)) = s
+validIdentString :: ValidIdent -> String
+validIdentString (ValidIdent (s, _, _)) = s
 
-shrinkName :: String -> [ValidName]
-shrinkName name =
+shrinkIdent :: String -> [ValidIdent]
+shrinkIdent name =
   let (first:rest) = name
   in  if length rest > 0
       then let smallerRest = take (length rest -1) rest
-           in  map (vanillaName first) (reverse $ subsequences smallerRest)
+           in  map (vanillaIdent first) (reverse $ subsequences smallerRest)
       else []
     where
-      vanillaName :: Char -> String -> ValidName
-      vanillaName first rest =
-        let name = first:rest in ValidName (name, name, [])
+      vanillaIdent :: Char -> String -> ValidIdent
+      vanillaIdent first rest =
+        let name = first:rest in ValidIdent (name, name, [])
 
-instance Arbitrary ValidName where
+instance Arbitrary ValidIdent where
   arbitrary = do
     name <- flip suchThat (not . (`elem` keywords)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
     tail <- spaces
     let text = name ++ tail
     let shrunkenText =  if length tail > 0
-                        then [ValidName (name, name, [])]
+                        then [ValidIdent (name, name, [])]
                         else []
-    let shrunkenName = shrinkName name
-    return $ ValidName (text, name, shrunkenText ++ shrunkenName)
+    let shrunkenIdent = shrinkIdent name
+    return $ ValidIdent (text, name, shrunkenText ++ shrunkenIdent)
     where
-      vanillaName :: Char -> String -> ValidName
-      vanillaName first rest =
-        let name = first:rest in ValidName (name, name, [])
+      vanillaIdent :: Char -> String -> ValidIdent
+      vanillaIdent first rest =
+        let name = first:rest in ValidIdent (name, name, [])
 
-newtype InvalidName = InvalidName { invalidName :: String }
+newtype InvalidIdent = InvalidIdent { invalidIdent :: String }
   deriving (Eq, Show)
 
 validInvalidChars :: [Char] -> (Char -> Bool) -> (Gen Char, Gen Char)
@@ -85,8 +85,8 @@ validInvalid 0 = []
 validInvalid n =
   (validInvalidFirst : (replicate (n-1) validInvalidRest))
 
-instance Arbitrary InvalidName where
-  arbitrary = fmap InvalidName $ sized $ \ n -> do
+instance Arbitrary InvalidIdent where
+  arbitrary = fmap InvalidIdent $ sized $ \ n -> do
     case n of
       0 -> return ""
       _ -> do

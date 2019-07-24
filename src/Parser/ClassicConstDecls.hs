@@ -4,7 +4,7 @@ module Parser.ClassicConstDecls
 
 import Ast (ConstDecl(..))
 import Parser.Common (stoken, stoken1)
-import Parser.ClassicNames (parseName)
+import Parser.ClassicIdents (parseIdent)
 import Parser.ClassicTypes (parseType)
 import Parser.ClassicExprs (parseExpr)
 import Parser.Types (Parser)
@@ -15,6 +15,6 @@ import Text.ParserCombinators.ReadP (ReadP)
 
 parseConstDecl :: Parser -> ReadP ConstDecl
 parseConstDecl p = liftA3 Const
-  (stoken1 "const" *> parseName)
+  (stoken1 "const" *> parseIdent)
   (App.optional parseType)
   (stoken "<-" *> (parseExpr p))

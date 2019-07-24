@@ -1,11 +1,11 @@
-module Parser.ClassicNames
+module Parser.ClassicIdents
   ( firstChars
   , restChars
   , keywords
-  , parseName
+  , parseIdent
   ) where
 
-import Ast (Name)
+import Ast (Ident)
 import Parser.Common (token)
 
 import Control.Applicative (liftA2)
@@ -36,6 +36,6 @@ keywords =
   , "false"
   ]
 
-parseName :: ReadP Name
-parseName = token $ mfilter (not . (`elem` keywords)) $
+parseIdent :: ReadP Ident
+parseIdent = token $ mfilter (not . (`elem` keywords)) $
   liftA2 (:) (satisfy first) (munch rest)

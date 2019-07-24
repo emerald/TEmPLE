@@ -1,6 +1,6 @@
 module Ast where
 
-type Name
+type Ident
   = String
 
 data Type
@@ -20,17 +20,17 @@ data Lit
   deriving (Eq, Ord, Show)
 
 data Object
-  = Object Name [ConstDecl]
+  = Object Ident [ConstDecl]
   deriving (Eq, Ord, Show)
 
 data Expr
   = ELit Lit
-  | EVar Name
+  | EVar Ident
   | EObj Object
   deriving (Eq, Ord, Show)
 
 data ConstDecl
-  = Const Name (Maybe Type) Expr
+  = Const Ident (Maybe Type) Expr
   deriving (Eq, Ord, Show)
 
 type Compilation = [ConstDecl]

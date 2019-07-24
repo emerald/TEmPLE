@@ -1,9 +1,9 @@
-module Parser.ClassicNamesTests where
+module Parser.ClassicIdentsTests where
 
 import Parser.Common (fullParse, parse)
-import Parser.ClassicNames (keywords, parseName)
+import Parser.ClassicIdents (keywords, parseIdent)
 
-import Parser.GenClassicNames (ValidName(..), InvalidName(..))
+import Parser.GenClassicIdents (ValidIdent(..), InvalidIdent(..))
 
 import Control.Monad (forM_)
 import Test.Tasty (TestTree, testGroup)
@@ -15,22 +15,22 @@ spec_keywords :: Spec
 spec_keywords = do
   forM_ keywords $ \ keyword ->
     it (printf "%s is a keyword" keyword) $
-      parse parseName keyword `shouldBe` []
+      parse parseIdent keyword `shouldBe` []
 
-prop_validName :: ValidName -> Property
-prop_validName (ValidName (s, n, _)) = parse parseName s === [(n, "")]
+prop_validIdent :: ValidIdent -> Property
+prop_validIdent (ValidIdent (s, n, _)) = parse parseIdent s === [(n, "")]
 
-prop_invalidName :: InvalidName -> Property
-prop_invalidName (InvalidName s)
-  = fullParse parseName s === []
+prop_invalidIdent :: InvalidIdent -> Property
+prop_invalidIdent (InvalidIdent s)
+  = fullParse parseIdent s === []
 
 testTree :: IO TestTree
-testTree = fmap (testGroup "ClassicNamesTests") $ sequence
+testTree = fmap (testGroup "ClassicIdentsTests") $ sequence
   [ testSpec "Keywords" spec_keywords
   , return $ testProperty
       "Valid names parse"
-      prop_validName
+      prop_validIdent
   , return $ testProperty
       "Invalid names don't parse"
-      prop_invalidName
+      prop_invalidIdent
   ]
