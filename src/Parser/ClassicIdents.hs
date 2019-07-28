@@ -1,7 +1,7 @@
 module Parser.ClassicIdents
   ( firstChars
   , restChars
-  , keywords
+  , reserved
   , parseIdent
   ) where
 

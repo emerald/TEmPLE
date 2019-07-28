@@ -6,7 +6,7 @@ module Parser.GenClassicIdents
 
 import Ast (Ident)
 
-import Parser.ClassicIdents (firstChars, restChars, keywords)
+import Parser.ClassicIdents (firstChars, restChars, reserved)
 
 import Parser.GenCommon (spaces)
 
@@ -50,7 +50,7 @@ shrinkIdent name =
 
 instance Arbitrary ValidIdent where
   arbitrary = do
-    name <- flip suchThat (not . (`elem` keywords)) $
+    name <- flip suchThat (not . (`elem` reserved)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
     tail <- spaces
     let text = name ++ tail
