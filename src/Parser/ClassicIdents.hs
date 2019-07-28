@@ -34,6 +34,8 @@ literals =
 keywords :: [String]
 keywords =
   [ "const"
+  , "end"
+  , "object"
   , "var"
   ]
 
