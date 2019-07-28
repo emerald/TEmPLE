@@ -4,6 +4,10 @@ import Data.Char (isSpace)
 import Control.Applicative ((<*), (*>))
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
+  ( ReadP
+  , choice, eof, munch1, string, skipSpaces
+  , readP_to_S
+  )
 
 data ParseErrorImpl a
   = NoParse FilePath
