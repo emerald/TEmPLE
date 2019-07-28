@@ -17,6 +17,7 @@ data ParseErrorImpl a
   deriving (Eq, Show)
 
 string :: String -> ReadP String
+-- ^ Case-insensitive variant of ReadP's string
 string this = do s <- look; scan this s
  where
   scan []     _               = do return this
