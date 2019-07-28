@@ -1,4 +1,9 @@
-module Parser.Common where
+module Parser.Common
+  ( ParseErrorImpl
+  , skipFilling, stoken, stoken1, token, word
+  , parseFile'
+  , parseString'
+  ) where
 
 import Data.Char (isSpace, toUpper, toLower)
 import Control.Applicative ((<*), (*>))
@@ -6,7 +11,7 @@ import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
   , get, look
-  , choice, eof, munch1, pfail, skipSpaces
+  , char, choice, eof, manyTill, munch1, pfail, satisfy, skipSpaces
   , readP_to_S
   )
 
@@ -26,14 +31,26 @@ string this = do s <- look; scan this s
     = do _ <- get; scan xs ys
   scan _      _               = do pfail
 
+anyChar :: ReadP Char
+anyChar = satisfy (\ _ -> True)
+
+skipFilling :: ReadP ()
+skipFilling =
+  do s <- look
+     skip s
+ where
+  skip ('%':s)           = (void $ manyTill anyChar (char '\n')) >> skipFilling
+  skip (c:s) | isSpace c = do _ <- get; skip s
+  skip _                 = do return ()
+
 token :: ReadP a -> ReadP a
-token = flip (<*) skipSpaces
+token = flip (<*) skipFilling
 
 stoken :: String -> ReadP ()
 stoken = void . token . string
 
 stoken1 :: String -> ReadP ()
-stoken1 s = string s >> munch1 isSpace >> return ()
+stoken1 s = string s >> munch1 isSpace >> skipFilling
 
 word :: [(String, a)] -> ReadP a
 word = choice . map (\(w, a) -> string w *> return a)
