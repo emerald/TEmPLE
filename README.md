@@ -63,9 +63,17 @@ Documentation](https://docs.haskellstack.org/en/stable/README/)
 
     stack test
 
-### Replay tests with a particular QuickCheck seed
+#### Replay tests with a particular QuickCheck seed
 
     stack test --test-arguments --quickcheck-replay=<seed>
+
+#### For more verbose QuickCheck tests
+
+    stack test --test-arguments --quickcheck-verbose
+
+#### Show some coverage information along the way
+
+    stack test --coverage
 
 ### GHCi
 
