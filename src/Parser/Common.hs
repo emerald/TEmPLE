@@ -1,8 +1,8 @@
 module Parser.Common
   ( ParseErrorImpl
+  , fullParse, parse
   , skipFilling, stoken, stoken1, token, word
-  , parseFile'
-  , parseString'
+  , parseFile', parseString'
   ) where
 
 import Data.Char (isSpace, toUpper, toLower)
