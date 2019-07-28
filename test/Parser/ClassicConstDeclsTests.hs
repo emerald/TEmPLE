@@ -2,7 +2,7 @@ module Parser.ClassicConstDeclsTests (testTree) where
 
 import Parser.Common (fullParse, parse)
 import Parser.Classic (parser)
-import Parser.ClassicConstDecls (parseConstDecl)
+import Parser.ClassicDecls (parseConstDecl)
 
 import Parser.GenClassicConstDecls
   ( ValidConstDecl(..)

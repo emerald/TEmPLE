@@ -20,7 +20,7 @@ data Lit
   deriving (Eq, Ord, Show)
 
 data Object
-  = Object Ident [ConstDecl]
+  = Object Ident [Decl]
   deriving (Eq, Ord, Show)
 
 data Expr
@@ -31,6 +31,15 @@ data Expr
 
 data ConstDecl
   = Const Ident (Maybe Type) Expr
+  deriving (Eq, Ord, Show)
+
+data VarDecl
+  = Var Ident (Maybe Type) Expr
+  deriving (Eq, Ord, Show)
+
+data Decl
+  = DConst ConstDecl
+  | DVar VarDecl
   deriving (Eq, Ord, Show)
 
 type Compilation = [ConstDecl]

@@ -3,7 +3,7 @@ module Parser.Classic where
 import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, parseFile', parseString')
 import Parser.ClassicObjects (parseObject)
-import Parser.ClassicConstDecls (parseConstDecl)
+import Parser.ClassicDecls (parseConstDecl, parseVarDecl, parseDecl)
 import Parser.Types (Parser(Parser))
 
 import Control.Applicative ((*>))
@@ -12,7 +12,7 @@ import Text.ParserCombinators.ReadP (ReadP, many, skipSpaces)
 type ParseError = ParseErrorImpl [ConstDecl]
 
 parser :: Parser
-parser = Parser parseObject parseConstDecl
+parser = Parser parseObject parseConstDecl parseVarDecl parseDecl
 
 parseProgram :: ReadP [ConstDecl]
 parseProgram = skipSpaces *> many (parseConstDecl parser)
