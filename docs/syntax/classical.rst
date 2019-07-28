@@ -49,5 +49,5 @@ rest name constants, variables, operations, parameters, and objects.
 
 The reserved keywords are:
 
-  * *Literals*: **nil**, **true**, **false**
-  * *Keywords*: **const**, **var**, **object**, **end**
+  * *Literals*: **false**, **nil**, **true**
+  * *Keywords*: **const**, **end**, **object**, **var**
