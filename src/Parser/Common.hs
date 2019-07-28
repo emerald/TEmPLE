@@ -1,11 +1,12 @@
 module Parser.Common where
 
-import Data.Char (isSpace)
+import Data.Char (isSpace, toUpper, toLower)
 import Control.Applicative ((<*), (*>))
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
-  , choice, eof, munch1, string, skipSpaces
+  , get, look
+  , choice, eof, munch1, pfail, skipSpaces
   , readP_to_S
   )
 
@@ -14,6 +15,15 @@ data ParseErrorImpl a
   | AmbiguousGrammar [a] FilePath
   | NotImplemented
   deriving (Eq, Show)
+
+string :: String -> ReadP String
+string this = do s <- look; scan this s
+ where
+  scan []     _               = do return this
+  scan (x:xs) (y:ys)
+    | x == (toLower y) || x == (toUpper y)
+    = do _ <- get; scan xs ys
+  scan _      _               = do pfail
 
 token :: ReadP a -> ReadP a
 token = flip (<*) skipSpaces
