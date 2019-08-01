@@ -44,10 +44,11 @@ Identifiers
 
 An Emerald identifier is a non-empty sequence of letters, digits, and
 the character ``_``, beginning with a letter or ``_``. Identifiers are
-**case-insensitive**. Some identifiers are reserved as keywords; the
-rest name constants, variables, operations, parameters, and objects.
+**case-insensitive**. Some identifiers are reserved as literals and
+keywords; the rest name constants, variables, operations, parameters,
+and objects.
 
-The reserved keywords are:
+The reserved identifiers are:
 
   * *Literals*: **false**, **nil**, **true**
   * *Keywords*: **const**, **end**, **object**, **var**
