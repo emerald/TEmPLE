@@ -1,7 +1,9 @@
 For documentation, we use
 [Sphinx](http://www.sphinx-doc.org/en/master/), a Python-based
-documentation generator. You can browse pre-built documentation online
-at [ReadTheDocs](https://emerald-temple.readthedocs.io/en/latest/).
+documentation generator.
+
+You can browse pre-built documentation online at
+[ReadTheDocs](https://emerald-temple.readthedocs.io/en/latest/).
 
 ## Manually Build the Documentation
 
