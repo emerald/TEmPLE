@@ -7,11 +7,27 @@ You can browse pre-built documentation online at
 
 ## Manually Build the Documentation
 
-You will need to have Python 3, and a couple packages installed. The
-formal list of required Python 3 packages is in
-[requirements.txt](requirements.txt).
+In the end, all you need to do is:
 
-We can recommend using
+```
+$ make html
+```
+
+However, to be able to do this, you will need to have Python 3, `pip`
+(a package manager) for Python 3, and a couple Python 3 packages
+installed. Install Python 3 and `pip` using your favourite package
+manager. (If you also have Python 2 installed, `pip` may end up being
+called `pip3`.)
+
+The formal list of required Python 3 packages is in
+[requirements.txt](requirements.txt). Although you can go ahead and
+install these packages globally, we **do not recommend doing so**:
+
+```
+$ python3 install -r requirements.txt
+```
+
+Instead, we can recommend using
 [`virtualenv`](https://virtualenv.pypa.io/en/stable/), to create a
 dedicated [Virtual
 Envionment](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments)
