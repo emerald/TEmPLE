@@ -47,7 +47,12 @@ The workflow with `virtualenv` is roughly as follows:
     $ virtualenv ~/.venvs/<env>
     ```
     where you replace `<env>` with a suitable name for your
-    environment (e.g., `sphinx`, `TEmPLE`)
+    environment (e.g., `sphinx`, `TEmPLE`).
+
+    This creates a directory `~/.venvs/<env>` with some binaries,
+    scripts, and configuration files. Hypothetically, this directory
+    can go anywhere, but `~/.venvs/` is the cannonical location.
+
   * Each time you need a shell within that environment:
     ```
     $ source ~/.venvs/<env>/bin/active
