@@ -7,8 +7,8 @@ You can browse pre-built documentation online at
 
 ## Manually Build the Documentation
 
-To do this, you will need to have Python 3, and a couple packages
-installed. The formal list of required packages is in
+You will need to have Python 3, and a couple packages installed. The
+formal list of required Python 3 packages is in
 [requirements.txt](requirements.txt).
 
 We can recommend using
