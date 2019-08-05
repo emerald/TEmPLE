@@ -54,9 +54,10 @@ newtype InvalidVarDecl
   deriving (Eq, Show)
 
 validInvalid =
-  [ (validKeyword     , invalidKeyword)
-  , (validIdentString , invalidIdentString)
-  , (validDeclString  , invalidDeclString)
+  [ (validKeyword         , invalidKeyword)
+  , (validIdentString     , invalidIdentString)
+  , (validIdentListString , invalidIdentListString)
+  , (validDeclString      , invalidDeclString)
   ]
 
 instance Arbitrary InvalidVarDecl where
