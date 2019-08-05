@@ -5,10 +5,15 @@ module Parser.GenClassicConstDecls
 
 import Ast ( ConstDecl(..) )
 
-import Parser.GenCommon ( invalidOp1, validOp1 )
+import Parser.GenCommon ( genValidInvalid, invalidOp1, validOp1 )
 import Parser.GenClassicDecls
   ( InvalidDecl(..), ValidDecl(..)
   , invalidDeclString, validDeclString
+  )
+import Parser.GenClassicIdents
+  ( ValidIdent(..), InvalidIdent(..)
+  , genInvalidIdentString
+  , genValidIdentString
   )
 
 import Control.Monad ( liftM2 )
@@ -34,16 +39,21 @@ invalidConst = invalidOp1 constOp
 instance Arbitrary ValidConstDecl where
   arbitrary = fmap ValidConstDecl $ do
     sc      <- validConst
-    (ValidDecl (sd, d)) <- arbitrary
-    return (sc ++ sd, Const d)
+    (sn, n, _) <- fmap validIdent arbitrary
+    (ValidDecl (ste, (t, e))) <- arbitrary
+    return (sc ++ sn ++ ste, Const (n, t, e))
 
 newtype InvalidConstDecl
   = InvalidConstDecl { invalidConstDecl :: String }
   deriving (Eq, Show)
 
+validInvalid :: [(Gen String, Gen String)]
+validInvalid =
+  [ (validConst           , invalidConst)
+  , (genValidIdentString  , genInvalidIdentString)
+  , (validDeclString      , invalidDeclString)
+  ]
+
 instance Arbitrary InvalidConstDecl where
   arbitrary = fmap InvalidConstDecl $
-    frequency [ (20, cat invalidConst validDeclString)
-              , (80, cat validConst invalidDeclString)
-              ]
-    where cat = liftM2 (++)
+    genValidInvalid validInvalid

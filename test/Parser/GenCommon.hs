@@ -1,14 +1,19 @@
 module Parser.GenCommon
-  ( invalidOp, invalidOp1
+  ( genValidInvalid
+  , invalidOp, invalidOp1
   , spaces, spaces1
   , token, token1
   , validOp, validOp1
   ) where
 
+import Control.Applicative ( (<*>) )
 import Test.Tasty.QuickCheck
   ( Gen
-  , arbitrary, elements, listOf, listOf1, oneof, suchThat
+  , arbitrary, choose, elements
+  , listOf, listOf1, oneof
+  , shuffle, suchThat
   )
+
 
 spaceChar :: Gen Char
 spaceChar = elements [' ', '\t', '\n', '\r', '\f', '\v']
@@ -39,3 +44,12 @@ invalidOp1 s = oneof
   [ return s
   , suchThat arbitrary (/= s) >>= token1
   ]
+
+genValidInvalid :: [(Gen String, Gen String)] -> Gen String
+genValidInvalid validInvalid = do
+  let n = length validInvalid
+  n_fst <- choose (1, n)
+  let n_snd = n - n_fst
+  fs <- shuffle $ replicate n_fst fst ++ replicate n_snd snd
+  let gens = fs <*> validInvalid
+  fmap concat $ sequence gens

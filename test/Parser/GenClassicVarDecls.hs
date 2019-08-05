@@ -5,17 +5,27 @@ module Parser.GenClassicVarDecls
 
 import Ast ( VarDecl(..) )
 
-import Parser.GenCommon ( invalidOp1, validOp1 )
+import Parser.GenCommon ( genValidInvalid, invalidOp1, validOp1 )
 import Parser.GenClassicDecls
   ( ValidDecl(..)
   , validDeclString, invalidDeclString
   )
+import Parser.GenClassicIdents
+  ( genInvalidIdentString, genValidIdentString
+  , ValidIdent(..), InvalidIdent(..)
+  , validIdentString
+  )
+import Parser.GenClassicIdentLists
+  ( genInvalidIdentListString, genValidIdentListString
+  , InvalidIdentList(..), ValidIdentList(..)
+  )
 
 import Control.Monad ( liftM2 )
+import Data.List ( intercalate )
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, frequency
+  , arbitrary, frequency, listOf
   )
 
 newtype ValidVarDecl
@@ -34,16 +44,25 @@ invalidKeyword = invalidOp1 keyword
 instance Arbitrary ValidVarDecl where
   arbitrary = fmap ValidVarDecl $ do
     sk      <- validKeyword
-    (ValidDecl (sd, d)) <- arbitrary
-    return (sk ++ sd, Var d)
+    (sn, n, _) <- fmap validIdent arbitrary
+    (sns, ns, _) <- fmap validIdentList arbitrary
+    (ValidDecl (ste, (t, e))) <- arbitrary
+    return (sk ++ sn ++ sns ++ ste, Var (n, ns, t, e))
+    where
+      genIdent = do
+        (sn, n, _) <- fmap validIdent arbitrary
+        return (sn, n)
 
 newtype InvalidVarDecl
   = InvalidVarDecl { invalidVarDecl :: String }
   deriving (Eq, Show)
 
+validInvalid =
+  [ (validKeyword             , invalidKeyword)
+  , (genValidIdentString      , genInvalidIdentString)
+  , (validDeclString          , invalidDeclString)
+  ]
+
 instance Arbitrary InvalidVarDecl where
   arbitrary = fmap InvalidVarDecl $
-    frequency [ (20, cat invalidKeyword validDeclString)
-              , (80, cat validKeyword invalidDeclString)
-              ]
-    where cat = liftM2 (++)
+    genValidInvalid validInvalid

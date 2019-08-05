@@ -1,7 +1,7 @@
 module Parser.GenClassicIdents
-  ( ValidIdent(..)
-  , InvalidIdent(..)
-  , validIdentString
+  ( genInvalidIdentString, genValidIdentString
+  , InvalidIdent(..), ValidIdent(..)
+  , invalidIdentString, validIdentString
   ) where
 
 import Ast (Ident)
@@ -36,6 +36,9 @@ instance Eq ValidIdent where
 validIdentString :: ValidIdent -> String
 validIdentString (ValidIdent (s, _, _)) = s
 
+genValidIdentString :: Gen String
+genValidIdentString = fmap validIdentString arbitrary
+
 shrinkIdent :: String -> [ValidIdent]
 shrinkIdent name =
   let (first:rest) = name
@@ -63,6 +66,8 @@ instance Arbitrary ValidIdent where
       vanillaIdent :: Char -> String -> ValidIdent
       vanillaIdent first rest =
         let name = first:rest in ValidIdent (name, name, [])
+
+  shrink (ValidIdent (_, _, is)) = is
 
 newtype InvalidIdent = InvalidIdent { invalidIdent :: String }
   deriving (Eq, Show)
@@ -96,3 +101,9 @@ instance Arbitrary InvalidIdent where
           replicate n_valid fst ++ replicate n_invalid snd
         let gens = fs <*> validInvalid n
         sequence gens
+
+invalidIdentString :: InvalidIdent -> String
+invalidIdentString (InvalidIdent s) = s
+
+genInvalidIdentString :: Gen String
+genInvalidIdentString = fmap invalidIdentString arbitrary
