@@ -44,10 +44,6 @@ instance Arbitrary ValidVarDecl where
     (sns, ns, _) <- fmap validIdentList arbitrary
     (ValidDecl (ste, (t, e))) <- arbitrary
     return (sk ++ sn ++ sns ++ ste, Var (n, ns, t, e))
-    where
-      genIdent = do
-        (sn, n, _) <- fmap validIdent arbitrary
-        return (sn, n)
 
 newtype InvalidVarDecl
   = InvalidVarDecl { invalidVarDecl :: String }
