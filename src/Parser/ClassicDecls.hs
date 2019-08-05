@@ -1,11 +1,13 @@
 module Parser.ClassicDecls
-  ( parseConstDecl
+  ( parseAttDecl
+  , parseConstDecl
   , parseVarDecl
   , parseDecl
   ) where
 
 import Ast (ConstDecl(..), Decl(..), Expr, Ident, Type, VarDecl(..))
 import Parser.Common (stoken, stoken1, token)
+import Parser.ClassicAttached (parseAttached)
 import Parser.ClassicIdents (parseIdent)
 import Parser.ClassicTypes (parseType)
 import Parser.ClassicExprs (parseExpr)
@@ -37,7 +39,13 @@ parseVarDecl p = do
   return $ Var (i, is, t, e)
 
 parseDecl :: Parser -> ReadP Decl
-parseDecl p = token $ choice
+parseDecl p = choice
   [ fmap DConst $ parseConstDecl p
   , fmap DVar $ parseVarDecl p
   ]
+
+parseAttDecl :: Parser -> ReadP (Bool, Decl)
+parseAttDecl p = token $ do
+  a <- parseAttached
+  d <- parseDecl p
+  return (a, d)

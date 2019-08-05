@@ -20,7 +20,7 @@ data Lit
   deriving (Eq, Ord, Show)
 
 data Object
-  = Object Ident [Decl]
+  = Object Ident [(Bool, Decl)]
   deriving (Eq, Ord, Show)
 
 data Expr

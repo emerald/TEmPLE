@@ -1,5 +1,6 @@
 module Parser.Types
   ( Parser(Parser)
+  , parseAttDecl
   , parseConstDecl
   , parseVarDecl
   , parseDecl
@@ -13,6 +14,7 @@ import Text.ParserCombinators.ReadP (ReadP)
 data Parser
   = Parser
   { parseObject' :: Parser -> ReadP Object
+  , parseAttDecl' :: Parser -> ReadP (Bool, Decl)
   , parseConstDecl' :: Parser -> ReadP ConstDecl
   , parseVarDecl' :: Parser -> ReadP VarDecl
   , parseDecl' :: Parser -> ReadP Decl
@@ -20,6 +22,9 @@ data Parser
 
 parse :: (Parser -> Parser -> ReadP a) -> Parser -> ReadP a
 parse f p = f p p
+
+parseAttDecl :: Parser -> ReadP (Bool, Decl)
+parseAttDecl = parse parseAttDecl'
 
 parseConstDecl :: Parser -> ReadP ConstDecl
 parseConstDecl = parse parseConstDecl'

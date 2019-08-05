@@ -3,7 +3,12 @@ module Parser.Classic where
 import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
 import Parser.ClassicObjects (parseObject)
-import Parser.ClassicDecls (parseConstDecl, parseVarDecl, parseDecl)
+import Parser.ClassicDecls
+  ( parseAttDecl
+  , parseConstDecl
+  , parseVarDecl
+  , parseDecl
+  )
 import Parser.Types (Parser(Parser))
 
 import Control.Applicative ((*>))
@@ -12,7 +17,7 @@ import Text.ParserCombinators.ReadP (ReadP, many)
 type ParseError = ParseErrorImpl [ConstDecl]
 
 parser :: Parser
-parser = Parser parseObject parseConstDecl parseVarDecl parseDecl
+parser = Parser parseObject parseAttDecl parseConstDecl parseVarDecl parseDecl
 
 parseProgram :: ReadP [ConstDecl]
 parseProgram = skipFilling *> many (parseConstDecl parser)
