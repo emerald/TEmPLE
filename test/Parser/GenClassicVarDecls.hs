@@ -19,9 +19,6 @@ import Parser.GenClassicIdentLists
   , InvalidIdentList(..), ValidIdentList(..)
   )
 
-import Control.Monad ( liftM2 )
-import Data.List ( intercalate )
-
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
   , arbitrary, frequency, listOf
