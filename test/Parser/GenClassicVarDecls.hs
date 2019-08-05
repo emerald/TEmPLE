@@ -15,7 +15,7 @@ import Parser.GenClassicIdents
   , validIdentString, invalidIdentString
   )
 import Parser.GenClassicIdentLists
-  ( genInvalidIdentListString, genValidIdentListString
+  ( invalidIdentListString, validIdentListString
   , InvalidIdentList(..), ValidIdentList(..)
   )
 

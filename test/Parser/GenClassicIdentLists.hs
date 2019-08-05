@@ -1,5 +1,5 @@
 module Parser.GenClassicIdentLists
-  ( genInvalidIdentListString, genValidIdentListString
+  ( invalidIdentListString, validIdentListString
   , InvalidIdentList(..), ValidIdentList(..)
   ) where
 
@@ -55,27 +55,15 @@ instance Arbitrary ValidIdentList where
 
   shrink (ValidIdentList (_, _, is)) = is
 
-validIdentListString :: ValidIdentList -> String
-validIdentListString (ValidIdentList (s, _, _)) = s
-
-genValidIdentListString :: Gen String
-genValidIdentListString = fmap validIdentListString arbitrary
+validIdentListString :: Gen String
+validIdentListString = fmap (\(ValidIdentList (s, _, _)) -> s) arbitrary
 
 newtype InvalidIdentList
   = InvalidIdentList { invalidIdentList :: String }
   deriving (Eq, Show)
 
-invalidIdentListString :: InvalidIdentList -> String
-invalidIdentListString (InvalidIdentList s) = s
+instance Arbitrary InvalidIdentList where
+  arbitrary = return $ InvalidIdentList "%"
 
-genInvalidIdentListString :: Gen String
-genInvalidIdentListString = return ""
-
-{-
-instance Arbitrary InvalidVarDecl where
-  arbitrary = fmap InvalidVarDecl $
-    frequency [ (20, cat invalidKeyword validDeclString)
-              , (80, cat validKeyword invalidDeclString)
-              ]
-    where cat = liftM2 (++)
--}
+invalidIdentListString :: Gen String
+invalidIdentListString = fmap (\(InvalidIdentList s) -> s) arbitrary
