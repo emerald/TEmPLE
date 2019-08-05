@@ -5,14 +5,14 @@ module Parser.GenClassicIdentLists
 
 import Ast ( Ident )
 
-import Parser.GenCommon ( validOp )
+import Parser.GenCommon ( genValidInvalid, invalidOp, validOp )
 import Parser.GenClassicDecls
   ( ValidDecl(..)
   , validDeclString, invalidDeclString
   )
 import Parser.GenClassicIdents
   ( ValidIdent(..), InvalidIdent(..)
-  , validIdentString
+  , validIdentString, invalidIdentString
   )
 
 import Control.Monad ( liftM2 )
@@ -20,7 +20,7 @@ import Data.List ( intercalate )
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, frequency, listOf, shrink
+  , arbitrary, frequency, listOf, shrink, sized
   )
 
 newtype ValidIdentList
@@ -37,15 +37,15 @@ instance Eq ValidIdentList where
 keyword :: String
 keyword = ","
 
-genCommaIdent :: Gen (String, Ident)
-genCommaIdent = do
+validCommaIdent :: Gen (String, Ident)
+validCommaIdent = do
   (sn, n, _) <- fmap validIdent arbitrary
   comma <- validOp keyword
   return (comma ++ sn, n)
 
 instance Arbitrary ValidIdentList where
   arbitrary = do
-    ts <- listOf genCommaIdent
+    ts <- listOf validCommaIdent
     return $ build (map (build []) (shrink ts)) ts
     where
       build :: [ValidIdentList] -> [(String, Ident)] -> ValidIdentList
@@ -62,8 +62,16 @@ newtype InvalidIdentList
   = InvalidIdentList { invalidIdentList :: String }
   deriving (Eq, Show)
 
+invalidCommaIdent :: Gen String
+invalidCommaIdent = genValidInvalid $
+  [ (validIdentString, invalidIdentString)
+  , (validOp keyword, invalidOp keyword)
+  ]
+
 instance Arbitrary InvalidIdentList where
-  arbitrary = return $ InvalidIdentList "%"
+  arbitrary = fmap InvalidIdentList $ sized $ \n ->
+    genValidInvalid $
+      replicate n (fmap fst validCommaIdent, invalidCommaIdent)
 
 invalidIdentListString :: Gen String
 invalidIdentListString = fmap (\(InvalidIdentList s) -> s) arbitrary
