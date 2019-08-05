@@ -34,8 +34,8 @@ invalidConst = invalidOp1 constOp
 instance Arbitrary ValidConstDecl where
   arbitrary = fmap ValidConstDecl $ do
     sc      <- validConst
-    (ValidDecl (sd, (n, t, e))) <- arbitrary
-    return (sc ++ sd, Const n t e)
+    (ValidDecl (sd, d)) <- arbitrary
+    return (sc ++ sd, Const d)
 
 newtype InvalidConstDecl
   = InvalidConstDecl { invalidConstDecl :: String }

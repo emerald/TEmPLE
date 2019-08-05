@@ -11,17 +11,18 @@ import Parser.ClassicTypes (parseType)
 import Parser.ClassicExprs (parseExpr)
 import Parser.Types (Parser)
 
-import Control.Applicative ((*>), liftA3)
+import Control.Applicative ((*>))
 import qualified Control.Applicative as App
 import Text.ParserCombinators.ReadP (ReadP, choice)
 
 parseDecl' :: String
-  -> (Ident -> Maybe Type -> Expr -> a)
+  -> ((Ident, Maybe Type, Expr) -> a)
   -> Parser -> ReadP a
-parseDecl' k c p = liftA3 c
-  (stoken1 k *> parseIdent)
-  (App.optional parseType)
-  (stoken "<-" *> (parseExpr p))
+parseDecl' k c p = do
+  i <- (stoken1 k *> parseIdent)
+  t <- (App.optional parseType)
+  e <- (stoken "<-" *> (parseExpr p))
+  return $ c (i, t, e)
 
 parseConstDecl :: Parser -> ReadP ConstDecl
 parseConstDecl = parseDecl' "const" Const

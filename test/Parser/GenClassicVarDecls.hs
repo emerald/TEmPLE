@@ -34,8 +34,8 @@ invalidKeyword = invalidOp1 keyword
 instance Arbitrary ValidVarDecl where
   arbitrary = fmap ValidVarDecl $ do
     sk      <- validKeyword
-    (ValidDecl (sd, (n, t, e))) <- arbitrary
-    return (sk ++ sd, Var n t e)
+    (ValidDecl (sd, d)) <- arbitrary
+    return (sk ++ sd, Var d)
 
 newtype InvalidVarDecl
   = InvalidVarDecl { invalidVarDecl :: String }

@@ -29,12 +29,12 @@ data Expr
   | EObj Object
   deriving (Eq, Ord, Show)
 
-data ConstDecl
-  = Const Ident (Maybe Type) Expr
+newtype ConstDecl
+  = Const (Ident, (Maybe Type), Expr)
   deriving (Eq, Ord, Show)
 
-data VarDecl
-  = Var Ident (Maybe Type) Expr
+newtype VarDecl
+  = Var (Ident, (Maybe Type), Expr)
   deriving (Eq, Ord, Show)
 
 data Decl
