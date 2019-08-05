@@ -11,9 +11,8 @@ import Parser.GenClassicDecls
   , validDeclString, invalidDeclString
   )
 import Parser.GenClassicIdents
-  ( genInvalidIdentString, genValidIdentString
-  , ValidIdent(..), InvalidIdent(..)
-  , validIdentString
+  ( ValidIdent(..), InvalidIdent(..)
+  , validIdentString, invalidIdentString
   )
 import Parser.GenClassicIdentLists
   ( genInvalidIdentListString, genValidIdentListString
@@ -58,9 +57,9 @@ newtype InvalidVarDecl
   deriving (Eq, Show)
 
 validInvalid =
-  [ (validKeyword             , invalidKeyword)
-  , (genValidIdentString      , genInvalidIdentString)
-  , (validDeclString          , invalidDeclString)
+  [ (validKeyword     , invalidKeyword)
+  , (validIdentString , invalidIdentString)
+  , (validDeclString  , invalidDeclString)
   ]
 
 instance Arbitrary InvalidVarDecl where

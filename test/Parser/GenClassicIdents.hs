@@ -1,6 +1,5 @@
 module Parser.GenClassicIdents
-  ( genInvalidIdentString, genValidIdentString
-  , InvalidIdent(..), ValidIdent(..)
+  ( InvalidIdent(..), ValidIdent(..)
   , invalidIdentString, validIdentString
   ) where
 
@@ -33,11 +32,8 @@ instance Eq ValidIdent where
   (ValidIdent (s1, l1, _)) == (ValidIdent (s2, l2, _))
     = (s1, l1) == (s2, l2)
 
-validIdentString :: ValidIdent -> String
-validIdentString (ValidIdent (s, _, _)) = s
-
-genValidIdentString :: Gen String
-genValidIdentString = fmap validIdentString arbitrary
+validIdentString :: Gen String
+validIdentString = fmap (\(ValidIdent (s, _, _)) -> s) arbitrary
 
 shrinkIdent :: String -> [ValidIdent]
 shrinkIdent name =
@@ -102,8 +98,5 @@ instance Arbitrary InvalidIdent where
         let gens = fs <*> validInvalid n
         sequence gens
 
-invalidIdentString :: InvalidIdent -> String
-invalidIdentString (InvalidIdent s) = s
-
-genInvalidIdentString :: Gen String
-genInvalidIdentString = fmap invalidIdentString arbitrary
+invalidIdentString :: Gen String
+invalidIdentString = fmap (\(InvalidIdent s) -> s) arbitrary

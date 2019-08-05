@@ -12,8 +12,7 @@ import Parser.GenClassicDecls
   )
 import Parser.GenClassicIdents
   ( ValidIdent(..), InvalidIdent(..)
-  , genInvalidIdentString
-  , genValidIdentString
+  , invalidIdentString, validIdentString
   )
 
 import Control.Monad ( liftM2 )
@@ -50,7 +49,7 @@ newtype InvalidConstDecl
 validInvalid :: [(Gen String, Gen String)]
 validInvalid =
   [ (validConst           , invalidConst)
-  , (genValidIdentString  , genInvalidIdentString)
+  , (validIdentString     , invalidIdentString)
   , (validDeclString      , invalidDeclString)
   ]
 
