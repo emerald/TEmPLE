@@ -10,7 +10,7 @@ import Parser.GenClassicDecls( ValidDecl(..), InvalidDecl(..) )
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, choose, frequency
+  , arbitrary, frequency
   )
 
 newtype ValidConstDecl
