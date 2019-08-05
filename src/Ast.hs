@@ -34,7 +34,7 @@ newtype ConstDecl
   deriving (Eq, Ord, Show)
 
 newtype VarDecl
-  = Var (Ident, (Maybe Type), Expr)
+  = Var (Ident, [Ident], (Maybe Type), Expr)
   deriving (Eq, Ord, Show)
 
 data Decl
