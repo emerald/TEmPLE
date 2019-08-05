@@ -13,22 +13,28 @@ import Parser.Types (Parser)
 
 import Control.Applicative ((*>))
 import qualified Control.Applicative as App
-import Text.ParserCombinators.ReadP (ReadP, choice)
+import Text.ParserCombinators.ReadP (ReadP, choice, many)
 
-parseDecl' :: String
-  -> ((Ident, Maybe Type, Expr) -> a)
-  -> Parser -> ReadP a
-parseDecl' k c p = do
-  i <- (stoken1 k *> parseIdent)
+parseDeclTypeExpr :: Parser -> ReadP (Maybe Type, Expr)
+parseDeclTypeExpr p = do
   t <- (App.optional parseType)
   e <- (stoken "<-" *> (parseExpr p))
-  return $ c (i, t, e)
+  return (t, e)
 
 parseConstDecl :: Parser -> ReadP ConstDecl
-parseConstDecl = parseDecl' "const" Const
+parseConstDecl p = do
+  stoken1 "const"
+  i <- parseIdent
+  (t, e) <- parseDeclTypeExpr p
+  return $ Const (i, t, e)
 
 parseVarDecl :: Parser -> ReadP VarDecl
-parseVarDecl = parseDecl' "var" Var
+parseVarDecl p = do
+  stoken1 "var"
+  i <- parseIdent
+  is <- many (stoken "," *> parseIdent)
+  (t, e) <- parseDeclTypeExpr p
+  return $ Var (i, is, t, e)
 
 parseDecl :: Parser -> ReadP Decl
 parseDecl p = token $ choice
