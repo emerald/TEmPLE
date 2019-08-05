@@ -6,7 +6,12 @@ module Parser.GenClassicVarDecls
 import Ast ( VarDecl(..) )
 
 import Parser.GenCommon ( invalidOp1, validOp1 )
-import Parser.GenClassicDecls( ValidDecl(..), InvalidDecl(..) )
+import Parser.GenClassicDecls
+  ( ValidDecl(..), InvalidDecl(..)
+  , validDeclString, invalidDeclString
+  )
+
+import Control.Monad ( liftM2 )
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
@@ -38,13 +43,7 @@ newtype InvalidVarDecl
 
 instance Arbitrary InvalidVarDecl where
   arbitrary = fmap InvalidVarDecl $
-    frequency [(20, do
-                      sc <- invalidKeyword
-                      sd <- fmap (fst . validDecl) arbitrary
-                      return $ sc ++ sd
-               ),
-               (80, do
-                      sc <- validKeyword
-                      sd <- fmap invalidDecl arbitrary
-                      return $ sc ++ sd
-               )]
+    frequency [ (20, cat invalidKeyword validDeclString)
+              , (80, cat validKeyword invalidDeclString)
+              ]
+    where cat = liftM2 (++)

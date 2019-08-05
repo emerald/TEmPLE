@@ -1,6 +1,6 @@
 module Parser.GenClassicDecls
-  ( ValidDecl(..)
-  , InvalidDecl(..)
+  ( InvalidDecl(..), ValidDecl(..)
+  , invalidDeclString, validDeclString
   ) where
 
 import Ast ( Expr, Ident, Type )
@@ -52,6 +52,9 @@ instance Arbitrary ValidDecl where
     (se, e, _) <- fmap validExpr arbitrary
     return (sn ++ st ++ sass ++ se, (n, t, e))
 
+validDeclString :: Gen String
+validDeclString = fmap (fst . validDecl) arbitrary
+
 newtype InvalidDecl
   = InvalidDecl { invalidDecl :: String }
   deriving (Eq, Show)
@@ -72,3 +75,6 @@ instance Arbitrary InvalidDecl where
     fs <- shuffle $ replicate n_fst fst ++ replicate n_snd snd
     let gens = fs <*> validInvalid
     fmap concat $ sequence gens
+
+invalidDeclString :: Gen String
+invalidDeclString = fmap invalidDecl arbitrary
