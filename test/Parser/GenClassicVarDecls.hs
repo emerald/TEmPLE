@@ -7,7 +7,7 @@ import Ast ( VarDecl(..) )
 
 import Parser.GenCommon ( invalidOp1, validOp1 )
 import Parser.GenClassicDecls
-  ( ValidDecl(..), InvalidDecl(..)
+  ( ValidDecl(..)
   , validDeclString, invalidDeclString
   )
 
@@ -15,7 +15,7 @@ import Control.Monad ( liftM2 )
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, choose, frequency
+  , arbitrary, frequency
   )
 
 newtype ValidVarDecl
