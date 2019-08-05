@@ -6,7 +6,12 @@ module Parser.GenClassicConstDecls
 import Ast ( ConstDecl(..) )
 
 import Parser.GenCommon ( invalidOp1, validOp1 )
-import Parser.GenClassicDecls( ValidDecl(..), InvalidDecl(..) )
+import Parser.GenClassicDecls
+  ( InvalidDecl(..), ValidDecl(..)
+  , invalidDeclString, validDeclString
+  )
+
+import Control.Monad ( liftM2 )
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
@@ -38,13 +43,7 @@ newtype InvalidConstDecl
 
 instance Arbitrary InvalidConstDecl where
   arbitrary = fmap InvalidConstDecl $
-    frequency [(20, do
-                      sc <- invalidConst
-                      (ValidDecl (sd, _)) <- arbitrary
-                      return $ sc ++ sd
-               ),
-               (80, do
-                      sc <- validConst
-                      (InvalidDecl sd) <- arbitrary
-                      return $ sc ++ sd
-               )]
+    frequency [ (20, cat invalidConst validDeclString)
+              , (80, cat validConst invalidDeclString)
+              ]
+    where cat = liftM2 (++)
