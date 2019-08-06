@@ -33,6 +33,11 @@ data Expr
   | ELeq Expr Expr
   | EGt Expr Expr
   | EGeq Expr Expr
+  | EPlus Expr Expr
+  | EMinus Expr Expr
+  | ETimes Expr Expr
+  | EDiv Expr Expr
+  | EMod Expr Expr
   deriving (Eq, Ord, Show)
 
 newtype ConstDecl

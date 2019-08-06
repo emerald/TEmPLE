@@ -16,16 +16,31 @@ unzipWith f pairs = map ( \ (a, b) -> f a b ) pairs
 stokena :: String -> a -> ReadP a
 stokena s a = stoken s *> return a
 
-parseExpr0 :: Parser -> ReadP Expr
-parseExpr0 p = token $ choice
+parseExpr9 :: Parser -> ReadP Expr
+parseExpr9 p = token $ choice
   [ fmap ELit parseLit
   , fmap EVar parseIdent
   , fmap EObj (parseObject p)
   , between (stoken "(") (stoken ")") (parseExpr p)
   ]
 
+parseExpr7 :: Parser -> ReadP Expr
+parseExpr7 p = chainl1 (parseExpr9 p) $
+  choice $ unzipWith stokena $
+    [ ("*", ETimes)
+    , ("/", EDiv)
+    , ("#", EMod)
+    ]
+
+parseExpr6 :: Parser -> ReadP Expr
+parseExpr6 p = chainl1 (parseExpr7 p) $
+  choice $ unzipWith stokena $
+    [ ("+",  EPlus)
+    , ("-", EMinus)
+    ]
+
 parseExpr5 :: Parser -> ReadP Expr
-parseExpr5 p = chainl1 (parseExpr0 p) $
+parseExpr5 p = chainl1 (parseExpr6 p) $
   choice $ unzipWith stokena $
     [ ("=",  EEq)
     , ("!=", ENeq)
