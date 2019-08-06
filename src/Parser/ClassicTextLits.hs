@@ -10,6 +10,8 @@ module Parser.ClassicTextLits
 
 import Ast (Lit(LChar, LString))
 
+import Parser.Common (token)
+
 import Control.Applicative ((*>))
 import Data.Bits (clearBit)
 import Data.Char (chr, ord, readLitChar)
@@ -79,7 +81,7 @@ parseString =
     fmap LString $ many parseSChar
 
 parseTextLit :: ReadP Lit
-parseTextLit = choice
+parseTextLit = token $ choice
   [ parseChar
   , parseString
   ]

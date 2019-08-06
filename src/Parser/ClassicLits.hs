@@ -20,7 +20,7 @@ parseBool = word
   ]
 
 parseLit :: ReadP Lit
-parseLit = token $ choice
+parseLit = choice
   [ parseNil
   , parseBool
   , parseNumLit

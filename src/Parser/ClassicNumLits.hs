@@ -4,6 +4,8 @@ module Parser.ClassicNumLits
 
 import Ast (Lit(LInt, LDouble))
 
+import Parser.Common (token)
+
 import Control.Applicative ((*>), (<*))
 import Data.Char (isDigit)
 import Numeric (readDec, readFloat, readHex, readOct)
@@ -56,7 +58,7 @@ parseIntFloat = choice
   ]
 
 parseNumLit :: ReadP Lit
-parseNumLit = choice
+parseNumLit = token $ choice
   [ parseIntFloat
   , parseOctHex
   ]

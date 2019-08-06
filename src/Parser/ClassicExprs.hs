@@ -3,7 +3,7 @@ module Parser.ClassicExprs
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (token, stoken, tword)
+import Parser.Common (token, stoken, word)
 import Parser.ClassicIdents (parseIdent)
 import Parser.ClassicLits (parseLit)
 import Parser.Types (Parser, parseObject)
@@ -25,20 +25,20 @@ parseExpr9 p = choice
   ]
 
 parseExpr7 :: Parser -> ReadP Expr
-parseExpr7 p = chainl1 (parseExpr9 p) $ tword
+parseExpr7 p = chainl1 (parseExpr9 p) $ word
     [ ("*", ETimes)
     , ("/", EDiv)
     , ("#", EMod)
     ]
 
 parseExpr6 :: Parser -> ReadP Expr
-parseExpr6 p = chainl1 (parseExpr7 p) $ tword
+parseExpr6 p = chainl1 (parseExpr7 p) $ word
     [ ("+",  EPlus)
     , ("-", EMinus)
     ]
 
 parseExpr5 :: Parser -> ReadP Expr
-parseExpr5 p = chainl1 (parseExpr6 p) $ tword
+parseExpr5 p = chainl1 (parseExpr6 p) $ word
     [ ("=",  EEq)
     , ("!=", ENeq)
     , ("<",  ELt)

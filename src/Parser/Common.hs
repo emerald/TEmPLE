@@ -1,7 +1,7 @@
 module Parser.Common
   ( ParseErrorImpl
   , fullParse, parse
-  , skipFilling, stoken, stoken1, token, tword, word
+  , skipFilling, stoken, stoken1, token, word
   , parseFile', parseString'
   ) where
 
@@ -53,10 +53,7 @@ stoken1 :: String -> ReadP ()
 stoken1 s = string s >> munch1 isSpace >> skipFilling
 
 word :: [(String, a)] -> ReadP a
-word = choice . map (\(w, a) -> string w *> return a)
-
-tword :: [(String, a)] -> ReadP a
-tword ls = token $ word ls
+word = choice . map (\(w, a) -> stoken w *> return a)
 
 parse :: ReadP a -> String -> [(a, String)]
 parse = readP_to_S
