@@ -1,5 +1,6 @@
 module Parser.ClassicExprs
   ( parseExpr
+  , prec5, prec6, prec7
   ) where
 
 import Ast (Expr(..))
@@ -24,28 +25,37 @@ parseExpr9 p = choice
   , between (stoken "(") (stoken ")") (parseExpr p)
   ]
 
-parseExpr7 :: Parser -> ReadP Expr
-parseExpr7 p = chainl1 (parseExpr9 p) $ word
-    [ ("*", ETimes)
+prec7 :: [(String, Expr -> Expr -> Expr)]
+prec7
+  = [ ("*", ETimes)
     , ("/", EDiv)
     , ("#", EMod)
     ]
 
-parseExpr6 :: Parser -> ReadP Expr
-parseExpr6 p = chainl1 (parseExpr7 p) $ word
-    [ ("+",  EPlus)
+parseExpr7 :: Parser -> ReadP Expr
+parseExpr7 p = chainl1 (parseExpr9 p) $ word prec7
+
+prec6 :: [(String, Expr -> Expr -> Expr)]
+prec6
+  = [ ("+", EPlus)
     , ("-", EMinus)
     ]
 
-parseExpr5 :: Parser -> ReadP Expr
-parseExpr5 p = chainl1 (parseExpr6 p) $ word
-    [ ("=",  EEq)
+parseExpr6 :: Parser -> ReadP Expr
+parseExpr6 p = chainl1 (parseExpr7 p) $ word prec6
+
+prec5 :: [(String, Expr -> Expr -> Expr)]
+prec5
+  = [ ("=",  EEq)
     , ("!=", ENeq)
     , ("<",  ELt)
     , ("<=", ELeq)
     , (">",  EGt)
     , (">=", EGeq)
     ]
+
+parseExpr5 :: Parser -> ReadP Expr
+parseExpr5 p = chainl1 (parseExpr6 p) $ word prec5
 
 parseExpr :: Parser -> ReadP Expr
 parseExpr = parseExpr5
