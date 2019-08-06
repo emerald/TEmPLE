@@ -1,6 +1,6 @@
 module Parser.ClassicExprs
   ( parseExpr
-  , prec5, prec6, prec7
+  , prec5, prec6, prec7, prec8
   ) where
 
 import Ast (Expr(..))
@@ -25,6 +25,25 @@ parseExpr9 p = choice
   , between (stoken "(") (stoken ")") (parseExpr p)
   ]
 
+prec8 :: [(String, Expr -> Expr)]
+prec8
+  = [ ("~",         ENegate)
+    , ("locate",    ELocate)
+    , ("isfixed",   EIsFixed)
+    , ("islocal",   EIsLocal)
+    , ("awaiting",  EAwaiting)
+    , ("codeof",    ECodeOf)
+    , ("nameof",    ENameOf)
+    , ("typeof",    ETypeOf)
+    , ("syntactictypeof",  ESyntacticTypeOf)
+    ]
+
+parseExpr8 :: Parser -> ReadP Expr
+parseExpr8 p = choice
+  [ word prec8 <*> (parseExpr8 p)
+  , parseExpr9 p
+  ]
+
 prec7 :: [(String, Expr -> Expr -> Expr)]
 prec7
   = [ ("*", ETimes)
@@ -33,7 +52,7 @@ prec7
     ]
 
 parseExpr7 :: Parser -> ReadP Expr
-parseExpr7 p = chainl1 (parseExpr9 p) $ word prec7
+parseExpr7 p = chainl1 (parseExpr8 p) $ word prec7
 
 prec6 :: [(String, Expr -> Expr -> Expr)]
 prec6

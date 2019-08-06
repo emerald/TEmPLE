@@ -27,6 +27,16 @@ data Expr
   = ELit Lit
   | EVar Ident
   | EObj Object
+  -- Precedence 8:
+  | ENegate Expr
+  | ELocate Expr
+  | EIsFixed Expr
+  | EIsLocal Expr
+  | EAwaiting Expr
+  | ECodeOf Expr
+  | ENameOf Expr
+  | ETypeOf Expr
+  | ESyntacticTypeOf Expr
   -- Precedence 7:
   | ETimes Expr Expr
   | EDiv Expr Expr
