@@ -35,7 +35,7 @@ prec8
     , ("codeof",    ECodeOf)
     , ("nameof",    ENameOf)
     , ("typeof",    ETypeOf)
-    , ("syntactictypeof",  ESyntacticTypeOf)
+    , ("syntactictypeof",  ESynTypeOf)
     ]
 
 parseExpr8 :: Parser -> ReadP Expr

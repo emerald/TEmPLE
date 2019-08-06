@@ -36,7 +36,7 @@ data Expr
   | ECodeOf Expr
   | ENameOf Expr
   | ETypeOf Expr
-  | ESyntacticTypeOf Expr
+  | ESynTypeOf Expr
   -- Precedence 7:
   | ETimes Expr Expr
   | EDiv Expr Expr
