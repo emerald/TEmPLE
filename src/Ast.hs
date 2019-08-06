@@ -27,6 +27,12 @@ data Expr
   = ELit Lit
   | EVar Ident
   | EObj Object
+  | EEq Expr Expr
+  | ENeq Expr Expr
+  | ELt Expr Expr
+  | ELeq Expr Expr
+  | EGt Expr Expr
+  | EGeq Expr Expr
   deriving (Eq, Ord, Show)
 
 newtype ConstDecl
