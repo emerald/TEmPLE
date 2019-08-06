@@ -27,7 +27,8 @@ parseExpr9 p = choice
 
 prec8 :: [(String, Expr -> Expr)]
 prec8
-  = [ ("~",         ENegate)
+  = [ ("-",         ENegate)
+    , ("~",         ENegate)
     , ("locate",    ELocate)
     , ("isfixed",   EIsFixed)
     , ("islocal",   EIsLocal)
