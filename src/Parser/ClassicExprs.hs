@@ -3,7 +3,7 @@ module Parser.ClassicExprs
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (token, stoken)
+import Parser.Common (token, stoken, tword)
 import Parser.ClassicIdents (parseIdent)
 import Parser.ClassicLits (parseLit)
 import Parser.Types (Parser, parseObject)
@@ -17,7 +17,7 @@ stokena :: String -> a -> ReadP a
 stokena s a = stoken s *> return a
 
 parseExpr9 :: Parser -> ReadP Expr
-parseExpr9 p = token $ choice
+parseExpr9 p = choice
   [ fmap ELit parseLit
   , fmap EVar parseIdent
   , fmap EObj (parseObject p)
@@ -25,23 +25,20 @@ parseExpr9 p = token $ choice
   ]
 
 parseExpr7 :: Parser -> ReadP Expr
-parseExpr7 p = chainl1 (parseExpr9 p) $
-  choice $ unzipWith stokena $
+parseExpr7 p = chainl1 (parseExpr9 p) $ tword
     [ ("*", ETimes)
     , ("/", EDiv)
     , ("#", EMod)
     ]
 
 parseExpr6 :: Parser -> ReadP Expr
-parseExpr6 p = chainl1 (parseExpr7 p) $
-  choice $ unzipWith stokena $
+parseExpr6 p = chainl1 (parseExpr7 p) $ tword
     [ ("+",  EPlus)
     , ("-", EMinus)
     ]
 
 parseExpr5 :: Parser -> ReadP Expr
-parseExpr5 p = chainl1 (parseExpr6 p) $
-  choice $ unzipWith stokena $
+parseExpr5 p = chainl1 (parseExpr6 p) $ tword
     [ ("=",  EEq)
     , ("!=", ENeq)
     , ("<",  ELt)
