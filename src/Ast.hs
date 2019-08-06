@@ -27,11 +27,14 @@ data Expr
   = ELit Lit
   | EVar Ident
   | EObj Object
+  -- Precedence 7:
   | ETimes Expr Expr
   | EDiv Expr Expr
   | EMod Expr Expr
+  -- Precedence 6:
   | EPlus Expr Expr
   | EMinus Expr Expr
+  -- Precedence 5:
   | EEq Expr Expr
   | ENeq Expr Expr
   | ELt Expr Expr
