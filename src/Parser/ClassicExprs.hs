@@ -10,7 +10,10 @@ import Parser.ClassicLits (parseLit)
 import Parser.ClassicWords (WKeywords(..))
 import Parser.Types (Parser, parseObject)
 
-import Text.ParserCombinators.ReadP (ReadP, between, chainl1, choice)
+import Text.ParserCombinators.ReadP
+  ( ReadP
+  , between, chainl1, choice
+  )
 
 parseExpr9 :: Parser -> ReadP Expr
 parseExpr9 p = choice
