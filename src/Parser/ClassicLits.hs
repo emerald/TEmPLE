@@ -5,18 +5,19 @@ module Parser.ClassicLits
 import Ast (Lit(LNil, LBool))
 
 import Parser.Common (token, word)
+import Parser.ClassicWords (WLits(..))
 import Parser.ClassicNumLits (parseNumLit)
 import Parser.ClassicTextLits (parseTextLit)
 
 import Text.ParserCombinators.ReadP (ReadP, choice)
 
 parseNil :: ReadP Lit
-parseNil = word [("nil", LNil)]
+parseNil = word [(show WNil, LNil)]
 
 parseBool :: ReadP Lit
 parseBool = word
-  [ ("true", LBool True)
-  , ("false", LBool False)
+  [ (show WTrue,  LBool True  )
+  , (show WFalse, LBool False )
   ]
 
 parseLit :: ReadP Lit

@@ -14,12 +14,13 @@ module Parser.ClassicAttached
   ) where
 
 import Parser.Common (stoken1)
+import Parser.ClassicWords (WKeywords(WAttached))
 
 import Control.Applicative ((*>))
 import Text.ParserCombinators.ReadP (ReadP, choice)
 
 parseAttached :: ReadP Bool
 parseAttached = choice
-  [ stoken1 "attached" *> return True
+  [ stoken1 (show WAttached) *> return True
   , return False
   ]

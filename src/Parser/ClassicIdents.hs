@@ -7,6 +7,7 @@ module Parser.ClassicIdents
 
 import Ast (Ident)
 import Parser.Common (token)
+import Parser.ClassicWords (reserved)
 
 import Control.Applicative (liftA2)
 import Control.Monad (mfilter)
@@ -23,25 +24,6 @@ first = flip elem firstChars
 
 rest :: Char -> Bool
 rest = flip elem restChars
-
-literals :: [String]
-literals =
-  [ "nil"
-  , "true"
-  , "false"
-  ]
-
-keywords :: [String]
-keywords =
-  [ "attached"
-  , "const"
-  , "end"
-  , "object"
-  , "var"
-  ]
-
-reserved :: [String]
-reserved = literals ++ keywords
 
 parseIdent :: ReadP Ident
 parseIdent = token $ mfilter (not . (`elem` reserved)) $

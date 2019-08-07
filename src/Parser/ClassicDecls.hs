@@ -11,6 +11,7 @@ import Parser.ClassicAttached (parseAttached)
 import Parser.ClassicIdents (parseIdent)
 import Parser.ClassicTypes (parseType)
 import Parser.ClassicExprs (parseExpr)
+import Parser.ClassicWords (WKeywords(WConst, WVar))
 import Parser.Types (Parser)
 
 import Control.Applicative ((*>))
@@ -25,14 +26,14 @@ parseDeclTypeExpr p = do
 
 parseConstDecl :: Parser -> ReadP ConstDecl
 parseConstDecl p = do
-  stoken1 "const"
+  stoken1 (show WConst)
   i <- parseIdent
   (t, e) <- parseDeclTypeExpr p
   return $ Const (i, t, e)
 
 parseVarDecl :: Parser -> ReadP VarDecl
 parseVarDecl p = do
-  stoken1 "var"
+  stoken1 (show WVar)
   i <- parseIdent
   is <- many (stoken "," *> parseIdent)
   (t, e) <- parseDeclTypeExpr p
