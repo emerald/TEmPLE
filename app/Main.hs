@@ -1,4 +1,4 @@
-module Main where
+module Main (main) where
 
 import Ast (Compilation)
 import Parser (parseFile, ParseError)
