@@ -19,7 +19,7 @@ import Numeric (readOct)
 import Text.ParserCombinators.ReadP
   ( ReadP
   , (<++)
-  , between, choice, count, get, many, munch1, satisfy, string
+  , between, choice, count, get, many, satisfy, string
   , pfail
   )
 
