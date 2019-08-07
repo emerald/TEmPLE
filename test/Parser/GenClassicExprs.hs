@@ -7,10 +7,9 @@ module Parser.GenClassicExprs
 import Ast (Expr(..))
 import Parser.Common (fullParse)
 import Parser.ClassicLits (parseLit)
-import Parser.ClassicIdents (parseIdent)
 
 import Parser.GenCommon (token)
-import Parser.GenClassicLits (ValidLit(..), InvalidLit(..))
+import Parser.GenClassicLits (ValidLit(..))
 import Parser.GenClassicIdents (ValidIdent(..), InvalidIdent(..))
 
 import Test.Tasty.QuickCheck
