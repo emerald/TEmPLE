@@ -5,7 +5,7 @@ module Parser.ClassicDecls
   , parseDecl
   ) where
 
-import Ast (ConstDecl(..), Decl(..), Expr, Ident, Type, VarDecl(..))
+import Ast (ConstDecl(..), Decl(..), Expr, Type, VarDecl(..))
 import Parser.Common (stoken, stoken1, token)
 import Parser.ClassicAttached (parseAttached)
 import Parser.ClassicIdents (parseIdent)

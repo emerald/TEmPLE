@@ -4,7 +4,7 @@ module Parser.ClassicExprs
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (token, stoken, word)
+import Parser.Common (stoken, word)
 import Parser.ClassicIdents (parseIdent)
 import Parser.ClassicLits (parseLit)
 import Parser.ClassicWords (WKeywords(..))

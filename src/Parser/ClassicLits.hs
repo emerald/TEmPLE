@@ -4,7 +4,7 @@ module Parser.ClassicLits
 
 import Ast (Lit(LNil, LBool))
 
-import Parser.Common (token, word)
+import Parser.Common (word)
 import Parser.ClassicWords (WLits(..))
 import Parser.ClassicNumLits (parseNumLit)
 import Parser.ClassicTextLits (parseTextLit)
