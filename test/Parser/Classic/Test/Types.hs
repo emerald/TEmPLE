@@ -1,9 +1,9 @@
-module Parser.ClassicTypesTests (testTree) where
+module Parser.Classic.Test.Types (testTree) where
 
 import Parser.Common (parse)
-import Parser.ClassicTypes (parseType)
+import Parser.Classic.Types (parseType)
 
-import Parser.GenClassicTypes (ValidType(..), InvalidType(..))
+import Parser.Classic.Gen.Types (ValidType(..), InvalidType(..))
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), testProperty)

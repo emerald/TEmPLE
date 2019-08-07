@@ -1,11 +1,11 @@
-module Parser.GenClassicIdents
+module Parser.Classic.Gen.Idents
   ( InvalidIdent(..), ValidIdent(..)
   , invalidIdentString, validIdentString
   ) where
 
 import Ast (Ident)
 
-import Parser.ClassicIdents (firstChars, restChars, reserved)
+import Parser.Classic.Idents (firstChars, restChars, reserved)
 
 import Parser.GenCommon (spaces)
 

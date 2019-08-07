@@ -1,10 +1,10 @@
-module Parser.ClassicExprsTests (testTree) where
+module Parser.Classic.Test.Exprs (testTree) where
 
 import Parser.Common (fullParse, parse)
-import Parser.Classic (parser)
-import Parser.ClassicExprs (parseExpr)
+import Parser.Classic.Parser (parser)
+import Parser.Classic.Exprs (parseExpr)
 
-import Parser.GenClassicExprs (ValidExpr(..), InvalidExpr(..))
+import Parser.Classic.Gen.Exprs (ValidExpr(..), InvalidExpr(..))
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)

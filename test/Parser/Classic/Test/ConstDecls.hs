@@ -1,10 +1,10 @@
-module Parser.ClassicConstDeclsTests (testTree) where
+module Parser.Classic.Test.ConstDecls (testTree) where
 
 import Parser.Common (fullParse, parse)
-import Parser.Classic (parser)
-import Parser.ClassicDecls (parseConstDecl)
+import Parser.Classic.Parser (parser)
+import Parser.Classic.Decls (parseConstDecl)
 
-import Parser.GenClassicConstDecls
+import Parser.Classic.Gen.ConstDecls
   ( ValidConstDecl(..)
   , InvalidConstDecl(..)
   )

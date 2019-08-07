@@ -1,10 +1,10 @@
-import qualified Parser.ClassicIdentsTests as CIT
-import qualified Parser.ClassicTextLitsTests as CTLT
-import qualified Parser.ClassicLitsTests as CLT
-import qualified Parser.ClassicTypesTests as CTT
-import qualified Parser.ClassicExprsTests as CET
-import qualified Parser.ClassicConstDeclsTests as CCDT
-import qualified Parser.ClassicVarDeclsTests as CVDT
+import qualified Parser.Classic.Test.Idents as CIT
+import qualified Parser.Classic.Test.TextLits as CTLT
+import qualified Parser.Classic.Test.Lits as CLT
+import qualified Parser.Classic.Test.Types as CTT
+import qualified Parser.Classic.Test.Exprs as CET
+import qualified Parser.Classic.Test.ConstDecls as CCDT
+import qualified Parser.Classic.Test.VarDecls as CVDT
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
 

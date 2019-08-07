@@ -1,11 +1,11 @@
-module Parser.GenClassicTypes
+module Parser.Classic.Gen.Types
   ( ValidType(..)
   , InvalidType(..)
   ) where
 
 import Ast (Type(..))
 
-import Parser.ClassicTypes (types)
+import Parser.Classic.Types (types)
 
 import Parser.GenCommon (token)
 

@@ -1,11 +1,11 @@
-module Parser.GenClassicTextLits
+module Parser.Classic.Gen.TextLits
   ( ValidTextLit(..)
   , InvalidTextLit(..)
   ) where
 
 import Ast (Lit(LChar, LString))
 
-import Parser.ClassicTextLits
+import Parser.Classic.TextLits
   ( escSeqAny_to_C
   , escSeqOct_to_C
   , escSeqUp_to_C

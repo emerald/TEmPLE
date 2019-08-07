@@ -1,9 +1,9 @@
-module Parser.ClassicIdentsTests where
+module Parser.Classic.Test.Idents where
 
 import Parser.Common (fullParse, parse)
-import Parser.ClassicIdents (reserved, parseIdent)
+import Parser.Classic.Idents (reserved, parseIdent)
 
-import Parser.GenClassicIdents (ValidIdent(..), InvalidIdent(..))
+import Parser.Classic.Gen.Idents (ValidIdent(..), InvalidIdent(..))
 
 import Control.Monad (forM_)
 import Test.Tasty (TestTree, testGroup)

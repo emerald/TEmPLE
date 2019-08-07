@@ -1,4 +1,4 @@
-module Parser.GenClassicLits
+module Parser.Classic.Gen.Lits
   ( ValidLit(..)
   , InvalidLit(..)
   ) where
@@ -6,8 +6,8 @@ module Parser.GenClassicLits
 import Ast (Lit(..))
 
 import Parser.GenCommon (token)
-import Parser.GenClassicNumLits
-import Parser.GenClassicTextLits
+import Parser.Classic.Gen.NumLits
+import Parser.Classic.Gen.TextLits
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen

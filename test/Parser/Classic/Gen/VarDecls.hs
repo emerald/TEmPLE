@@ -1,4 +1,4 @@
-module Parser.GenClassicVarDecls
+module Parser.Classic.Gen.VarDecls
   ( ValidVarDecl(..)
   , InvalidVarDecl(..)
   ) where
@@ -6,15 +6,15 @@ module Parser.GenClassicVarDecls
 import Ast ( VarDecl(..) )
 
 import Parser.GenCommon ( genValidInvalid, invalidOp1, validOp1 )
-import Parser.GenClassicDecls
+import Parser.Classic.Gen.Decls
   ( ValidDecl(..)
   , validDeclString, invalidDeclString
   )
-import Parser.GenClassicIdents
+import Parser.Classic.Gen.Idents
   ( ValidIdent(..)
   , validIdentString, invalidIdentString
   )
-import Parser.GenClassicIdentLists
+import Parser.Classic.Gen.IdentLists
   ( invalidIdentListString, validIdentListString
   , ValidIdentList(..)
   )

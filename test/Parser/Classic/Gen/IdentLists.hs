@@ -1,4 +1,4 @@
-module Parser.GenClassicIdentLists
+module Parser.Classic.Gen.IdentLists
   ( invalidIdentListString, validIdentListString
   , InvalidIdentList(..), ValidIdentList(..)
   ) where
@@ -6,7 +6,7 @@ module Parser.GenClassicIdentLists
 import Ast ( Ident )
 
 import Parser.GenCommon ( genValidInvalid, invalidOp, validOp )
-import Parser.GenClassicIdents
+import Parser.Classic.Gen.Idents
   ( ValidIdent(..)
   , validIdentString, invalidIdentString
   )

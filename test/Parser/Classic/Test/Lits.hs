@@ -1,9 +1,9 @@
-module Parser.ClassicLitsTests (testTree) where
+module Parser.Classic.Test.Lits (testTree) where
 
 import Parser.Common (fullParse)
-import Parser.ClassicLits (parseLit)
+import Parser.Classic.Lits (parseLit)
 
-import Parser.GenClassicLits (ValidLit(..), InvalidLit(..))
+import Parser.Classic.Gen.Lits (ValidLit(..), InvalidLit(..))
 
 import Control.Monad (forM_)
 import Test.Tasty (TestTree, testGroup)

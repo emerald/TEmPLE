@@ -1,4 +1,4 @@
-module Parser.GenClassicExprs
+module Parser.Classic.Gen.Exprs
   ( ValidExpr(..)
   , InvalidExpr(..)
   , validExprString
@@ -6,11 +6,11 @@ module Parser.GenClassicExprs
 
 import Ast (Expr(..))
 import Parser.Common (fullParse)
-import Parser.ClassicLits (parseLit)
+import Parser.Classic.Lits (parseLit)
 
 import Parser.GenCommon (token)
-import Parser.GenClassicLits (ValidLit(..))
-import Parser.GenClassicIdents (ValidIdent(..), InvalidIdent(..))
+import Parser.Classic.Gen.Lits (ValidLit(..))
+import Parser.Classic.Gen.Idents (ValidIdent(..), InvalidIdent(..))
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen

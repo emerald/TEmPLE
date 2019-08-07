@@ -1,4 +1,4 @@
-module Parser.GenClassicConstDecls
+module Parser.Classic.Gen.ConstDecls
   ( ValidConstDecl(..)
   , InvalidConstDecl(..)
   ) where
@@ -6,11 +6,11 @@ module Parser.GenClassicConstDecls
 import Ast ( ConstDecl(..) )
 
 import Parser.GenCommon ( genValidInvalid, invalidOp1, validOp1 )
-import Parser.GenClassicDecls
+import Parser.Classic.Gen.Decls
   ( ValidDecl(..)
   , invalidDeclString, validDeclString
   )
-import Parser.GenClassicIdents
+import Parser.Classic.Gen.Idents
   ( ValidIdent(..)
   , invalidIdentString, validIdentString
   )

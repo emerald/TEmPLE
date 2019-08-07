@@ -1,10 +1,10 @@
-module Parser.ClassicVarDeclsTests (testTree) where
+module Parser.Classic.Test.VarDecls (testTree) where
 
 import Parser.Common (fullParse, parse)
-import Parser.Classic (parser)
-import Parser.ClassicDecls (parseVarDecl)
+import Parser.Classic.Parser (parser)
+import Parser.Classic.Decls (parseVarDecl)
 
-import Parser.GenClassicVarDecls
+import Parser.Classic.Gen.VarDecls
   ( ValidVarDecl(..)
   , InvalidVarDecl(..)
   )

@@ -1,4 +1,4 @@
-module Parser.GenClassicNumLits
+module Parser.Classic.Gen.NumLits
   ( ValidNumLit(..)
   , InvalidNumLit(..)
   ) where

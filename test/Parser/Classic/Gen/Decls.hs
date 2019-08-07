@@ -1,4 +1,4 @@
-module Parser.GenClassicDecls
+module Parser.Classic.Gen.Decls
   ( InvalidDecl(..), ValidDecl(..)
   , invalidDeclString, validDeclString
   ) where
@@ -6,8 +6,8 @@ module Parser.GenClassicDecls
 import Ast ( Expr, Type )
 
 import Parser.GenCommon ( genValidInvalid, invalidOp, validOp )
-import Parser.GenClassicTypes ( ValidType(..), InvalidType(..) )
-import Parser.GenClassicExprs
+import Parser.Classic.Gen.Types ( ValidType(..), InvalidType(..) )
+import Parser.Classic.Gen.Exprs
   ( ValidExpr(..), InvalidExpr(..)
   , validExprString
   )
