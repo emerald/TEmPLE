@@ -7,6 +7,10 @@
 -- Maintainer  :  oleks@oleks.info
 --
 -- A module listing the reserved words in classical Emerald.
+--
+-- Classical Emerald makes a distinction between reserved literals
+-- (e.g., `nil`) and keywords (e.g., `object`) — so do we.
+
 module Parser.Classic.Words
   ( Keywords(..)
   , Literals(..)
@@ -29,6 +33,7 @@ instance Show Literals where
 allLiterals :: [Literals]
 allLiterals = [minBound..maxBound]
 
+-- | The list of reserved literals.
 literals :: [String]
 literals = map show allLiterals
 
@@ -66,8 +71,10 @@ instance Show Keywords where
 allKeywords :: [Keywords]
 allKeywords = [minBound..maxBound]
 
+-- | The list of reserved keywords.
 keywords :: [String]
 keywords = map show allKeywords
 
+-- | The complete list of reserved words.
 reserved :: [String]
 reserved = literals ++ keywords
