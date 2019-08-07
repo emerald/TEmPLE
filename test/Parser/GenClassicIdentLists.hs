@@ -6,21 +6,14 @@ module Parser.GenClassicIdentLists
 import Ast ( Ident )
 
 import Parser.GenCommon ( genValidInvalid, invalidOp, validOp )
-import Parser.GenClassicDecls
-  ( ValidDecl(..)
-  , validDeclString, invalidDeclString
-  )
 import Parser.GenClassicIdents
-  ( ValidIdent(..), InvalidIdent(..)
+  ( ValidIdent(..)
   , validIdentString, invalidIdentString
   )
 
-import Control.Monad ( liftM2 )
-import Data.List ( intercalate )
-
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, frequency, listOf, shrink, sized
+  , arbitrary, listOf, shrink, sized
   )
 
 newtype ValidIdentList
