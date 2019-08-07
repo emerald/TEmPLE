@@ -12,10 +12,9 @@ import Parser.GenClassicExprs
   , validExprString
   )
 
-import Control.Applicative ( (<*>) )
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, choose, oneof, shuffle, suchThat
+  , arbitrary, oneof
   )
 
 newtype ValidDecl
