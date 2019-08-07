@@ -9,18 +9,13 @@ import Parser.ClassicTextLits
   ( escSeqAny_to_C
   , escSeqOct_to_C
   , escSeqUp_to_C
-  , isAnyChar
   , isSimpleCChar
   , isSimpleSChar
   )
 import Parser.Common (fullParse)
 
-import Control.Monad (liftM)
-import Data.Char (showLitChar)
-import Numeric (showOct)
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , getNonNegative
   , arbitrary, shrink
   , choose, elements, oneof
   , listOf, suchThat, vectorOf
