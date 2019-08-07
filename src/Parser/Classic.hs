@@ -1,3 +1,13 @@
+-----------------------------------------------------------------------------
+-- |
+-- Module      :  TEmPLE.Parser.Classic
+-- Copyright   :  (c) Oleks Shturmov
+-- License     :  BSD 3-Clause (see the file LICENSE)
+--
+-- Maintainer  :  oleks@oleks.info
+--
+-- A parser for classical Emerald; no funny business.
+
 module Parser.Classic
   ( ParseError
   , parseString
