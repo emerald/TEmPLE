@@ -39,7 +39,7 @@ skipFilling =
   do s <- look
      skip s
  where
-  skip ('%':s)           = (void $ manyTill anyChar (char '\n')) >> skipFilling
+  skip ('%':_)           = (void $ manyTill anyChar (char '\n')) >> skipFilling
   skip (c:s) | isSpace c = do _ <- get; skip s
   skip _                 = do return ()
 
