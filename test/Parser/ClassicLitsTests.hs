@@ -1,6 +1,6 @@
 module Parser.ClassicLitsTests (testTree) where
 
-import Parser.Common (fullParse, parse)
+import Parser.Common (fullParse)
 import Parser.ClassicLits (parseLit)
 
 import Parser.GenClassicLits (ValidLit(..), InvalidLit(..))
