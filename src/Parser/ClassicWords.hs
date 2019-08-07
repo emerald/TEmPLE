@@ -32,17 +32,31 @@ literals = map show allLits
 
 data WKeywords
   = WAttached
+  | WAwaiting
+  | WCodeOf
   | WConst
   | WEnd
+  | WIsFixed
+  | WIsLocal
+  | WLocate
   | WObject
+  | WTypeOf
+  | WSynTypeOf
   | WVar
   deriving (Bounded, Enum)
 
 instance Show WKeywords where
   show WAttached  = "attached"
+  show WAwaiting  = "awaiting"
   show WConst     = "const"
+  show WCodeOf    = "codeof"
   show WEnd       = "end"
+  show WIsFixed   = "isfixed"
+  show WIsLocal   = "islocal"
+  show WLocate    = "locate"
   show WObject    = "object"
+  show WTypeOf    = "typeof"
+  show WSynTypeOf = "syntactictypeof"
   show WVar       = "var"
 
 allKeywords :: [WKeywords]

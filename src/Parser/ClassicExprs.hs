@@ -7,6 +7,7 @@ import Ast (Expr(..))
 import Parser.Common (token, stoken, word)
 import Parser.ClassicIdents (parseIdent)
 import Parser.ClassicLits (parseLit)
+import Parser.ClassicWords (WKeywords(..))
 import Parser.Types (Parser, parseObject)
 
 import Text.ParserCombinators.ReadP (ReadP, between, chainl1, choice)
@@ -27,16 +28,16 @@ parseExpr9 p = choice
 
 prec8 :: [(String, Expr -> Expr)]
 prec8
-  = [ ("-",         ENegate)
-    , ("~",         ENegate)
-    , ("locate",    ELocate)
-    , ("isfixed",   EIsFixed)
-    , ("islocal",   EIsLocal)
-    , ("awaiting",  EAwaiting)
-    , ("codeof",    ECodeOf)
-    , ("nameof",    ENameOf)
-    , ("typeof",    ETypeOf)
-    , ("syntactictypeof",  ESynTypeOf)
+  = [ ("-", ENegate)
+    , ("~", ENegate)
+    , (show WLocate,    ELocate)
+    , (show WIsFixed,   EIsFixed)
+    , (show WIsLocal,   EIsLocal)
+    , (show WAwaiting,  EAwaiting)
+    , (show WCodeOf,    ECodeOf)
+    , (show WNameOf,    ENameOf)
+    , (show WTypeOf,    ETypeOf)
+    , (show WSynTypeOf, ESynTypeOf)
     ]
 
 parseExpr8 :: Parser -> ReadP Expr
