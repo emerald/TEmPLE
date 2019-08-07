@@ -9,14 +9,10 @@ import Parser.GenCommon (token)
 import Parser.GenClassicNumLits
 import Parser.GenClassicTextLits
 
-import Control.Applicative (liftA2)
-import Data.Char (isDigit, isOctDigit)
-import Numeric (showFFloat, showHex, showInt, showOct)
 import Test.Tasty.QuickCheck
-  ( Arbitrary, Gen, getNonNegative
-  , arbitrary, shrink
-  , choose, elements, frequency
-  , listOf, oneof, shuffle, sized, suchThat
+  ( Arbitrary, Gen
+  , arbitrary
+  , elements, frequency
   )
 
 newtype ValidLit
