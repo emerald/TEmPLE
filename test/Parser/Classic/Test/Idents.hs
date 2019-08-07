@@ -1,4 +1,6 @@
-module Parser.Classic.Test.Idents where
+module Parser.Classic.Test.Idents
+  ( testTree
+  ) where
 
 import Parser.Common (fullParse, parse)
 import Parser.Classic.Idents (reserved, parseIdent)
