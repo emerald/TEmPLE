@@ -1,4 +1,4 @@
-module Parser.Classic.Parser where
+module Parser.Classic where
 
 import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')

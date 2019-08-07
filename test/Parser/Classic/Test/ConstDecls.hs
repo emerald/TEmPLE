@@ -1,7 +1,7 @@
 module Parser.Classic.Test.ConstDecls (testTree) where
 
 import Parser.Common (fullParse, parse)
-import Parser.Classic.Parser (parser)
+import Parser.Classic (parser)
 import Parser.Classic.Decls (parseConstDecl)
 
 import Parser.Classic.Gen.ConstDecls

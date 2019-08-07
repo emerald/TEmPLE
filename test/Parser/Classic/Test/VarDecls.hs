@@ -1,7 +1,7 @@
 module Parser.Classic.Test.VarDecls (testTree) where
 
 import Parser.Common (fullParse, parse)
-import Parser.Classic.Parser (parser)
+import Parser.Classic (parser)
 import Parser.Classic.Decls (parseVarDecl)
 
 import Parser.Classic.Gen.VarDecls
