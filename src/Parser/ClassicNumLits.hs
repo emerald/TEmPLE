@@ -6,7 +6,7 @@ import Ast (Lit(LInt, LDouble))
 
 import Parser.Common (token)
 
-import Control.Applicative ((*>), (<*))
+import Control.Applicative ((*>))
 import Data.Char (isDigit)
 import Numeric (readDec, readFloat, readHex, readOct)
 import Text.ParserCombinators.ReadP
