@@ -12,12 +12,6 @@ import Parser.Types (Parser, parseObject)
 
 import Text.ParserCombinators.ReadP (ReadP, between, chainl1, choice)
 
-unzipWith :: (a -> b -> c) -> [(a, b)] -> [c]
-unzipWith f pairs = map ( \ (a, b) -> f a b ) pairs
-
-stokena :: String -> a -> ReadP a
-stokena s a = stoken s *> return a
-
 parseExpr9 :: Parser -> ReadP Expr
 parseExpr9 p = choice
   [ fmap ELit parseLit
