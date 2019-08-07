@@ -39,6 +39,7 @@ data WKeywords
   | WIsFixed
   | WIsLocal
   | WLocate
+  | WNameOf
   | WObject
   | WTypeOf
   | WSynTypeOf
@@ -54,6 +55,7 @@ instance Show WKeywords where
   show WIsFixed   = "isfixed"
   show WIsLocal   = "islocal"
   show WLocate    = "locate"
+  show WNameOf    = "nameof"
   show WObject    = "object"
   show WTypeOf    = "typeof"
   show WSynTypeOf = "syntactictypeof"
