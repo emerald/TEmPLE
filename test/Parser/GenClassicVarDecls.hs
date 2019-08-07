@@ -49,6 +49,7 @@ newtype InvalidVarDecl
   = InvalidVarDecl { invalidVarDecl :: String }
   deriving (Eq, Show)
 
+validInvalid :: [(Gen String, Gen String)]
 validInvalid =
   [ (validKeyword         , invalidKeyword)
   , (validIdentString     , invalidIdentString)
