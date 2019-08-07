@@ -7,19 +7,17 @@ import Ast ( ConstDecl(..) )
 
 import Parser.GenCommon ( genValidInvalid, invalidOp1, validOp1 )
 import Parser.GenClassicDecls
-  ( InvalidDecl(..), ValidDecl(..)
+  ( ValidDecl(..)
   , invalidDeclString, validDeclString
   )
 import Parser.GenClassicIdents
-  ( ValidIdent(..), InvalidIdent(..)
+  ( ValidIdent(..)
   , invalidIdentString, validIdentString
   )
 
-import Control.Monad ( liftM2 )
-
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, frequency
+  , arbitrary
   )
 
 newtype ValidConstDecl

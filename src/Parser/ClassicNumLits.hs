@@ -7,6 +7,7 @@ import Ast (Lit(LInt, LDouble))
 import Parser.Common (token)
 
 import Control.Applicative ((*>))
+import Control.Monad (void)
 import Data.Char (isDigit)
 import Numeric (readDec, readFloat, readHex, readOct)
 import Text.ParserCombinators.ReadP
@@ -29,7 +30,7 @@ parseOctHex
 
 parseFractional :: String -> ReadP Lit
 parseFractional integral = do
-  string "."
+  void $ string "."
   fractional <- munch1 isDigit
   let float = integral ++ "." ++ fractional
   return $ (LDouble . fst . head) $ readFloat float
