@@ -58,10 +58,6 @@ instance Arbitrary ValidIdent where
                         else []
     let shrunkenIdent = shrinkIdent name
     return $ ValidIdent (text, name, shrunkenText ++ shrunkenIdent)
-    where
-      vanillaIdent :: Char -> String -> ValidIdent
-      vanillaIdent first rest =
-        let name = first:rest in ValidIdent (name, name, [])
 
   shrink (ValidIdent (_, _, is)) = is
 
