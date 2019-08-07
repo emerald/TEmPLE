@@ -11,7 +11,7 @@ import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
   , get, look
-  , char, choice, eof, manyTill, munch1, pfail, satisfy, skipSpaces
+  , char, choice, eof, manyTill, munch1, pfail, satisfy
   , readP_to_S
   )
 
