@@ -11,17 +11,17 @@ import Parser.GenClassicDecls
   , validDeclString, invalidDeclString
   )
 import Parser.GenClassicIdents
-  ( ValidIdent(..), InvalidIdent(..)
+  ( ValidIdent(..)
   , validIdentString, invalidIdentString
   )
 import Parser.GenClassicIdentLists
   ( invalidIdentListString, validIdentListString
-  , InvalidIdentList(..), ValidIdentList(..)
+  , ValidIdentList(..)
   )
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, frequency, listOf
+  , arbitrary
   )
 
 newtype ValidVarDecl
