@@ -45,15 +45,15 @@ shrinkIdent name =
     where
       vanillaIdent :: Char -> String -> ValidIdent
       vanillaIdent first rest =
-        let name = first:rest in ValidIdent (name, name, [])
+        let name' = first:rest in ValidIdent (name', name', [])
 
 instance Arbitrary ValidIdent where
   arbitrary = do
     name <- flip suchThat (not . (`elem` reserved)) $
       liftA2 (:) (elements firstChars) (listOf (elements restChars))
-    tail <- spaces
-    let text = name ++ tail
-    let shrunkenText =  if length tail > 0
+    whitespace <- spaces
+    let text = name ++ whitespace
+    let shrunkenText =  if length whitespace > 0
                         then [ValidIdent (name, name, [])]
                         else []
     let shrunkenIdent = shrinkIdent name
