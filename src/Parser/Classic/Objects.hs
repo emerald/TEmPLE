@@ -1,11 +1,11 @@
-module Parser.ClassicObjects
+module Parser.Classic.Objects
   ( parseObject
   ) where
 
 import Ast (Object(..))
 import Parser.Common (stoken, stoken1)
-import Parser.ClassicIdents (parseIdent)
-import Parser.ClassicWords (WKeywords(WObject, WEnd))
+import Parser.Classic.Idents (parseIdent)
+import Parser.Classic.Words (WKeywords(WObject, WEnd))
 import Parser.Types (Parser, parseAttDecl)
 
 import Control.Monad (void)

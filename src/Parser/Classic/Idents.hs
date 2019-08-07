@@ -1,4 +1,4 @@
-module Parser.ClassicIdents
+module Parser.Classic.Idents
   ( firstChars
   , restChars
   , reserved
@@ -7,7 +7,7 @@ module Parser.ClassicIdents
 
 import Ast (Ident)
 import Parser.Common (token)
-import Parser.ClassicWords (reserved)
+import Parser.Classic.Words (reserved)
 
 import Control.Applicative (liftA2)
 import Control.Monad (mfilter)

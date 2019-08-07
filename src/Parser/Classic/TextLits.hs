@@ -1,4 +1,4 @@
-module Parser.ClassicTextLits
+module Parser.Classic.TextLits
   ( escSeqAny_to_C
   , escSeqOct_to_C
   , escSeqUp_to_C

@@ -1,4 +1,4 @@
-module Parser.ClassicDecls
+module Parser.Classic.Decls
   ( parseAttDecl
   , parseConstDecl
   , parseVarDecl
@@ -7,11 +7,11 @@ module Parser.ClassicDecls
 
 import Ast (ConstDecl(..), Decl(..), Expr, Type, VarDecl(..))
 import Parser.Common (stoken, stoken1, token)
-import Parser.ClassicAttached (parseAttached)
-import Parser.ClassicIdents (parseIdent)
-import Parser.ClassicTypes (parseType)
-import Parser.ClassicExprs (parseExpr)
-import Parser.ClassicWords (WKeywords(WConst, WVar))
+import Parser.Classic.Attached (parseAttached)
+import Parser.Classic.Idents (parseIdent)
+import Parser.Classic.Types (parseType)
+import Parser.Classic.Exprs (parseExpr)
+import Parser.Classic.Words (WKeywords(WConst, WVar))
 import Parser.Types (Parser)
 
 import Control.Applicative ((*>))

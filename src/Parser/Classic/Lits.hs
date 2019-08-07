@@ -1,13 +1,13 @@
-module Parser.ClassicLits
+module Parser.Classic.Lits
   ( parseLit
   ) where
 
 import Ast (Lit(LNil, LBool))
 
 import Parser.Common (word)
-import Parser.ClassicWords (WLits(..))
-import Parser.ClassicNumLits (parseNumLit)
-import Parser.ClassicTextLits (parseTextLit)
+import Parser.Classic.Words (WLits(..))
+import Parser.Classic.NumLits (parseNumLit)
+import Parser.Classic.TextLits (parseTextLit)
 
 import Text.ParserCombinators.ReadP (ReadP, choice)
 

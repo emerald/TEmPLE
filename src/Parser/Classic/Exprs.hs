@@ -1,13 +1,13 @@
-module Parser.ClassicExprs
+module Parser.Classic.Exprs
   ( parseExpr
   , prec5, prec6, prec7, prec8
   ) where
 
 import Ast (Expr(..))
 import Parser.Common (stoken, word)
-import Parser.ClassicIdents (parseIdent)
-import Parser.ClassicLits (parseLit)
-import Parser.ClassicWords (WKeywords(..))
+import Parser.Classic.Idents (parseIdent)
+import Parser.Classic.Lits (parseLit)
+import Parser.Classic.Words (WKeywords(..))
 import Parser.Types (Parser, parseObject)
 
 import Text.ParserCombinators.ReadP

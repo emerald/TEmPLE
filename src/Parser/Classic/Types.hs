@@ -1,4 +1,4 @@
-module Parser.ClassicTypes
+module Parser.Classic.Types
   ( types
   , parseType
   ) where

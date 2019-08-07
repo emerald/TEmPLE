@@ -7,7 +7,7 @@
 -- Maintainer  :  oleks@oleks.info
 --
 -- A module listing the reserved words in classical Emerald.
-module Parser.ClassicWords
+module Parser.Classic.Words
   ( WKeywords(..)
   , WLits(..)
   , literals, keywords, reserved

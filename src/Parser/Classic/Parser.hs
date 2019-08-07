@@ -1,9 +1,9 @@
-module Parser.Classic where
+module Parser.Classic.Parser where
 
 import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
-import Parser.ClassicObjects (parseObject)
-import Parser.ClassicDecls
+import Parser.Classic.Objects (parseObject)
+import Parser.Classic.Decls
   ( parseAttDecl
   , parseConstDecl
   , parseVarDecl
