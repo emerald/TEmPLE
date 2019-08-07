@@ -8,60 +8,62 @@
 --
 -- A module listing the reserved words in classical Emerald.
 module Parser.Classic.Words
-  ( WKeywords(..)
-  , WLits(..)
+  ( Keywords(..)
+  , Literals(..)
   , literals, keywords, reserved
   ) where
 
-data WLits
-  = WNil
-  | WTrue
-  | WFalse
+import Prelude hiding (True, False)
+
+data Literals
+  = Nil
+  | True
+  | False
   deriving (Bounded, Enum)
 
-instance Show WLits where
-  show WNil   = "nil"
-  show WTrue  = "true"
-  show WFalse = "false"
+instance Show Literals where
+  show Nil   = "nil"
+  show True  = "true"
+  show False = "false"
 
-allLits :: [WLits]
-allLits = [minBound..maxBound]
+allLiterals :: [Literals]
+allLiterals = [minBound..maxBound]
 
 literals :: [String]
-literals = map show allLits
+literals = map show allLiterals
 
-data WKeywords
-  = WAttached
-  | WAwaiting
-  | WCodeOf
-  | WConst
-  | WEnd
-  | WIsFixed
-  | WIsLocal
-  | WLocate
-  | WNameOf
-  | WObject
-  | WTypeOf
-  | WSynTypeOf
-  | WVar
+data Keywords
+  = Attached
+  | Awaiting
+  | CodeOf
+  | Const
+  | End
+  | IsFixed
+  | IsLocal
+  | Locate
+  | NameOf
+  | Object
+  | TypeOf
+  | SynTypeOf
+  | Var
   deriving (Bounded, Enum)
 
-instance Show WKeywords where
-  show WAttached  = "attached"
-  show WAwaiting  = "awaiting"
-  show WConst     = "const"
-  show WCodeOf    = "codeof"
-  show WEnd       = "end"
-  show WIsFixed   = "isfixed"
-  show WIsLocal   = "islocal"
-  show WLocate    = "locate"
-  show WNameOf    = "nameof"
-  show WObject    = "object"
-  show WTypeOf    = "typeof"
-  show WSynTypeOf = "syntactictypeof"
-  show WVar       = "var"
+instance Show Keywords where
+  show Attached  = "attached"
+  show Awaiting  = "awaiting"
+  show Const     = "const"
+  show CodeOf    = "codeof"
+  show End       = "end"
+  show IsFixed   = "isfixed"
+  show IsLocal   = "islocal"
+  show Locate    = "locate"
+  show NameOf    = "nameof"
+  show Object    = "object"
+  show TypeOf    = "typeof"
+  show SynTypeOf = "syntactictypeof"
+  show Var       = "var"
 
-allKeywords :: [WKeywords]
+allKeywords :: [Keywords]
 allKeywords = [minBound..maxBound]
 
 keywords :: [String]

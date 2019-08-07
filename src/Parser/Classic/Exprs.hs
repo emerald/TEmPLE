@@ -7,8 +7,10 @@ import Ast (Expr(..))
 import Parser.Common (stoken, word)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Lits (parseLit)
-import Parser.Classic.Words (WKeywords(..))
 import Parser.Types (Parser, parseObject)
+
+import qualified Parser.Classic.Words as W
+  ( Keywords(..) )
 
 import Text.ParserCombinators.ReadP
   ( ReadP
@@ -27,14 +29,14 @@ prec8 :: [(String, Expr -> Expr)]
 prec8
   = [ ("-", ENegate)
     , ("~", ENegate)
-    , (show WLocate,    ELocate)
-    , (show WIsFixed,   EIsFixed)
-    , (show WIsLocal,   EIsLocal)
-    , (show WAwaiting,  EAwaiting)
-    , (show WCodeOf,    ECodeOf)
-    , (show WNameOf,    ENameOf)
-    , (show WTypeOf,    ETypeOf)
-    , (show WSynTypeOf, ESynTypeOf)
+    , (show W.Locate,    ELocate)
+    , (show W.IsFixed,   EIsFixed)
+    , (show W.IsLocal,   EIsLocal)
+    , (show W.Awaiting,  EAwaiting)
+    , (show W.CodeOf,    ECodeOf)
+    , (show W.NameOf,    ENameOf)
+    , (show W.TypeOf,    ETypeOf)
+    , (show W.SynTypeOf, ESynTypeOf)
     ]
 
 parseExpr8 :: Parser -> ReadP Expr
