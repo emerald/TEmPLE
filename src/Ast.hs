@@ -25,7 +25,9 @@ data Object
   = Object
   { objectName :: Ident
   , objectDecls :: [(Bool, Decl)]
-  , objectInitially :: (Maybe [DeclStat])
+  , objectInitially :: Maybe BlockBody
+  , objectProcess   :: Maybe BlockBody
+  , objectRecovery  :: Maybe BlockBody
   }
   deriving (Eq, Ord, Show)
 
@@ -33,6 +35,8 @@ data DeclStat
   = Decl Decl
   | Move Expr Expr
   deriving (Eq, Ord, Show)
+
+type BlockBody = [DeclStat]
 
 data Expr
   = ELit Lit

@@ -54,6 +54,8 @@ data Keywords
   | NameOf
   | Object
   | Or
+  | Process
+  | Recovery
   | Restrict
   | SynTypeOf
   | To
@@ -77,6 +79,8 @@ instance Show Keywords where
   show NameOf    = "nameof"
   show Object    = "object"
   show Or        = "or"
+  show Process   = "process"
+  show Recovery  = "recovery"
   show Restrict  = "restrict"
   show SynTypeOf = "syntactictypeof"
   show To        = "to"
