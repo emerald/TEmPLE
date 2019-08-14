@@ -52,6 +52,17 @@ data Expr
   | ELeq Expr Expr
   | EGt Expr Expr
   | EGeq Expr Expr
+  -- Precedence 4:
+  | ENeg Expr
+  -- Precedence 3:
+  | EAnd Expr Expr
+  | EShortAnd Expr Expr
+  -- Precedence 2:
+  | EOr Expr Expr
+  | EShortOr Expr Expr
+  -- Precedence 1:
+  | EViewAs Expr Expr
+  | ERestrictTo Expr Expr
   deriving (Eq, Ord, Show)
 
 newtype ConstDecl

@@ -38,7 +38,9 @@ literals :: [String]
 literals = map show allLiterals
 
 data Keywords
-  = Attached
+  = And
+  | As
+  | Attached
   | Awaiting
   | CodeOf
   | Const
@@ -48,12 +50,18 @@ data Keywords
   | Locate
   | NameOf
   | Object
+  | Or
+  | Restrict
   | SynTypeOf
+  | To
   | TypeOf
   | Var
+  | View
   deriving (Bounded, Enum)
 
 instance Show Keywords where
+  show And       = "and"
+  show As        = "as"
   show Attached  = "attached"
   show Awaiting  = "awaiting"
   show Const     = "const"
@@ -64,9 +72,13 @@ instance Show Keywords where
   show Locate    = "locate"
   show NameOf    = "nameof"
   show Object    = "object"
+  show Or        = "or"
+  show Restrict  = "restrict"
   show SynTypeOf = "syntactictypeof"
+  show To        = "to"
   show TypeOf    = "typeof"
   show Var       = "var"
+  show View      = "view"
 
 allKeywords :: [Keywords]
 allKeywords = [minBound..maxBound]
