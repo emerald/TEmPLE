@@ -17,6 +17,7 @@ data Lit
   | LString String
   | LBool Bool
   | LNil
+  | LSelf
   deriving (Eq, Ord, Show)
 
 data Object

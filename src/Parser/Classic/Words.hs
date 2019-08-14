@@ -21,12 +21,14 @@ import Prelude hiding (True, False)
 
 data Literals
   = Nil
+  | Self
   | True
   | False
   deriving (Bounded, Enum)
 
 instance Show Literals where
   show Nil   = "nil"
+  show Self  = "self"
   show True  = "true"
   show False = "false"
 
