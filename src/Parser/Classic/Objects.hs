@@ -33,6 +33,9 @@ data ObjectTail
   | NoTail
   deriving (Eq, Ord)
 
+parseTail :: (ReadP BlockBody, ReadP BlockBody, ReadP BlockBody,
+              (Maybe BlockBody, Maybe BlockBody, Maybe BlockBody))
+             -> ReadP (Maybe BlockBody, Maybe BlockBody, Maybe BlockBody)
 parseTail (p1, p2, p3, r @ (r1, r2, r3)) = do
   b <- choice
     [ fmap Initially  p1
