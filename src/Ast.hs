@@ -47,6 +47,7 @@ data Expr
   -- Precedence 5:
   | EEq Expr Expr
   | ENeq Expr Expr
+  | EConfTo Expr Expr
   | ELt Expr Expr
   | ELeq Expr Expr
   | EGt Expr Expr

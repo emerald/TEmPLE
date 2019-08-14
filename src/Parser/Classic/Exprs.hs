@@ -68,6 +68,7 @@ prec5 :: [(String, Expr -> Expr -> Expr)]
 prec5
   = [ ("=",  EEq)
     , ("!=", ENeq)
+    , ("*>", EConfTo)
     , ("<",  ELt)
     , ("<=", ELeq)
     , (">",  EGt)
