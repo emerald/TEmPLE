@@ -27,7 +27,7 @@ library:
   - -Wall
 
 executables:
-  Emerald-exe:
+  emerald:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
