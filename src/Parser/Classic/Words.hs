@@ -48,8 +48,8 @@ data Keywords
   | Locate
   | NameOf
   | Object
-  | TypeOf
   | SynTypeOf
+  | TypeOf
   | Var
   deriving (Bounded, Enum)
 
@@ -64,8 +64,8 @@ instance Show Keywords where
   show Locate    = "locate"
   show NameOf    = "nameof"
   show Object    = "object"
-  show TypeOf    = "typeof"
   show SynTypeOf = "syntactictypeof"
+  show TypeOf    = "typeof"
   show Var       = "var"
 
 allKeywords :: [Keywords]
