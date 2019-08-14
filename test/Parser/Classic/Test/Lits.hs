@@ -1,6 +1,7 @@
 module Parser.Classic.Test.Lits (testTree) where
 
 import Parser.Common (fullParse)
+import Parser.Classic (parser)
 import Parser.Classic.Lits (parseLit)
 
 import Parser.Classic.Gen.Lits (ValidLit(..), InvalidLit(..))
@@ -21,15 +22,15 @@ spec_invalidLits :: Spec
 spec_invalidLits = do
   forM_ invalidLits $ \ lit ->
     it (printf "%s is an invalid literal" lit) $
-      fullParse parseLit lit `shouldBe` []
+      fullParse (parseLit parser) lit `shouldBe` []
 
 prop_validLit :: ValidLit -> Property
 prop_validLit (ValidLit (s, e, _))
-  = fullParse parseLit s === [e]
+  = fullParse (parseLit parser) s === [e]
 
 prop_invalidLit :: InvalidLit -> Property
 prop_invalidLit (InvalidLit s)
-  = fullParse parseLit s === []
+  = fullParse (parseLit parser) s === []
 
 testTree :: IO TestTree
 testTree = fmap (testGroup "ClassicLitsTests") $ sequence

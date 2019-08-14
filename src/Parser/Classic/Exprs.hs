@@ -8,7 +8,7 @@ import Ast (Expr(..))
 import Parser.Common (stoken, stoken1, word)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Lits (parseLit)
-import Parser.Types (Parser, parseObject)
+import Parser.Types (Parser)
 
 import qualified Parser.Classic.Words as W
   ( Keywords(..) )
@@ -20,9 +20,8 @@ import Text.ParserCombinators.ReadP
 
 parseExpr9 :: Parser -> ReadP Expr
 parseExpr9 p = choice
-  [ fmap ELit parseLit
+  [ fmap ELit $ parseLit p
   , fmap EVar parseIdent
-  , fmap EObj (parseObject p)
   , between (stoken "(") (stoken ")") (parseExpr p)
   ]
 

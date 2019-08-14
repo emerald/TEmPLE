@@ -6,6 +6,7 @@ module Parser.Classic.Gen.Exprs
 
 import Ast (Expr(..))
 import Parser.Common (fullParse)
+import Parser.Classic (parser)
 import Parser.Classic.Lits (parseLit)
 import Parser.Classic.Exprs (prec8, prec7, prec6, prec5)
 
@@ -104,4 +105,4 @@ newtype InvalidExpr = InvalidExpr { invalidExpr :: String }
 instance Arbitrary InvalidExpr where
   arbitrary = fmap InvalidExpr $ do
     suchThat (fmap invalidIdent arbitrary) $
-      \ s -> length (fullParse parseLit s) == 0
+      \ s -> length (fullParse (parseLit parser) s) == 0

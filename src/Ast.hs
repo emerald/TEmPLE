@@ -18,6 +18,7 @@ data Lit
   | LBool Bool
   | LNil
   | LSelf
+  | LObj Object
   deriving (Eq, Ord, Show)
 
 data Object
@@ -36,7 +37,6 @@ data DeclStat
 data Expr
   = ELit Lit
   | EVar Ident
-  | EObj Object
   -- Precedence 8:
   | ENegate Expr
   | ELocate Expr

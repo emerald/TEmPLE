@@ -2,11 +2,12 @@ module Parser.Classic.Lits
   ( parseLit
   ) where
 
-import Ast (Lit(LNil, LBool, LSelf))
+import Ast (Lit(LNil, LBool, LSelf, LObj))
 
 import Parser.Common (word)
 import Parser.Classic.NumLits (parseNumLit)
 import Parser.Classic.TextLits (parseTextLit)
+import Parser.Types (Parser, parseObject)
 
 import qualified Parser.Classic.Words as W
   ( Literals(..) )
@@ -25,11 +26,12 @@ parseBool = word
   , (show W.False, LBool False )
   ]
 
-parseLit :: ReadP Lit
-parseLit = choice
+parseLit :: Parser -> ReadP Lit
+parseLit p = choice
   [ parseNil
   , parseSelf
   , parseBool
+  , fmap LObj $ parseObject p
   , parseNumLit
   , parseTextLit
   ]
