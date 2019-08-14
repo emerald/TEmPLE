@@ -1,5 +1,6 @@
 module Parser.Classic.Exprs
   ( parseExpr
+  , prec2, prec3, prec4
   , prec5, prec6, prec7, prec8
   ) where
 
