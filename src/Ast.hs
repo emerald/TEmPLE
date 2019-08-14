@@ -20,7 +20,16 @@ data Lit
   deriving (Eq, Ord, Show)
 
 data Object
-  = Object Ident [(Bool, Decl)]
+  = Object
+  { objectName :: Ident
+  , objectDecls :: [(Bool, Decl)]
+  , objectInitially :: (Maybe [DeclStat])
+  }
+  deriving (Eq, Ord, Show)
+
+data DeclStat
+  = Decl Decl
+  | Move Expr Expr
   deriving (Eq, Ord, Show)
 
 data Expr

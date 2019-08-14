@@ -45,6 +45,7 @@ data Keywords
   | CodeOf
   | Const
   | End
+  | Initially
   | IsFixed
   | IsLocal
   | Locate
@@ -67,6 +68,7 @@ instance Show Keywords where
   show Const     = "const"
   show CodeOf    = "codeof"
   show End       = "end"
+  show Initially = "initially"
   show IsFixed   = "isfixed"
   show IsLocal   = "islocal"
   show Locate    = "locate"
