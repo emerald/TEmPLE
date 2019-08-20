@@ -5,7 +5,7 @@ module Parser.Classic.Exprs
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (stoken, stoken1, word)
+import Parser.Common (prefixInfix, stoken, stoken1, word)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Lits (parseLit)
 import Parser.Types (Parser)
@@ -107,15 +107,10 @@ prec2
 parseExpr2 :: Parser -> ReadP Expr
 parseExpr2 p = chainl1 (parseExpr3 p) $ word prec2
 
-binExpr :: Show a =>
-  (Expr -> Expr -> Expr) -> a -> a -> ReadP Expr -> ReadP Expr
-binExpr f w1 w2 p
-  = stoken1 (show w1) *> fmap f p <* stoken1 (show w2) <*> p
-
 parseExpr1 :: Parser -> ReadP Expr
 parseExpr1 p = choice
-  [ binExpr EViewAs     W.View      W.As (parseExpr1 p)
-  , binExpr ERestrictTo W.Restrict  W.To (parseExpr1 p)
+  [ prefixInfix EViewAs     W.View      W.As (parseExpr1 p)
+  , prefixInfix ERestrictTo W.Restrict  W.To (parseExpr1 p)
   , parseExpr2 p
   ]
 
