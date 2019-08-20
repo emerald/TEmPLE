@@ -5,7 +5,7 @@ module Parser.Classic.Objects
 import Ast (Object(..), BlockBody)
 import Parser.Common (stoken, stoken1)
 import Parser.Classic.Idents (parseIdent)
-import Parser.DeclStats (parseDeclStat)
+import Parser.Classic.DeclStats (parseDeclStat)
 import Parser.Types (Parser, parseAttDecl)
 
 import qualified Parser.Classic.Words as W
