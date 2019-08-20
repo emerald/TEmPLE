@@ -46,9 +46,9 @@ parseDeclStat p = choice
   , prefix      Signal  W.Signal      pe
   , prefix      Wait    W.Wait        pe
   , word1
-    [ (W.Checkpoint,    Checkpoint)
-    , (W.Return,        Return)
-    , (W.ReturnAndFail, ReturnAndFail)
+    [ (show W.Checkpoint,    Checkpoint)
+    , (show W.Return,        Return)
+    , (show W.ReturnAndFail, ReturnAndFail)
     ]
   ]
   where
@@ -57,4 +57,7 @@ parseDeclStat p = choice
 
 parseCompound :: Parser -> ReadP DeclStat
 parseCompound p = fmap Compound $
-  between (stoken1 W.Begin) (stoken1 W.End) (many $ parseDecl p)
+  between
+    (stoken1 $ show W.Begin)
+    (stoken1 $ show W.End)
+    (many $ parseDecl p)
