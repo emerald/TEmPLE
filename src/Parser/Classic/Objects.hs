@@ -5,7 +5,6 @@ module Parser.Classic.Objects
 import Ast (Object(..), BlockBody)
 import Parser.Common (stoken, stoken1)
 import Parser.Classic.Idents (parseIdent)
-import Parser.Classic.DeclStats (parseDeclStat)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Types (Parser, parseAttDecl)
 
