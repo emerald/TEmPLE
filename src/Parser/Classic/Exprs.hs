@@ -5,7 +5,7 @@ module Parser.Classic.Exprs
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (prefixInfix, stoken, stoken1, word)
+import Parser.Common (prefixInfix, stoken, word)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Lits (parseLit)
 import Parser.Types (Parser)
