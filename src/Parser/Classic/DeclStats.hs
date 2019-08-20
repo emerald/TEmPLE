@@ -60,4 +60,4 @@ parseCompound p = fmap Compound $
   between
     (stoken1 $ show W.Begin)
     (stoken1 $ show W.End)
-    (many $ parseDecl p)
+    (many $ parseDeclStat p)
