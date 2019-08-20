@@ -45,7 +45,9 @@ parseDeclStat p = choice
     , (W.ReturnAndFail, ReturnAndFail)
     ]
   ]
-  where pe = parseExpr p
+  where
+    pe :: ReadP Expr
+    pe = parseExpr p
 
 parseCompound :: Parser -> ReadP DeclStat
 parseCompound p = fmap Compound $
