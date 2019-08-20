@@ -24,6 +24,8 @@ import Parser.Classic.Decls
   , parseVarDecl
   , parseDecl
   )
+import Parser.Classic.DeclStats (parseDeclStat)
+import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Types (Parser(Parser))
 
 import Control.Applicative ((*>))
@@ -32,7 +34,14 @@ import Text.ParserCombinators.ReadP (ReadP, many)
 type ParseError = ParseErrorImpl [ConstDecl]
 
 parser :: Parser
-parser = Parser parseObject parseAttDecl parseConstDecl parseVarDecl parseDecl
+parser = Parser
+  parseObject
+  parseAttDecl
+  parseConstDecl
+  parseVarDecl
+  parseDecl
+  parseDeclStat
+  parseBlockBody
 
 parseProgram :: ReadP [ConstDecl]
 parseProgram = skipFilling *> many (parseConstDecl parser)

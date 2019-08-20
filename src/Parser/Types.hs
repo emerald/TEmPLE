@@ -5,9 +5,11 @@ module Parser.Types
   , parseVarDecl
   , parseDecl
   , parseObject
+  , parseDeclStat
+  , parseBlockBody
   ) where
 
-import Ast (Object, ConstDecl, VarDecl, Decl)
+import Ast (Object, ConstDecl, BlockBody, VarDecl, Decl, DeclStat)
 
 import Text.ParserCombinators.ReadP (ReadP)
 
@@ -18,6 +20,8 @@ data Parser
   , parseConstDecl' :: Parser -> ReadP ConstDecl
   , parseVarDecl' :: Parser -> ReadP VarDecl
   , parseDecl' :: Parser -> ReadP Decl
+  , parseDeclStat' :: Parser -> ReadP DeclStat
+  , parseBlockBody' :: Parser -> ReadP BlockBody
   }
 
 parse :: (Parser -> Parser -> ReadP a) -> Parser -> ReadP a
@@ -37,3 +41,9 @@ parseDecl = parse parseDecl'
 
 parseObject :: Parser -> ReadP Object
 parseObject = parse parseObject'
+
+parseDeclStat :: Parser -> ReadP DeclStat
+parseDeclStat = parse parseDeclStat'
+
+parseBlockBody :: Parser -> ReadP BlockBody
+parseBlockBody = parse parseBlockBody'

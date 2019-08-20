@@ -6,6 +6,7 @@ import Ast (DeclStat(..), Expr)
 
 import Parser.Common (prefix, prefixInfix, stoken1, word1)
 import Parser.Classic.Exprs (parseExpr)
+import Parser.Classic.BlockBody (parseBlockBody)
 
 import qualified Parser.Classic.Words as W
   ( Keywords
@@ -60,4 +61,4 @@ parseCompound p = fmap Compound $
   between
     (stoken1 $ show W.Begin)
     (stoken1 $ show W.End)
-    (many $ parseDeclStat p)
+    (parseBlockBody p)

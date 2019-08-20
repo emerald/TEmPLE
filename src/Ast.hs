@@ -46,7 +46,12 @@ data DeclStat
   | Wait Expr
   deriving (Eq, Ord, Show)
 
-type BlockBody = [DeclStat]
+newtype BlockBody = BlockBody
+  ( [DeclStat]
+  , Maybe (Maybe Ident, [DeclStat])
+  , Maybe [DeclStat]
+  )
+  deriving (Eq, Ord, Show)
 
 data Expr
   = ELit Lit

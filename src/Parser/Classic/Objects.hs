@@ -6,6 +6,7 @@ import Ast (Object(..), BlockBody)
 import Parser.Common (stoken, stoken1)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.DeclStats (parseDeclStat)
+import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Types (Parser, parseAttDecl)
 
 import qualified Parser.Classic.Words as W
@@ -53,7 +54,7 @@ parseTail (p1, p2, p3, r @ (r1, r2, r3)) = do
 parseBlock :: Show w => w -> Parser -> ReadP BlockBody
 parseBlock w p =
   stoken1 (show w) *>
-  many (parseDeclStat p) <*
+  parseBlockBody p <*
   stoken1 (show W.End) <*
   stoken1 (show w)
 
