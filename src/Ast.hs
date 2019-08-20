@@ -41,7 +41,9 @@ data DeclStat
   | RefixAt Expr Expr
   | Return
   | ReturnAndFail
+  | Signal Expr
   | Unfix Expr
+  | Wait Expr
   deriving (Eq, Ord, Show)
 
 type BlockBody = [DeclStat]
