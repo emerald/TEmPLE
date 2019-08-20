@@ -42,51 +42,71 @@ literals = map show allLiterals
 data Keywords
   = And
   | As
+  | Assert
   | Attached
   | Awaiting
+  | Checkpoint
   | CodeOf
   | Const
   | End
+  | Fix
   | Initially
   | IsFixed
   | IsLocal
   | Locate
+  | Move
   | NameOf
   | Object
   | Or
   | Process
   | Recovery
+  | Refix
   | Restrict
+  | Return
+  | ReturnAndFail
+  | Signal
   | SynTypeOf
   | To
   | TypeOf
+  | Unfix
   | Var
   | View
+  | Wait
   deriving (Bounded, Enum)
 
 instance Show Keywords where
   show And       = "and"
   show As        = "as"
+  show Assert    = "assert"
   show Attached  = "attached"
   show Awaiting  = "awaiting"
+  show Checkpoint = "checkpoint"
   show Const     = "const"
   show CodeOf    = "codeof"
   show End       = "end"
+  show Fix       = "fix"
   show Initially = "initially"
   show IsFixed   = "isfixed"
   show IsLocal   = "islocal"
   show Locate    = "locate"
+  show Move      = "move"
   show NameOf    = "nameof"
   show Object    = "object"
   show Or        = "or"
   show Process   = "process"
   show Recovery  = "recovery"
+  show Refix     = "refix"
   show Restrict  = "restrict"
+  show Return    = "return"
+  show ReturnAndFail = "returnandfail"
+  show Signal    = "signal"
   show SynTypeOf = "syntactictypeof"
   show To        = "to"
   show TypeOf    = "typeof"
+  show Unfix     = "unfix"
   show Var       = "var"
   show View      = "view"
+  show Wait      = "wait"
 
 allKeywords :: [Keywords]
 allKeywords = [minBound..maxBound]

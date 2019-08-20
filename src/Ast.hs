@@ -33,7 +33,14 @@ data Object
 
 data DeclStat
   = Decl Decl
-  | Move Expr Expr
+  | Assert Expr
+  | Checkpoint
+  | FixAt Expr Expr
+  | MoveTo Expr Expr
+  | RefixAt Expr Expr
+  | Return
+  | ReturnAndFail
+  | Unfix Expr
   deriving (Eq, Ord, Show)
 
 type BlockBody = [DeclStat]
