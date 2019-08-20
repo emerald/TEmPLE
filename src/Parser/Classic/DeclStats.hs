@@ -2,9 +2,9 @@ module Parser.Classic.DeclStats
   ( parseDeclStat
   ) where
 
-import Ast (DeclStat(..))
+import Ast (DeclStat(..), Expr)
 
-import Parser.Common (prefix, prefixInfix)
+import Parser.Common (prefix, prefixInfix, stoken1, word1)
 import Parser.Classic.Exprs (parseExpr)
 
 import qualified Parser.Classic.Words as W
@@ -28,7 +28,7 @@ import qualified Parser.Classic.Words as W
 
 import Parser.Types (Parser, parseDecl)
 
-import Text.ParserCombinators.ReadP (ReadP, choice)
+import Text.ParserCombinators.ReadP (ReadP, between, choice, many)
 
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat p = choice
