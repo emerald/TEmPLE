@@ -60,11 +60,11 @@ word = choice . map (\(w, a) -> stoken w *> return a)
 word1 :: [(String, a)] -> ReadP a
 word1 = choice . map (\(w, a) -> stoken1 w *> return a)
 
-prefix :: Show w => (a -> a) -> w -> ReadP a -> ReadP a
+prefix :: Show w => (a -> b) -> w -> ReadP a -> ReadP b
 prefix f w p = stoken1 (show w) *> fmap f p
 
 prefixInfix :: Show w =>
-  (a -> a -> a) -> w -> w -> ReadP a -> ReadP a
+  (a -> a -> b) -> w -> w -> ReadP a -> ReadP b
 prefixInfix f w1 w2 p
   = stoken1 (show w1) *> fmap f p <* stoken1 (show w2) <*> p
 
