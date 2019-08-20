@@ -2,10 +2,11 @@ module Parser.Classic.Objects
   ( parseObject
   ) where
 
-import Ast (Object(..), DeclStat(..), BlockBody)
+import Ast (Object(..), BlockBody)
 import Parser.Common (stoken, stoken1)
 import Parser.Classic.Idents (parseIdent)
-import Parser.Types (Parser, parseAttDecl, parseDecl)
+import Parser.DeclStats (parseDeclStat)
+import Parser.Types (Parser, parseAttDecl)
 
 import qualified Parser.Classic.Words as W
   ( Keywords(Object, End, Initially, Process, Recovery) )
@@ -52,7 +53,7 @@ parseTail (p1, p2, p3, r @ (r1, r2, r3)) = do
 parseBlock :: Show w => w -> Parser -> ReadP BlockBody
 parseBlock w p =
   stoken1 (show w) *>
-  parseDeclStats p <*
+  many (parseDeclStat p) <*
   stoken1 (show W.End) <*
   stoken1 (show w)
 
@@ -64,6 +65,3 @@ parseProcess = parseBlock W.Process
 
 parseRecovery :: Parser -> ReadP BlockBody
 parseRecovery = parseBlock W.Recovery
-
-parseDeclStats :: Parser -> ReadP BlockBody
-parseDeclStats p = many $ fmap Decl $ parseDecl p
