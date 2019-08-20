@@ -2,7 +2,8 @@ module Parser.Common
   ( ParseErrorImpl
   , fullParse, parse
   , prefix, prefixInfix
-  , skipFilling, stoken, stoken1, token, word
+  , skipFilling, stoken, stoken1, token
+  , word, word1
   , parseFile', parseString'
   ) where
 
@@ -55,6 +56,9 @@ stoken1 s = string s >> munch1 isSpace >> skipFilling
 
 word :: [(String, a)] -> ReadP a
 word = choice . map (\(w, a) -> stoken w *> return a)
+
+word1 :: [(String, a)] -> ReadP a
+word1 = choice . map (\(w, a) -> stoken1 w *> return a)
 
 prefix :: Show w => (a -> a) -> w -> ReadP a -> ReadP a
 prefix f w p = stoken1 (show w) *> fmap f p
