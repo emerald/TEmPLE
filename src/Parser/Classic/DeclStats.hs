@@ -10,10 +10,16 @@ import Parser.Classic.Exprs (parseExpr)
 import qualified Parser.Classic.Words as W
   ( Keywords
     ( Assert
+    , At
+    , Begin
+    , Checkpoint
+    , End
     , Fix
     , Move
     , To
     , Refix
+    , Return
+    , ReturnAndFail
     , Signal
     , Unfix
     , Wait
