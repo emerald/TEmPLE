@@ -35,6 +35,7 @@ data DeclStat
   = Decl Decl
   | Assert Expr
   | Checkpoint
+  | Compound BlockBody
   | FixAt Expr Expr
   | MoveTo Expr Expr
   | RefixAt Expr Expr

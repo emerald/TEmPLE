@@ -27,6 +27,7 @@ import Text.ParserCombinators.ReadP (ReadP, choice)
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat p = choice
   [ fmap Decl $ parseDecl p
+  , parseCompound p
   , prefix      Assert  W.Assert      pe
 
   -- Location-Related Statements
@@ -45,3 +46,7 @@ parseDeclStat p = choice
     ]
   ]
   where pe = parseExpr p
+
+parseCompound :: Parser -> ReadP DeclStat
+parseCompound p = fmap Compound $
+  between (stoken1 W.Begin) (stoken1 W.End) (many $ parseDecl p)

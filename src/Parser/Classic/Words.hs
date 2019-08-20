@@ -45,6 +45,7 @@ data Keywords
   | Assert
   | Attached
   | Awaiting
+  | Begin
   | Checkpoint
   | CodeOf
   | Const
@@ -80,6 +81,7 @@ instance Show Keywords where
   show Assert    = "assert"
   show Attached  = "attached"
   show Awaiting  = "awaiting"
+  show Begin     = "begin"
   show Checkpoint = "checkpoint"
   show Const     = "const"
   show CodeOf    = "codeof"
