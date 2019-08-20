@@ -51,6 +51,7 @@ data Keywords
   | CodeOf
   | Const
   | End
+  | Failure
   | Fix
   | Initially
   | IsFixed
@@ -70,6 +71,7 @@ data Keywords
   | SynTypeOf
   | To
   | TypeOf
+  | Unavailable
   | Unfix
   | Var
   | View
@@ -88,6 +90,7 @@ instance Show Keywords where
   show Const     = "const"
   show CodeOf    = "codeof"
   show End       = "end"
+  show Failure   = "failure"
   show Fix       = "fix"
   show Initially = "initially"
   show IsFixed   = "isfixed"
@@ -107,6 +110,7 @@ instance Show Keywords where
   show SynTypeOf = "syntactictypeof"
   show To        = "to"
   show TypeOf    = "typeof"
+  show Unavailable = "unavailable"
   show Unfix     = "unfix"
   show Var       = "var"
   show View      = "view"
