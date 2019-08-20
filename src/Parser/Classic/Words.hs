@@ -43,6 +43,7 @@ data Keywords
   = And
   | As
   | Assert
+  | At
   | Attached
   | Awaiting
   | Begin
@@ -79,6 +80,7 @@ instance Show Keywords where
   show And       = "and"
   show As        = "as"
   show Assert    = "assert"
+  show At        = "at"
   show Attached  = "attached"
   show Awaiting  = "awaiting"
   show Begin     = "begin"
