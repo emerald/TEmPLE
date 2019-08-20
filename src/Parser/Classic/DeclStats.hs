@@ -29,7 +29,7 @@ import qualified Parser.Classic.Words as W
 
 import Parser.Types (Parser, parseDecl)
 
-import Text.ParserCombinators.ReadP (ReadP, between, choice, many)
+import Text.ParserCombinators.ReadP (ReadP, between, choice)
 
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat p = choice
