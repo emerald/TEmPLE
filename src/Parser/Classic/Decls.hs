@@ -8,7 +8,7 @@ module Parser.Classic.Decls
 import Ast (ConstDecl(..), Decl(..), Expr, Type, VarDecl(..))
 import Parser.Common (stoken, stoken1, token)
 import Parser.Classic.Attached (parseAttached)
-import Parser.Classic.Idents (parseIdent)
+import Parser.Classic.Idents (parseIdent, parseIdentList)
 import Parser.Classic.Types (parseType)
 import Parser.Classic.Exprs (parseExpr)
 import Parser.Types (Parser)
@@ -18,7 +18,7 @@ import qualified Parser.Classic.Words as W
 
 import Control.Applicative ((*>))
 import qualified Control.Applicative as App
-import Text.ParserCombinators.ReadP (ReadP, choice, many)
+import Text.ParserCombinators.ReadP (ReadP, choice)
 
 parseDeclTypeExpr :: Parser -> ReadP (Maybe Type, Expr)
 parseDeclTypeExpr p = do
@@ -36,8 +36,7 @@ parseConstDecl p = do
 parseVarDecl :: Parser -> ReadP VarDecl
 parseVarDecl p = do
   stoken1 (show W.Var)
-  i <- parseIdent
-  is <- many (stoken "," *> parseIdent)
+  (i, is) <- parseIdentList
   (t, e) <- parseDeclTypeExpr p
   return $ Var (i, is, t, e)
 
