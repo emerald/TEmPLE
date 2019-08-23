@@ -6,6 +6,7 @@ import Ast (DeclStat(..), Expr)
 
 import Parser.Common (prefix, prefixInfix, stoken1, word1)
 import Parser.Classic.Exprs (parseExpr)
+import Parser.Classic.Assign (parseAssign)
 import Parser.Classic.BlockBody (parseBlockBody)
 
 import qualified Parser.Classic.Words as W
@@ -34,6 +35,7 @@ import Text.ParserCombinators.ReadP (ReadP, between, choice)
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat p = choice
   [ fmap Decl $ parseDecl p
+  , parseAssign p
   , parseCompound p
   , prefix      Assert  W.Assert      pe
 

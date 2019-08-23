@@ -34,6 +34,7 @@ data Object
 data DeclStat
   = Decl Decl
   | Assert Expr
+  | Assign ((Ident, [Ident]), (Expr, [Expr]))
   | Checkpoint
   | Compound BlockBody
   | FixAt Expr Expr

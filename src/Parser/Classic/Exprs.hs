@@ -1,11 +1,11 @@
 module Parser.Classic.Exprs
-  ( parseExpr
+  ( parseExpr, parseExprList
   , prec2, prec3, prec4
   , prec5, prec6, prec7, prec8
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (prefixInfix, stoken, word)
+import Parser.Common (commaList, prefixInfix, stoken, word)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Lits (parseLit)
 import Parser.Types (Parser)
@@ -116,3 +116,6 @@ parseExpr1 p = choice
 
 parseExpr :: Parser -> ReadP Expr
 parseExpr = parseExpr1
+
+parseExprList :: Parser -> ReadP (Expr, [Expr])
+parseExprList p = commaList $ parseExpr p
