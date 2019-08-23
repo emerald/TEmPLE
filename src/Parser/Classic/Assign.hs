@@ -14,7 +14,7 @@ import Text.ParserCombinators.ReadP (ReadP)
 
 parseAssign :: Parser -> ReadP DeclStat
 parseAssign p = do
-  (i, is) <- parseIdentList
+  il <- parseIdentList
   stoken "<-"
-  (e, es) <- parseExprList p
-  return $ Assign ((i, is), (e, es))
+  el <- parseExprList p
+  return $ Assign (il, el)

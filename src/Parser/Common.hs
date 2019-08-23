@@ -9,6 +9,7 @@ module Parser.Common
   ) where
 
 import Data.Char (isSpace, toUpper, toLower)
+import Data.List.NonEmpty (NonEmpty((:|)))
 import Control.Applicative ((<*), (*>), liftA2)
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
@@ -69,8 +70,8 @@ prefixInfix :: Show w =>
 prefixInfix f w1 w2 p
   = stoken1 (show w1) *> fmap f p <* stoken1 (show w2) <*> p
 
-commaList :: ReadP a -> ReadP (a, [a])
-commaList p = liftA2 (,) p (many (stoken "," *> p))
+commaList :: ReadP a -> ReadP (NonEmpty a)
+commaList p = liftA2 (:|) p (many (stoken "," *> p))
 
 parse :: ReadP a -> String -> [(a, String)]
 parse = readP_to_S

@@ -12,6 +12,7 @@ import Parser.Classic.Words (reserved)
 
 import Control.Applicative (liftA2)
 import Control.Monad (mfilter)
+import Data.List.NonEmpty (NonEmpty)
 import Text.ParserCombinators.ReadP (ReadP, munch, satisfy)
 
 firstChars :: [Char]
@@ -30,5 +31,5 @@ parseIdent :: ReadP Ident
 parseIdent = token $ mfilter (not . (`elem` reserved)) $
   liftA2 (:) (satisfy first) (munch rest)
 
-parseIdentList :: ReadP (Ident, [Ident])
+parseIdentList :: ReadP (NonEmpty Ident)
 parseIdentList = commaList parseIdent

@@ -1,5 +1,7 @@
 module Ast where
 
+import Data.List.NonEmpty (NonEmpty)
+
 type Ident
   = String
 
@@ -34,7 +36,7 @@ data Object
 data DeclStat
   = Decl Decl
   | Assert Expr
-  | Assign ((Ident, [Ident]), (Expr, [Expr]))
+  | Assign ((NonEmpty Ident), (NonEmpty Expr))
   | Checkpoint
   | Compound BlockBody
   | FixAt Expr Expr
@@ -100,7 +102,7 @@ newtype ConstDecl
   deriving (Eq, Ord, Show)
 
 newtype VarDecl
-  = Var (Ident, [Ident], (Maybe Type), Expr)
+  = Var (NonEmpty Ident, (Maybe Type), Expr)
   deriving (Eq, Ord, Show)
 
 data Decl

@@ -13,6 +13,7 @@ import Parser.Types (Parser)
 import qualified Parser.Classic.Words as W
   ( Keywords(..) )
 
+import Data.List.NonEmpty (NonEmpty)
 import Text.ParserCombinators.ReadP
   ( ReadP
   , between, chainl1, choice
@@ -117,5 +118,5 @@ parseExpr1 p = choice
 parseExpr :: Parser -> ReadP Expr
 parseExpr = parseExpr1
 
-parseExprList :: Parser -> ReadP (Expr, [Expr])
+parseExprList :: Parser -> ReadP (NonEmpty Expr)
 parseExprList p = commaList $ parseExpr p

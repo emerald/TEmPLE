@@ -36,9 +36,9 @@ parseConstDecl p = do
 parseVarDecl :: Parser -> ReadP VarDecl
 parseVarDecl p = do
   stoken1 (show W.Var)
-  (i, is) <- parseIdentList
+  il <- parseIdentList
   (t, e) <- parseDeclTypeExpr p
-  return $ Var (i, is, t, e)
+  return $ Var (il, t, e)
 
 parseDecl :: Parser -> ReadP Decl
 parseDecl p = choice
