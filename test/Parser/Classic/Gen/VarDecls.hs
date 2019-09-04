@@ -19,6 +19,8 @@ import Parser.Classic.Gen.IdentLists
   , ValidIdentList(..)
   )
 
+import Data.List.NonEmpty (NonEmpty((:|)))
+
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
   , arbitrary
@@ -43,7 +45,7 @@ instance Arbitrary ValidVarDecl where
     (sn, n, _) <- fmap validIdent arbitrary
     (sns, ns, _) <- fmap validIdentList arbitrary
     (ValidDecl (ste, (t, e))) <- arbitrary
-    return (sk ++ sn ++ sns ++ ste, Var (n, ns, t, e))
+    return (sk ++ sn ++ sns ++ ste, Var (n :| ns, t, e))
 
 newtype InvalidVarDecl
   = InvalidVarDecl { invalidVarDecl :: String }
