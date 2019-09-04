@@ -7,6 +7,7 @@ import Data.List (intercalate)
 import System.Environment (getArgs)
 import System.Exit (exitWith, ExitCode (ExitFailure))
 import System.IO (hPutStrLn, stderr)
+import Text.PrettyPrint.GenericPretty (pp)
 
 errReport :: String -> IO ()
 errReport = hPutStrLn stderr
@@ -47,7 +48,7 @@ main = do
   case args of
     [] -> noCommand
     ("parse" : paths) ->
-      with paths $ putStrLn . show
+      with paths pp
     l -> invalidCommand l
   where
     with :: [FilePath] -> ([Compilation] -> IO ()) -> IO ()
