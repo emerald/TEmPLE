@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module Parser.Common
   ( ParseErrorImpl
   , fullParse, parse
@@ -18,12 +20,15 @@ import Text.ParserCombinators.ReadP
   , char, choice, eof, many, manyTill, munch1, pfail, satisfy
   , readP_to_S
   )
+import Text.PrettyPrint.GenericPretty (Generic, Out)
 
 data ParseErrorImpl a
   = NoParse FilePath
   | AmbiguousGrammar [a] FilePath
   | NotImplemented
-  deriving (Eq, Show)
+  deriving (Eq, Generic, Ord, Show)
+
+instance (Out a) => Out (ParseErrorImpl a)
 
 string :: String -> ReadP String
 -- ^ Case-insensitive variant of ReadP's string

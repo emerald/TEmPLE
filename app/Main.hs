@@ -7,7 +7,7 @@ import Data.List (intercalate)
 import System.Environment (getArgs)
 import System.Exit (exitWith, ExitCode (ExitFailure))
 import System.IO (hPutStrLn, stderr)
-import Text.PrettyPrint.GenericPretty (pp)
+import Text.PrettyPrint.GenericPretty (pp, pretty)
 
 errReport :: String -> IO ()
 errReport = hPutStrLn stderr
@@ -16,7 +16,7 @@ failReport :: String -> IO a
 failReport s = errReport s >> exitWith (ExitFailure 1)
 
 parseError :: ParseError -> IO a
-parseError e = failReport $ show e
+parseError e = failReport $ pretty e
 
 parseOrShowError :: FilePath -> IO Compilation
 parseOrShowError path = do
