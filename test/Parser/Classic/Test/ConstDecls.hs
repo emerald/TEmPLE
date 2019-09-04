@@ -49,7 +49,7 @@ golden' basename =
               Right p' -> pretty p'
     writeFile fout $ ps ++ "\n"
   where
-    prefix = "test/Parser/Classic/golden/"
+    prefix = "golden/Parser/Classic/Decls/"
     name = basename ++ ".m"
     fin = prefix ++ name
     fref = prefix ++ basename ++ ".ref"
