@@ -52,6 +52,8 @@ tests:
     - -Wall
     dependencies:
     - Emerald
+    - GenericPretty >= 1.2.2
     - tasty
     - tasty-hspec >= 1.1
+    - tasty-golden >= 2.3.2
     - tasty-quickcheck
