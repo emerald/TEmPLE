@@ -25,6 +25,8 @@ library:
   source-dirs: src
   ghc-options:
   - -Wall
+  dependencies:
+  - GenericPretty >= 1.2.2
 
 executables:
   emerald:
@@ -37,6 +39,7 @@ executables:
     - -Wall
     dependencies:
     - Emerald
+    - GenericPretty >= 1.2.2
 
 tests:
   Emerald-test:
