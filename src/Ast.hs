@@ -36,7 +36,9 @@ data Object
 data DeclStat
   = Decl Decl
   | Assert Expr
-  | Assign ((NonEmpty Ident), (NonEmpty Expr))
+  | AssignExpr ((NonEmpty Ident), (NonEmpty Expr))
+  | AssignInvoke ((NonEmpty Ident), ProcInvoc)
+  | Invoke ProcInvoc
   | Checkpoint
   | Compound BlockBody
   | FixAt Expr Expr
@@ -47,6 +49,19 @@ data DeclStat
   | Signal Expr
   | Unfix Expr
   | Wait Expr
+  deriving (Eq, Ord, Show)
+
+newtype ProcInvoc = ProcInvoc
+  ( Expr
+  , Ident
+  , [(ArgType, Expr)]
+  )
+  deriving (Eq, Ord, Show)
+
+data ArgType
+  = ArgMove
+  | ArgVisit
+  | ArgSend
   deriving (Eq, Ord, Show)
 
 newtype BlockBody = BlockBody
