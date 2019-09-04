@@ -5,6 +5,7 @@ import qualified Parser.Classic.Test.Types as CTT
 import qualified Parser.Classic.Test.Exprs as CET
 import qualified Parser.Classic.Test.ConstDecls as CCDT
 import qualified Parser.Classic.Test.VarDecls as CVDT
+import qualified Parser.Classic.Test.Assign as CAT
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
@@ -17,6 +18,7 @@ testTree = fmap (testGroup "Classic Parser Tests") $ sequence
   , CET.testTree
   , CCDT.testTree
   , CVDT.testTree
+  , CAT.testTree
   ]
 
 main :: IO ()

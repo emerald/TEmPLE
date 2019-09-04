@@ -1,0 +1,23 @@
+[Const ("x",
+        Nothing,
+        ELit (LObj (Object
+                          {objectName = "x",
+                           objectDecls = [],
+                           objectInitially = Just BlockBody ([AssignExpr ("x" :|
+                                                                          [],
+                                                                          ELit (LInt 5) :|
+                                                                          []),
+                                                              AssignExpr ("x" :|
+                                                                          ["y"],
+                                                                          ELit (LInt 5) :|
+                                                                          [ELit (LInt 6)]),
+                                                              AssignExpr ("x" :|
+                                                                          ["y",
+                                                                           "z"],
+                                                                          ELit (LInt 5) :|
+                                                                          [ELit (LInt 6),
+                                                                           ELit (LInt 7)])],
+                                                             Nothing,
+                                                             Nothing),
+                           objectProcess = Nothing,
+                           objectRecovery = Nothing})))]
