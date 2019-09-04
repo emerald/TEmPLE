@@ -25,9 +25,6 @@ parseOrShowError path = do
     Right compilation -> pure compilation
     Left e -> parseError e
 
-parseFiles :: [FilePath] -> IO [Compilation]
-parseFiles = mapM parseOrShowError
-
 noCommand :: IO a
 noCommand = failReport "Tell me what to do!"
 
@@ -47,9 +44,6 @@ main = do
   args <- getArgs
   case args of
     [] -> noCommand
-    ("parse" : paths) ->
-      with paths pp
+    ["parse", path] ->
+      parseOrShowError path >>= pp
     l -> invalidCommand l
-  where
-    with :: [FilePath] -> ([Compilation] -> IO ()) -> IO ()
-    with paths f = parseFiles paths >>= f
