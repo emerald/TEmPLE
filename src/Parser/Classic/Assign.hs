@@ -4,7 +4,7 @@ module Parser.Classic.Assign
 
 import Ast (DeclStat(AssignExpr, AssignInvoke))
 
-import Parser.Classic.Exprs (parseExprList)
+import Parser.Classic.Exprs (parseExprList, parseExprZeroList)
 import Parser.Classic.Idents (parseIdentList)
 import Parser.Classic.ProcInvocs (parseProcInvoc)
 
@@ -15,7 +15,7 @@ import Text.ParserCombinators.ReadP (ReadP, choice)
 
 parseAssign :: Parser -> ReadP DeclStat
 parseAssign p = do
-  il <- parseIdentList
+  il <- parseExprZeroList p
   stoken "<-"
   choice
     [ parseExprList p >>= return . AssignExpr . ((,) il)

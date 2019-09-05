@@ -1,5 +1,6 @@
 module Parser.Classic.Exprs
   ( parseExpr, parseExprList
+  , parseExprZero, parseExprZeroList
   , prec2, prec3, prec4
   , prec5, prec6, prec7, prec8
   ) where
@@ -18,6 +19,12 @@ import Text.ParserCombinators.ReadP
   ( ReadP
   , between, chainl1, choice
   )
+
+parseExprZero :: Parser -> ReadP Expr
+parseExprZero = parseExpr9
+
+parseExprZeroList :: Parser -> ReadP (NonEmpty Expr)
+parseExprZeroList = commaList . parseExpr
 
 parseExpr9 :: Parser -> ReadP Expr
 parseExpr9 p = choice

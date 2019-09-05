@@ -45,8 +45,8 @@ instance Out Object
 data DeclStat
   = Decl Decl
   | Assert Expr
-  | AssignExpr ((NonEmpty Ident), (NonEmpty Expr))
-  | AssignInvoke ((NonEmpty Ident), ProcInvoc)
+  | AssignExpr ((NonEmpty Expr), (NonEmpty Expr))
+  | AssignInvoke ((NonEmpty Expr), ProcInvoc)
   | Invoke ProcInvoc
   | Checkpoint
   | Compound BlockBody

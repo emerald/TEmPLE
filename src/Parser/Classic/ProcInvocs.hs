@@ -4,7 +4,7 @@ module Parser.Classic.ProcInvocs
 
 import Ast (ArgType(..), ProcInvoc(..), Expr)
 
-import Parser.Classic.Exprs (parseExpr)
+import Parser.Classic.Exprs (parseExpr, parseExprZero)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Operators (parseOperator)
 
@@ -18,7 +18,7 @@ import Text.ParserCombinators.ReadP (ReadP, between, choice)
 
 parseProcInvoc :: Parser -> ReadP ProcInvoc
 parseProcInvoc p = do
-  e <- parseExpr p
+  e <- parseExprZero p
   stoken "."
   op <- choice [ parseIdent, parseOperator ]
   args <- parseArgs p

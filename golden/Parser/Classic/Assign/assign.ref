@@ -3,20 +3,36 @@
         ELit (LObj (Object
                           {objectName = "x",
                            objectDecls = [],
-                           objectInitially = Just BlockBody ([AssignExpr ("x" :|
+                           objectInitially = Just BlockBody ([AssignExpr (EVar "x" :|
                                                                           [],
                                                                           ELit (LInt 5) :|
                                                                           []),
-                                                              AssignExpr ("x" :|
-                                                                          ["y"],
+                                                              AssignExpr (EVar "x" :|
+                                                                          [EVar "y"],
                                                                           ELit (LInt 5) :|
                                                                           [ELit (LInt 6)]),
-                                                              AssignExpr ("x" :|
-                                                                          ["y",
-                                                                           "z"],
+                                                              AssignExpr (EVar "x" :|
+                                                                          [EVar "y",
+                                                                           EVar "z"],
                                                                           ELit (LInt 5) :|
                                                                           [ELit (LInt 6),
-                                                                           ELit (LInt 7)])],
+                                                                           ELit (LInt 7)]),
+                                                              AssignInvoke (EVar "x" :|
+                                                                            [],
+                                                                            ProcInvoc (EVar "foo",
+                                                                                       "x",
+                                                                                       [])),
+                                                              AssignInvoke (EVar "x" :|
+                                                                            [EVar "y"],
+                                                                            ProcInvoc (EVar "bar",
+                                                                                       "xy",
+                                                                                       [])),
+                                                              AssignInvoke (EVar "x" :|
+                                                                            [EVar "y",
+                                                                             EVar "z"],
+                                                                            ProcInvoc (EVar "baz",
+                                                                                       "xyz",
+                                                                                       []))],
                                                              Nothing,
                                                              Nothing),
                            objectProcess = Nothing,
