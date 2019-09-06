@@ -7,7 +7,7 @@ import Parser.TestCommon ( goldenTestAll )
 import Test.Tasty (TestTree, testGroup)
 
 testTree :: IO TestTree
-testTree = fmap (testGroup "ClassicAssignTests") $ sequence
+testTree = fmap (testGroup "ClassicIfThenElseTests") $ sequence
   [ goldenTests
   ]
 
