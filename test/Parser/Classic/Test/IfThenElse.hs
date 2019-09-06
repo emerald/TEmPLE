@@ -13,7 +13,7 @@ testTree = fmap (testGroup "ClassicAssignTests") $ sequence
 
 goldenTests :: TestTree
 goldenTests = testGroup "Golden tests"
-  [ goldenTest p "golden/Parser/Classic/IfThenElse/ifthen"
-  , goldenTest p "golden/Parser/Classic/IfThenElse/elseif"
+  [ goldenTest p ["IfThenElse", "ifthen"]
+  , goldenTest p ["IfThenElse", "elseif"]
   ]
   where p = parseIfThenElse parser

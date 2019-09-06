@@ -37,6 +37,6 @@ testTree = fmap (testGroup "ClassicConstDeclsTests") $ sequence
 
 goldenTests :: TestTree
 goldenTests = testGroup "Golden tests"
-  [ goldenTest p "golden/Parser/Classic/Decls/const"
+  [ goldenTest p ["Decls", "const"]
   ]
   where p = many $ parseConstDecl parser

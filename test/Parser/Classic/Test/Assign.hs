@@ -14,6 +14,6 @@ testTree = fmap (testGroup "ClassicAssignTests") $ sequence
 
 goldenTests :: TestTree
 goldenTests = testGroup "Golden tests"
-  [ goldenTest p "golden/Parser/Classic/Assign/assign"
+  [ goldenTest p ["Assign", "assign"]
   ]
   where p = many $ parseAssign parser
