@@ -50,9 +50,12 @@ data Keywords
   | Checkpoint
   | CodeOf
   | Const
+  | Else
+  | ElseIf
   | End
   | Failure
   | Fix
+  | If
   | Initially
   | IsFixed
   | IsLocal
@@ -69,6 +72,7 @@ data Keywords
   | ReturnAndFail
   | Signal
   | SynTypeOf
+  | Then
   | To
   | TypeOf
   | Unavailable
@@ -89,9 +93,12 @@ instance Show Keywords where
   show Checkpoint = "checkpoint"
   show Const     = "const"
   show CodeOf    = "codeof"
+  show Else      = "else"
+  show ElseIf    = "elseif"
   show End       = "end"
   show Failure   = "failure"
   show Fix       = "fix"
+  show If        = "if"
   show Initially = "initially"
   show IsFixed   = "isfixed"
   show IsLocal   = "islocal"
@@ -108,6 +115,7 @@ instance Show Keywords where
   show ReturnAndFail = "returnandfail"
   show Signal    = "signal"
   show SynTypeOf = "syntactictypeof"
+  show Then      = "then"
   show To        = "to"
   show TypeOf    = "typeof"
   show Unavailable = "unavailable"

@@ -48,6 +48,7 @@ data DeclStat
   | AssignExpr ((NonEmpty Expr), (NonEmpty Expr))
   | AssignInvoke ((NonEmpty Expr), ProcInvoc)
   | Invoke ProcInvoc
+  | IfThenElse ((Expr, [DeclStat]), [(Expr, [DeclStat])], (Maybe [DeclStat]))
   | Checkpoint
   | Compound BlockBody
   | FixAt Expr Expr

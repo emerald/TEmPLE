@@ -1,0 +1,37 @@
+module Parser.Classic.IfThenElse
+  ( parseIfThenElse
+  ) where
+
+import Ast (DeclStat(IfThenElse))
+
+import Parser.Classic.Exprs (parseExpr)
+import Parser.Types (parseDeclStat)
+
+import qualified Parser.Classic.Words as W
+  ( Keywords(Else, ElseIf, End, If, Then) )
+
+import Parser.Common (stoken1)
+import Parser.Types (Parser)
+
+import Control.Applicative (optional)
+import Text.ParserCombinators.ReadP (ReadP, many)
+
+parseIfThenElse :: Parser -> ReadP DeclStat
+parseIfThenElse p = do
+  stoken1 (show W.If)
+  e <- parseExpr p
+  stoken1 (show W.Then)
+  ds <- parseDeclStats
+  elseifs <- many $ do
+    stoken1 (show W.ElseIf)
+    e' <- parseExpr p
+    stoken1 (show W.Then)
+    ds' <- parseDeclStats
+    return (e', ds')
+  else_branch <- optional $
+    (stoken1 $ show W.Else) *> parseDeclStats
+  stoken1 (show W.End)
+  stoken1 (show W.If)
+  return $ IfThenElse ((e, ds), elseifs, else_branch)
+  where
+    parseDeclStats = many $ parseDeclStat p
