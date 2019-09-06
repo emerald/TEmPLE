@@ -52,8 +52,8 @@ tests:
     - -Wall
     dependencies:
     - Emerald
-    - filepath >= 1.4.2.1
     - GenericPretty >= 1.2.1
+    - filepath >= 1.4.2.1
     - tasty
     - tasty-hspec >= 1.1
     - tasty-golden >= 2.3.2
