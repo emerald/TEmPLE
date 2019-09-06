@@ -15,5 +15,6 @@ goldenTests :: TestTree
 goldenTests = testGroup "Golden tests"
   [ goldenTest p ["IfThenElse", "ifthen"]
   , goldenTest p ["IfThenElse", "elseif"]
+  , goldenTest p ["IfThenElse", "ifonly"]
   ]
   where p = parseIfThenElse parser
