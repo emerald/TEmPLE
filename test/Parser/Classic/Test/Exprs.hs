@@ -6,6 +6,8 @@ import Parser.Classic.Exprs (parseExpr)
 
 import Parser.Classic.Gen.Exprs (ValidExpr(..), InvalidExpr(..))
 
+import Parser.TestCommon ( goldenTestAll )
+
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
 
@@ -26,4 +28,9 @@ testTree = fmap (testGroup "ClassicExprsTests") $ sequence
   , return $ testProperty
       "Invalid expressions don't parse"
       prop_invalidExpr
+  , goldenTests
   ]
+
+goldenTests :: IO TestTree
+goldenTests = goldenTestAll p ["Expr"]
+  where p = parseExpr parser
