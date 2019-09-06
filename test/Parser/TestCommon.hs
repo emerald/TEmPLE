@@ -1,16 +1,36 @@
 module Parser.TestCommon
-  ( goldenTest
+  ( goldenTest, goldenTestAll
   ) where
 
 import Parser.Common ( parseFile' )
 
+import System.Directory ( listDirectory )
 import System.FilePath ( (</>) )
 
-import Test.Tasty ( TestTree )
+import Data.List.Utils ( endswith )
+import Data.Maybe ( mapMaybe )
+
+import Test.Tasty ( TestTree, testGroup )
 import Test.Tasty.Golden ( goldenVsFile )
 import Text.PrettyPrint.GenericPretty ( Out, pretty )
 
 import Text.ParserCombinators.ReadP ( ReadP )
+
+fullpath :: [String] -> FilePath
+fullpath = foldl (</>) "golden" . (++) ["Parser", "Classic"]
+
+chooseDotM :: FilePath -> Maybe FilePath
+chooseDotM path =
+  case reverse path of
+    ('m':'.':revbase) -> Just $ reverse revbase
+    _ -> Nothing
+
+goldenTestAll :: (Out a, Show a) => ReadP a -> [String] -> IO TestTree
+goldenTestAll p path = do
+  fs <- listDirectory $ fullpath path
+  let ms = mapMaybe chooseDotM fs
+  let ps = map (\m -> path ++ [m]) ms
+  return $ testGroup "Golden tests" $ map (goldenTest p) ps
 
 goldenTest :: (Out a, Show a) => ReadP a -> [String] -> TestTree
 goldenTest p path =
@@ -21,7 +41,7 @@ goldenTest p path =
               Right p' -> pretty p'
     writeFile fout $ ps ++ "\n"
   where
-    basepath = foldl (</>) "golden" $ ["Parser", "Classic"] ++ path
+    basepath = fullpath path
     fin = basepath ++ ".m"
     fref = basepath ++ ".ref"
     fout =  basepath ++ ".out"

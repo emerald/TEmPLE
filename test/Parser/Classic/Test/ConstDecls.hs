@@ -8,7 +8,7 @@ import Parser.Classic.Gen.ConstDecls
   ( ValidConstDecl(..)
   , InvalidConstDecl(..)
   )
-import Parser.TestCommon ( goldenTest )
+import Parser.TestCommon ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
@@ -32,11 +32,9 @@ testTree = fmap (testGroup "ClassicConstDeclsTests") $ sequence
   , return $ testProperty
       "Invalid constant declarations don't parse"
       prop_invalidConstDecl
-  , return $ goldenTests
+  , goldenTests
   ]
 
-goldenTests :: TestTree
-goldenTests = testGroup "Golden tests"
-  [ goldenTest p ["Decls", "const"]
-  ]
+goldenTests :: IO TestTree
+goldenTests = goldenTestAll p ["ConstDecls"]
   where p = many $ parseConstDecl parser
