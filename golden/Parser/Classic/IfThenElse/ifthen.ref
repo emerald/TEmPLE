@@ -1,17 +1,4 @@
-[Const ("x",
-        Nothing,
-        ELit (LObj (Object
-                          {objectName = "x",
-                           objectDecls = [],
-                           objectInitially = Just BlockBody ([IfThenElse ((EVar "x",
-                                                                           [Invoke (ProcInvoc (EVar "y",
-                                                                                               "x",
-                                                                                               []))]),
-                                                                          [],
-                                                                          Just [Invoke (ProcInvoc (EVar "z",
-                                                                                                   "x",
-                                                                                                   []))])],
-                                                             Nothing,
-                                                             Nothing),
-                           objectProcess = Nothing,
-                           objectRecovery = Nothing})))]
+IfThenElse ((EVar "x",
+             [Invoke (ProcInvoc (EVar "y", "x", []))]),
+            [],
+            Just [Invoke (ProcInvoc (EVar "z", "x", []))])

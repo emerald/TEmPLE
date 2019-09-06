@@ -1,5 +1,7 @@
 module Parser.Classic.Test.IfThenElse (testTree) where
 
+import Parser.Classic ( parser )
+import Parser.Classic.IfThenElse ( parseIfThenElse )
 import Parser.TestCommon ( goldenTest )
 
 import Test.Tasty (TestTree, testGroup)
@@ -11,6 +13,7 @@ testTree = fmap (testGroup "ClassicAssignTests") $ sequence
 
 goldenTests :: TestTree
 goldenTests = testGroup "Golden tests"
-  [ goldenTest "golden/Parser/Classic/IfThenElse/ifthen"
-  , goldenTest "golden/Parser/Classic/IfThenElse/elseif"
+  [ goldenTest p "golden/Parser/Classic/IfThenElse/ifthen"
+  , goldenTest p "golden/Parser/Classic/IfThenElse/elseif"
   ]
+  where p = parseIfThenElse parser

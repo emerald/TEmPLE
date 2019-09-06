@@ -13,6 +13,8 @@ import Parser.TestCommon ( goldenTest )
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
 
+import Text.ParserCombinators.ReadP ( many )
+
 prop_validConstDecl :: ValidConstDecl -> Property
 prop_validConstDecl (ValidConstDecl (s, e))
   = property $
@@ -35,5 +37,6 @@ testTree = fmap (testGroup "ClassicConstDeclsTests") $ sequence
 
 goldenTests :: TestTree
 goldenTests = testGroup "Golden tests"
-  [ goldenTest "golden/Parser/Classic/Decls/const"
+  [ goldenTest p "golden/Parser/Classic/Decls/const"
   ]
+  where p = many $ parseConstDecl parser

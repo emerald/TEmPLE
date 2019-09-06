@@ -2,17 +2,19 @@ module Parser.TestCommon
   ( goldenTest
   ) where
 
-import Parser ( parseFile )
+import Parser.Common ( parseFile' )
 
 import Test.Tasty ( TestTree )
 import Test.Tasty.Golden ( goldenVsFile )
-import Text.PrettyPrint.GenericPretty ( pretty )
+import Text.PrettyPrint.GenericPretty ( Out, pretty )
 
-goldenTest :: String -> TestTree
-goldenTest basename =
+import Text.ParserCombinators.ReadP ( ReadP )
+
+goldenTest :: (Out a, Show a) => ReadP a -> String -> TestTree
+goldenTest p basename =
   goldenVsFile basename fref fout $ do
-    p <- parseFile fin
-    let ps = case p of
+    pres <- parseFile' p fin
+    let ps = case pres of
               Left e -> show e
               Right p' -> pretty p'
     writeFile fout $ ps ++ "\n"
