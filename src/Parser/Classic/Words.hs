@@ -53,6 +53,7 @@ data Keywords
   | Else
   | ElseIf
   | End
+  | Exit
   | Failure
   | Fix
   | If
@@ -80,6 +81,7 @@ data Keywords
   | Var
   | View
   | Wait
+  | When
   deriving (Bounded, Enum)
 
 instance Show Keywords where
@@ -96,6 +98,7 @@ instance Show Keywords where
   show Else      = "else"
   show ElseIf    = "elseif"
   show End       = "end"
+  show Exit      = "exit"
   show Failure   = "failure"
   show Fix       = "fix"
   show If        = "if"
@@ -123,6 +126,7 @@ instance Show Keywords where
   show Var       = "var"
   show View      = "view"
   show Wait      = "wait"
+  show When      = "when"
 
 allKeywords :: [Keywords]
 allKeywords = [minBound..maxBound]

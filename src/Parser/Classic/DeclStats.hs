@@ -8,6 +8,7 @@ import Parser.Common (prefix, prefixInfix, stoken1, word1)
 import Parser.Classic.Exprs (parseExpr)
 import Parser.Classic.Assign (parseAssign)
 import Parser.Classic.BlockBody (parseBlockBody)
+import Parser.Classic.Exit (parseExit)
 import Parser.Classic.IfThenElse (parseIfThenElse)
 import Parser.Classic.ProcInvocs (parseProcInvoc)
 
@@ -40,6 +41,7 @@ parseDeclStat p = choice
   , parseAssign p
   , fmap Invoke $ parseProcInvoc p
   , parseIfThenElse p
+  , parseExit p
   , parseCompound p
   , prefix      Assert  W.Assert      pe
 

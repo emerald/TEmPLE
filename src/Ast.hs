@@ -47,6 +47,7 @@ data DeclStat
   | Assert Expr
   | AssignExpr ((NonEmpty Expr), (NonEmpty Expr))
   | AssignInvoke ((NonEmpty Expr), ProcInvoc)
+  | Exit (Maybe Expr)
   | Invoke ProcInvoc
   | IfThenElse ((Expr, [DeclStat]), [(Expr, [DeclStat])], (Maybe [DeclStat]))
   | Checkpoint
