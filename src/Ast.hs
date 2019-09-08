@@ -42,13 +42,19 @@ data Object
 
 instance Out Object
 
+data AssignOrInvoke
+  = AssignExpr ((NonEmpty Expr), (NonEmpty Expr))
+  | AssignInvoke ((NonEmpty Expr), ProcInvoc)
+  | Invoke ProcInvoc
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out AssignOrInvoke
+
 data DeclStat
   = Decl Decl
   | Assert Expr
-  | AssignExpr ((NonEmpty Expr), (NonEmpty Expr))
-  | AssignInvoke ((NonEmpty Expr), ProcInvoc)
+  | AssignOrInvoke AssignOrInvoke
   | Exit (Maybe Expr)
-  | Invoke ProcInvoc
   | IfThenElse ((Expr, [DeclStat]), [(Expr, [DeclStat])], (Maybe [DeclStat]))
   | Loop [DeclStat]
   | Checkpoint

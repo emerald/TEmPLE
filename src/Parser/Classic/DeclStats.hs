@@ -7,11 +7,10 @@ import Ast (DeclStat(..), Expr)
 
 import Parser.Common (prefix, prefixInfix, stoken1, word1)
 import Parser.Classic.Exprs (parseExpr)
-import Parser.Classic.Assign (parseAssign)
+import Parser.Classic.AssignOrInvoke (parseAssignOrInvoke)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Classic.Loops (parseLoop, parseExit)
 import Parser.Classic.IfThenElse (parseIfThenElse)
-import Parser.Classic.ProcInvocs (parseProcInvoc)
 
 import qualified Parser.Classic.Words as W
   ( Keywords
@@ -39,8 +38,7 @@ import Text.ParserCombinators.ReadP (ReadP, between, choice, many)
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat p = choice
   [ fmap Decl $ parseDecl p
-  , parseAssign p
-  , fmap Invoke $ parseProcInvoc p
+  , parseAssignOrInvoke p
   , parseIfThenElse p
   , parseLoop p
   , parseExit p

@@ -1,4 +1,8 @@
 IfThenElse ((EVar "x",
-             [Invoke (ProcInvoc (EVar "y", "x", []))]),
+             [AssignOrInvoke (Invoke (ProcInvoc (EVar "y",
+                                                 "x",
+                                                 [])))]),
             [],
-            Just [Invoke (ProcInvoc (EVar "z", "x", []))])
+            Just [AssignOrInvoke (Invoke (ProcInvoc (EVar "z",
+                                                     "x",
+                                                     [])))])
