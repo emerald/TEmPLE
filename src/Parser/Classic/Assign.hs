@@ -5,7 +5,6 @@ module Parser.Classic.Assign
 import Ast (DeclStat(AssignExpr, AssignInvoke))
 
 import Parser.Classic.Exprs (parseExprList, parseExprZeroList)
-import Parser.Classic.Idents (parseIdentList)
 import Parser.Classic.ProcInvocs (parseProcInvoc)
 
 import Parser.Common (stoken)
