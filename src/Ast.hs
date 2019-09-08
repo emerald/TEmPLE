@@ -50,6 +50,7 @@ data DeclStat
   | Exit (Maybe Expr)
   | Invoke ProcInvoc
   | IfThenElse ((Expr, [DeclStat]), [(Expr, [DeclStat])], (Maybe [DeclStat]))
+  | Loop [DeclStat]
   | Checkpoint
   | Compound BlockBody
   | FixAt Expr Expr

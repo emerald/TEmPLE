@@ -61,6 +61,7 @@ data Keywords
   | IsFixed
   | IsLocal
   | Locate
+  | Loop
   | Move
   | NameOf
   | Object
@@ -106,6 +107,7 @@ instance Show Keywords where
   show IsFixed   = "isfixed"
   show IsLocal   = "islocal"
   show Locate    = "locate"
+  show Loop      = "loop"
   show Move      = "move"
   show NameOf    = "nameof"
   show Object    = "object"
