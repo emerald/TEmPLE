@@ -1,5 +1,6 @@
 module Parser.Classic.DeclStats
   ( parseDeclStat
+  , parseDeclStats
   ) where
 
 import Ast (DeclStat(..), Expr)
@@ -33,7 +34,7 @@ import qualified Parser.Classic.Words as W
 
 import Parser.Types (Parser, parseDecl)
 
-import Text.ParserCombinators.ReadP (ReadP, between, choice)
+import Text.ParserCombinators.ReadP (ReadP, between, choice, many)
 
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat p = choice
@@ -63,6 +64,9 @@ parseDeclStat p = choice
   where
     pe :: ReadP Expr
     pe = parseExpr p
+
+parseDeclStats :: Parser -> ReadP [DeclStat]
+parseDeclStats = many . parseDeclStat
 
 parseCompound :: Parser -> ReadP DeclStat
 parseCompound p = fmap Compound $

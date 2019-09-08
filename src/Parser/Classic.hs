@@ -24,7 +24,10 @@ import Parser.Classic.Decls
   , parseVarDecl
   , parseDecl
   )
-import Parser.Classic.DeclStats (parseDeclStat)
+import Parser.Classic.DeclStats
+  ( parseDeclStat
+  , parseDeclStats
+  )
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Types (Parser(Parser))
 
@@ -41,6 +44,7 @@ parser = Parser
   parseVarDecl
   parseDecl
   parseDeclStat
+  parseDeclStats
   parseBlockBody
 
 parseProgram :: ReadP [ConstDecl]

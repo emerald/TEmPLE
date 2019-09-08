@@ -6,6 +6,7 @@ module Parser.Types
   , parseDecl
   , parseObject
   , parseDeclStat
+  , parseDeclStats
   , parseBlockBody
   ) where
 
@@ -21,6 +22,7 @@ data Parser
   , parseVarDecl' :: Parser -> ReadP VarDecl
   , parseDecl' :: Parser -> ReadP Decl
   , parseDeclStat' :: Parser -> ReadP DeclStat
+  , parseDeclStats' :: Parser -> ReadP [DeclStat]
   , parseBlockBody' :: Parser -> ReadP BlockBody
   }
 
@@ -44,6 +46,9 @@ parseObject = parse parseObject'
 
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat = parse parseDeclStat'
+
+parseDeclStats :: Parser -> ReadP [DeclStat]
+parseDeclStats = parse parseDeclStats'
 
 parseBlockBody :: Parser -> ReadP BlockBody
 parseBlockBody = parse parseBlockBody'
