@@ -16,7 +16,7 @@ import Control.Applicative ((<*), (*>), liftA2)
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
-  , get, look
+  , eof, get, look
   , char, choice, eof, many, manyTill, munch1, pfail, satisfy
   , readP_to_S
   )
@@ -59,7 +59,10 @@ stoken :: String -> ReadP ()
 stoken = void . token . string
 
 stoken1 :: String -> ReadP ()
-stoken1 s = string s >> munch1 isSpace >> skipFilling
+stoken1 s = string s >> choice
+  [ munch1 isSpace >> skipFilling
+  , eof
+  ]
 
 word :: [(String, a)] -> ReadP a
 word = choice . map (\(w, a) -> stoken w *> return a)
