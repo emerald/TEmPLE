@@ -3,12 +3,10 @@ module Parser.Classic.AssignOrInvoke
   ) where
 
 import Ast
-  ( DeclStat(AssignOrInvoke)
-  , AssignOrInvoke(..)
+  ( AssignOrInvoke(..)
   , ArgType(..), ProcInvoc(..), Expr
   )
 
-import Parser.Classic.Exprs (parseExpr, parseExprZero)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Operators (parseOperator)
 
@@ -24,8 +22,8 @@ import Data.List.NonEmpty (toList)
 import Control.Applicative (liftA2)
 import Text.ParserCombinators.ReadP (ReadP, between, choice)
 
-parseAssignOrInvoke :: Parser -> ReadP DeclStat
-parseAssignOrInvoke p = fmap AssignOrInvoke $ choice
+parseAssignOrInvoke :: Parser -> ReadP AssignOrInvoke
+parseAssignOrInvoke p = choice
   [ parseAssign p
   , fmap Invoke $ parseProcInvoc p
   ]

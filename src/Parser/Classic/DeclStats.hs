@@ -38,7 +38,7 @@ import Text.ParserCombinators.ReadP (ReadP, between, choice, many)
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat p = choice
   [ fmap Decl $ parseDecl p
-  , parseAssignOrInvoke p
+  , fmap AssignOrInvoke $ parseAssignOrInvoke p
   , parseIfThenElse p
   , parseLoop p
   , parseExit p
