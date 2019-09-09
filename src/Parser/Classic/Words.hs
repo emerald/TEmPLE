@@ -47,6 +47,7 @@ data Keywords
   | Attached
   | Awaiting
   | Begin
+  | By
   | Checkpoint
   | CodeOf
   | Const
@@ -55,6 +56,7 @@ data Keywords
   | End
   | Exit
   | Failure
+  | For
   | Fix
   | If
   | Initially
@@ -83,6 +85,7 @@ data Keywords
   | View
   | Wait
   | When
+  | While
   deriving (Bounded, Enum)
 
 instance Show Keywords where
@@ -93,6 +96,7 @@ instance Show Keywords where
   show Attached  = "attached"
   show Awaiting  = "awaiting"
   show Begin     = "begin"
+  show By        = "by"
   show Checkpoint = "checkpoint"
   show Const     = "const"
   show CodeOf    = "codeof"
@@ -102,6 +106,7 @@ instance Show Keywords where
   show Exit      = "exit"
   show Failure   = "failure"
   show Fix       = "fix"
+  show For       = "for"
   show If        = "if"
   show Initially = "initially"
   show IsFixed   = "isfixed"
@@ -129,6 +134,7 @@ instance Show Keywords where
   show View      = "view"
   show Wait      = "wait"
   show When      = "when"
+  show While     = "while"
 
 allKeywords :: [Keywords]
 allKeywords = [minBound..maxBound]

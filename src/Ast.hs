@@ -57,6 +57,8 @@ data DeclStat
   | Exit (Maybe Expr)
   | IfThenElse ((Expr, [DeclStat]), [(Expr, [DeclStat])], (Maybe [DeclStat]))
   | Loop [DeclStat]
+  | For1 AssignOrInvoke Expr AssignOrInvoke [DeclStat]
+  | For2 (Ident, Type, Expr) Expr AssignOrInvoke [DeclStat]
   | Checkpoint
   | Compound BlockBody
   | FixAt Expr Expr

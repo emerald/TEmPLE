@@ -9,7 +9,7 @@ import Parser.Common (prefix, prefixInfix, stoken1, word1)
 import Parser.Classic.Exprs (parseExpr)
 import Parser.Classic.AssignOrInvoke (parseAssignOrInvoke)
 import Parser.Classic.BlockBody (parseBlockBody)
-import Parser.Classic.Loops (parseLoop, parseExit)
+import Parser.Classic.Loops (parseExit, parseFor, parseLoop)
 import Parser.Classic.IfThenElse (parseIfThenElse)
 
 import qualified Parser.Classic.Words as W
@@ -42,6 +42,7 @@ parseDeclStat p = choice
   , parseIfThenElse p
   , parseLoop p
   , parseExit p
+  , parseFor p
   , parseCompound p
   , prefix      Assert  W.Assert      pe
 
