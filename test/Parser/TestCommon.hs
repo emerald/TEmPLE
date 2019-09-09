@@ -7,7 +7,6 @@ import Parser.Common ( parseFile' )
 import System.Directory ( listDirectory )
 import System.FilePath ( (</>) )
 
-import Data.List.Utils ( endswith )
 import Data.Maybe ( mapMaybe )
 
 import Test.Tasty ( TestTree, testGroup )
