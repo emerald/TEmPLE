@@ -3,4 +3,6 @@ For1 (AssignExpr (EVar "x" :| [],
      (ELt (EVar "x") (ELit (LInt 3)))
      (AssignExpr (EVar "x" :| [],
                   EPlus (EVar "x") (ELit (LInt 1)) :| []))
-     []
+     [AssignOrInvoke (Invoke (ProcInvoc (EVar "y",
+                                         "x",
+                                         [])))]

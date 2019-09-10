@@ -54,7 +54,7 @@ parseFor1 p = do
   stop <- parseAssignOrInvoke p
   stoken ")"
   ds <- parseDeclStats p
-  return $ For1 initial cond stop []
+  return $ For1 initial cond stop ds
 
 parseFor2 :: Parser -> ReadP DeclStat
 parseFor2 p = do
