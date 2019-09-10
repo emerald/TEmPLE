@@ -59,11 +59,13 @@ data Keywords
   | For
   | Fix
   | If
+  | Immutable
   | Initially
   | IsFixed
   | IsLocal
   | Locate
   | Loop
+  | Monitor
   | Move
   | NameOf
   | Object
@@ -108,11 +110,13 @@ instance Show Keywords where
   show Fix       = "fix"
   show For       = "for"
   show If        = "if"
+  show Immutable = "immutable"
   show Initially = "initially"
   show IsFixed   = "isfixed"
   show IsLocal   = "islocal"
   show Locate    = "locate"
   show Loop      = "loop"
+  show Monitor   = "monitor"
   show Move      = "move"
   show NameOf    = "nameof"
   show Object    = "object"

@@ -4,6 +4,8 @@ import Parser.Common (fullParse)
 import Parser.Classic (parser)
 import Parser.Classic.Lits (parseLit)
 
+import Parser.TestCommon ( goldenTestAll )
+
 import Parser.Classic.Gen.Lits (ValidLit(..), InvalidLit(..))
 
 import Control.Monad (forM_)
@@ -11,6 +13,8 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hspec (Spec, it, shouldBe, testSpec)
 import Test.Tasty.QuickCheck (Property, (===), testProperty)
 import Text.Printf (printf)
+
+import Text.ParserCombinators.ReadP ( many )
 
 invalidLits :: [String]
 invalidLits =
@@ -41,4 +45,9 @@ testTree = fmap (testGroup "ClassicLitsTests") $ sequence
   , return $ testProperty
       "Invalid lits don't parse"
       prop_invalidLit
+  , goldenTests
   ]
+
+goldenTests :: IO TestTree
+goldenTests = goldenTestAll p ["Lits"]
+  where p = many $ parseLit parser

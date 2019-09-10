@@ -9,13 +9,19 @@ import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Types (Parser, parseAttDecl)
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(Object, End, Initially, Process, Recovery) )
+  ( Keywords(Object, End, Initially, Immutable, Monitor, Process, Recovery) )
 
 import Control.Monad (void)
-import Text.ParserCombinators.ReadP (ReadP, choice, many, pfail)
+import Text.ParserCombinators.ReadP
+  ( ReadP
+  , choice, many, option
+  , pfail
+  )
 
 parseObject :: Parser -> ReadP Object
 parseObject p = do
+  immutable <- option False (stoken1 (show W.Immutable) *> return True)
+  monitor <- option False (stoken1 (show W.Monitor) *> return True)
   name <- (stoken1 (show W.Object) *> parseIdent)
   decls <- many (parseAttDecl p)
   (initially, process, recovery) <- parseTail
@@ -25,7 +31,8 @@ parseObject p = do
     , (Nothing, Nothing, Nothing)
     )
   void (stoken1 (show W.End) >> stoken name)
-  return $ Object name decls initially process recovery
+  return $ Object immutable monitor
+    name decls initially process recovery
 
 data ObjectTail
   = Initially BlockBody

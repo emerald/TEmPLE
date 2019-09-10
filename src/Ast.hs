@@ -33,7 +33,9 @@ instance Out Lit
 
 data Object
   = Object
-  { objectName :: Ident
+  { objectImmutable :: Bool
+  , objectMonitor :: Bool
+  , objectName :: Ident
   , objectDecls :: [(Bool, Decl)]
   , objectInitially :: Maybe BlockBody
   , objectProcess   :: Maybe BlockBody
