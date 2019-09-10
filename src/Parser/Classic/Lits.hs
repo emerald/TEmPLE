@@ -7,7 +7,7 @@ import Ast (Lit(LNil, LBool, LSelf, LObj))
 import Parser.Common (word)
 import Parser.Classic.NumLits (parseNumLit)
 import Parser.Classic.TextLits (parseTextLit)
-import Parser.Types (Parser, parseObject)
+import Parser.Types (Parser, parseObject, parseVecLit)
 
 import qualified Parser.Classic.Words as W
   ( Literals(..) )
@@ -34,4 +34,5 @@ parseLit p = choice
   , fmap LObj $ parseObject p
   , parseNumLit
   , parseTextLit
+  , parseVecLit p
   ]

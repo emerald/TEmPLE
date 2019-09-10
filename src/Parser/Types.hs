@@ -1,5 +1,6 @@
 module Parser.Types
   ( Parser(Parser)
+  , parseVecLit
   , parseAttDecl
   , parseConstDecl
   , parseVarDecl
@@ -10,13 +11,14 @@ module Parser.Types
   , parseBlockBody
   ) where
 
-import Ast (Object, ConstDecl, BlockBody, VarDecl, Decl, DeclStat)
+import Ast (Object, ConstDecl, BlockBody, VarDecl, Decl, DeclStat, Lit)
 
 import Text.ParserCombinators.ReadP (ReadP)
 
 data Parser
   = Parser
   { parseObject' :: Parser -> ReadP Object
+  , parseVecLit' :: Parser -> ReadP Lit
   , parseAttDecl' :: Parser -> ReadP (Bool, Decl)
   , parseConstDecl' :: Parser -> ReadP ConstDecl
   , parseVarDecl' :: Parser -> ReadP VarDecl
@@ -43,6 +45,9 @@ parseDecl = parse parseDecl'
 
 parseObject :: Parser -> ReadP Object
 parseObject = parse parseObject'
+
+parseVecLit :: Parser -> ReadP Lit
+parseVecLit = parse parseVecLit'
 
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat = parse parseDeclStat'

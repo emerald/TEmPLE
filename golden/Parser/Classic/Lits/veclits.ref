@@ -1,0 +1,9 @@
+[LVec [ELit (LInt 4),ELit (LInt 5),ELit (LInt 6)]
+      Nothing,
+ LVec [ELit (LInt 4),ELit (LInt 5),ELit (LInt 6)]
+      (Just TInt),
+ LVec [ELit (LInt 4)] (Just TInt),
+ LVec [ELit (LInt 4)] Nothing,
+ LVec [ELit (LInt 4),ELit (LChar 'x'),
+       ELit (LString "y"),ELit (LBool True)]
+      Nothing]

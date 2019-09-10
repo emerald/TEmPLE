@@ -26,6 +26,7 @@ data Lit
   | LNil
   | LSelf
   | LObj Object
+  | LVec (NonEmpty Expr) (Maybe Type)
   deriving (Eq, Generic, Ord, Show)
 
 instance Out Lit
