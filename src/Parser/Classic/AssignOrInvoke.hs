@@ -15,10 +15,9 @@ import Parser.Classic.Exprs
   , parseExprZero, parseExprZeroList
   )
 
-import Parser.Common (commaList, stoken, word1)
+import Parser.Common (optCommaList, stoken, word1)
 import Parser.Types (Parser)
 
-import Data.List.NonEmpty (toList)
 import Control.Applicative (liftA2)
 import Text.ParserCombinators.ReadP (ReadP, between, choice)
 
@@ -46,11 +45,8 @@ parseProcInvoc p = do
   return $ ProcInvoc (e, op, args)
 
 parseArgs :: Parser -> ReadP [(ArgType, Expr)]
-parseArgs p = choice
-  [ between (stoken "[") (stoken "]")
-    (fmap toList $ commaList $ parseArg p)
-  , return []
-  ]
+parseArgs p = optCommaList (parseArg p)
+  (between (stoken "[") (stoken "]"))
 
 parseArg :: Parser -> ReadP (ArgType, Expr)
 parseArg p = liftA2 (,)

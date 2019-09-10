@@ -3,7 +3,7 @@
 module Parser.Common
   ( ParseErrorImpl
   , fullParse, parse
-  , commaList
+  , optCommaList, commaList
   , prefix, prefixInfix
   , skipFilling, stoken, stoken1, stoken1Bool, token
   , word, word1
@@ -11,7 +11,7 @@ module Parser.Common
   ) where
 
 import Data.Char (isSpace, toUpper, toLower)
-import Data.List.NonEmpty (NonEmpty((:|)))
+import Data.List.NonEmpty (NonEmpty((:|)), toList)
 import Control.Applicative ((<*), (*>), liftA2)
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
@@ -84,6 +84,12 @@ prefixInfix f w1 w2 p
 
 commaList :: ReadP a -> ReadP (NonEmpty a)
 commaList p = liftA2 (:|) p (many (stoken "," *> p))
+
+optCommaList :: ReadP a -> (ReadP [a] -> ReadP [a]) -> ReadP [a]
+optCommaList p opt = choice
+  [ opt (fmap toList $ commaList p)
+  , return []
+  ]
 
 parse :: ReadP a -> String -> [(a, String)]
 parse = readP_to_S
