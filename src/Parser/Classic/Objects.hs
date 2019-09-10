@@ -3,7 +3,7 @@ module Parser.Classic.Objects
   ) where
 
 import Ast (Object(..), BlockBody)
-import Parser.Common (stoken, stoken1)
+import Parser.Common (stoken, stoken1, stoken1Bool)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Types (Parser, parseAttDecl)
@@ -14,14 +14,14 @@ import qualified Parser.Classic.Words as W
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
-  , choice, many, option
+  , choice, many
   , pfail
   )
 
 parseObject :: Parser -> ReadP Object
 parseObject p = do
-  immutable <- option False (stoken1 (show W.Immutable) *> return True)
-  monitor <- option False (stoken1 (show W.Monitor) *> return True)
+  immutable <- stoken1Bool (show W.Immutable)
+  monitor <- stoken1Bool (show W.Monitor)
   name <- (stoken1 (show W.Object) *> parseIdent)
   decls <- many (parseAttDecl p)
   (initially, process, recovery) <- parseTail

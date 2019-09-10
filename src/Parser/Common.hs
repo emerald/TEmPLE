@@ -5,7 +5,7 @@ module Parser.Common
   , fullParse, parse
   , commaList
   , prefix, prefixInfix
-  , skipFilling, stoken, stoken1, token
+  , skipFilling, stoken, stoken1, stoken1Bool, token
   , word, word1
   , parseFile', parseString'
   ) where
@@ -17,7 +17,8 @@ import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
   , eof, get, look
-  , char, choice, eof, many, manyTill, munch1, pfail, satisfy
+  , char, choice, eof, many, manyTill, munch1, option
+  , pfail, satisfy
   , readP_to_S
   )
 import Text.PrettyPrint.GenericPretty (Generic, Out)
@@ -63,6 +64,9 @@ stoken1 s = string s >> choice
   [ munch1 isSpace >> skipFilling
   , eof
   ]
+
+stoken1Bool :: String -> ReadP Bool
+stoken1Bool s = option False ((stoken1 s) *> return True)
 
 word :: [(String, a)] -> ReadP a
 word = choice . map (\(w, a) -> stoken w *> return a)
