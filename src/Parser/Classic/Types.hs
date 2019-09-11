@@ -1,6 +1,7 @@
 module Parser.Classic.Types
   ( types
   , parseType
+  , parseRawType
   ) where
 
 import Ast (Type(..))
@@ -18,4 +19,7 @@ types =
   ]
 
 parseType :: ReadP Type
-parseType = (*>) (stoken ":") $ token $ word $ types
+parseType = (*>) (stoken ":") $ parseRawType
+
+parseRawType :: ReadP Type
+parseRawType = token $ word $ types

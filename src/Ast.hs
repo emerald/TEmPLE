@@ -31,12 +31,38 @@ data Lit
 
 instance Out Lit
 
+data OpKind
+  = Op
+  | Fun
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out OpKind
+
+newtype Param
+  = Param (Bool, Maybe Ident, Type)
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out Param
+
+newtype OpSig
+  = OpSig (OpKind, Ident, [Param], [Param])
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out OpSig
+
+newtype Operation
+  = Operation (Bool, OpSig, BlockBody)
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out Operation
+
 data Object
   = Object
   { objectImmutable :: Bool
   , objectMonitor :: Bool
   , objectName :: Ident
   , objectDecls :: [(Bool, Decl)]
+  , objectOps :: [Operation]
   , objectInitially :: Maybe BlockBody
   , objectProcess   :: Maybe BlockBody
   , objectRecovery  :: Maybe BlockBody

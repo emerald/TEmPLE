@@ -55,9 +55,11 @@ data Keywords
   | ElseIf
   | End
   | Exit
+  | Export
   | Failure
   | For
   | Fix
+  | Function
   | If
   | Immutable
   | Initially
@@ -69,6 +71,8 @@ data Keywords
   | Move
   | NameOf
   | Object
+  | Op
+  | Operation
   | Or
   | Process
   | Recovery
@@ -106,9 +110,11 @@ instance Show Keywords where
   show ElseIf    = "elseif"
   show End       = "end"
   show Exit      = "exit"
+  show Export    = "export"
   show Failure   = "failure"
   show Fix       = "fix"
   show For       = "for"
+  show Function  = "function"
   show If        = "if"
   show Immutable = "immutable"
   show Initially = "initially"
@@ -120,6 +126,8 @@ instance Show Keywords where
   show Move      = "move"
   show NameOf    = "nameof"
   show Object    = "object"
+  show Op        = "op"
+  show Operation = "operation"
   show Or        = "or"
   show Process   = "process"
   show Recovery  = "recovery"
