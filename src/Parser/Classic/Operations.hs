@@ -2,12 +2,13 @@ module Parser.Classic.Operations
   ( parseOperation
   ) where
 
-import Ast (Operation(..), OpSig(..), OpKind(..), Param(..))
+import Ast (Ident, Operation(..), OpSig(..), OpKind(..), Param(..))
 
 import qualified Parser.Classic.Words as W
   ( Keywords(Attached, End, Export, Function, Op, Operation) )
 
 import Parser.Classic.Idents ( parseIdent )
+import Parser.Classic.Operators ( parseOperator, reservedOperators )
 import Parser.Classic.Types ( parseRawType )
 import Parser.Common
   ( optCommaList
@@ -17,8 +18,8 @@ import Parser.Common
 import Parser.Types ( Parser, parseBlockBody )
 
 import Control.Applicative ( (<*), (*>), optional )
-import Control.Monad ( void )
-import Text.ParserCombinators.ReadP ( ReadP, between )
+import Control.Monad ( void, mfilter )
+import Text.ParserCombinators.ReadP ( ReadP, between, choice )
 
 parseOperation :: Parser -> ReadP Operation
 parseOperation p = do
@@ -32,12 +33,18 @@ parseOperation p = do
 parseOpSig :: Parser -> ReadP OpSig
 parseOpSig p = do
   opkind <- parseOpKind
-  name <- parseIdent
+  name <- parseDefOpName
   let inBrackets = between (stoken "[") (stoken "]")
   params <- optCommaList parseParam inBrackets
   results <- optCommaList parseParam
     (\p' -> stoken "->" *> inBrackets p')
   return $ OpSig (opkind, name, params, results)
+
+parseDefOpName :: ReadP Ident
+parseDefOpName = choice
+  [ parseIdent
+  , mfilter (not . (`elem` reservedOperators)) parseOperator
+  ]
 
 parseParam :: ReadP Param
 parseParam = do
