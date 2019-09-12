@@ -44,8 +44,16 @@ newtype Param
 
 instance Out Param
 
+data PolyWidget
+  = Where (Ident, Expr)
+  | SuchThat (Ident, Type)
+  | ForAll Ident
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out PolyWidget
+
 newtype OpSig
-  = OpSig (OpKind, Ident, [Param], [Param])
+  = OpSig (OpKind, Ident, [Param], [Param], [PolyWidget])
   deriving (Eq, Generic, Ord, Show)
 
 instance Out OpSig

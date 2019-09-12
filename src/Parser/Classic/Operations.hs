@@ -10,6 +10,7 @@ import qualified Parser.Classic.Words as W
 import Parser.Classic.Idents ( parseIdent )
 import Parser.Classic.Operators ( parseOperator, reservedOperators )
 import Parser.Classic.Types ( parseRawType )
+import Parser.Classic.PolyWidgets ( parsePolyWidget )
 import Parser.Common
   ( optCommaList
   , stoken, stoken1, stoken1Bool
@@ -19,14 +20,14 @@ import Parser.Types ( Parser, parseBlockBody )
 
 import Control.Applicative ( (<*), (*>), optional )
 import Control.Monad ( void, mfilter )
-import Text.ParserCombinators.ReadP ( ReadP, between, choice )
+import Text.ParserCombinators.ReadP ( ReadP, between, choice, many )
 
 parseOperation :: Parser -> ReadP Operation
 parseOperation p = do
   export <- stoken1Bool (show W.Export)
   opsig <- parseOpSig p
   body <- parseBlockBody p
-  let OpSig (_, name, _, _) = opsig
+  let OpSig (_, name, _, _, _) = opsig
   void (stoken1 (show W.End) >> stoken1 name)
   return $ Operation (export, opsig, body)
 
@@ -38,7 +39,8 @@ parseOpSig p = do
   params <- optCommaList parseParam inBrackets
   results <- optCommaList parseParam
     (\p' -> stoken "->" *> inBrackets p')
-  return $ OpSig (opkind, name, params, results)
+  widgets <- many $ parsePolyWidget p
+  return $ OpSig (opkind, name, params, results, widgets)
 
 parseDefOpName :: ReadP Ident
 parseDefOpName = choice

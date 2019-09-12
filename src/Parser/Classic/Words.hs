@@ -58,6 +58,7 @@ data Keywords
   | Export
   | Failure
   | For
+  | ForAll
   | Fix
   | Function
   | If
@@ -81,6 +82,7 @@ data Keywords
   | Return
   | ReturnAndFail
   | Signal
+  | SuchThat
   | SynTypeOf
   | Then
   | To
@@ -91,6 +93,7 @@ data Keywords
   | View
   | Wait
   | When
+  | Where
   | While
   deriving (Bounded, Enum)
 
@@ -114,6 +117,7 @@ instance Show Keywords where
   show Failure   = "failure"
   show Fix       = "fix"
   show For       = "for"
+  show ForAll    = "forall"
   show Function  = "function"
   show If        = "if"
   show Immutable = "immutable"
@@ -136,6 +140,7 @@ instance Show Keywords where
   show Return    = "return"
   show ReturnAndFail = "returnandfail"
   show Signal    = "signal"
+  show SuchThat  = "suchthat"
   show SynTypeOf = "syntactictypeof"
   show Then      = "then"
   show To        = "to"
@@ -146,6 +151,7 @@ instance Show Keywords where
   show View      = "view"
   show Wait      = "wait"
   show When      = "when"
+  show Where     = "where"
   show While     = "while"
 
 allKeywords :: [Keywords]
