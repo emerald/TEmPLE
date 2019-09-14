@@ -10,7 +10,7 @@ import Parser.Classic.Types ( parseType )
 import Parser.Common ( commaList, stoken )
 
 import Control.Applicative ( liftA2, optional )
-import Text.ParserCombinators.ReadP ( ReadP, between, many )
+import Text.ParserCombinators.ReadP ( ReadP, between )
 
 parseVecLit :: Parser -> ReadP Lit
 parseVecLit p = between (stoken "{") (stoken "}") $

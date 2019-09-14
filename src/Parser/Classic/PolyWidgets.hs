@@ -9,17 +9,10 @@ import qualified Parser.Classic.Words as W
 
 import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.Idents ( parseIdent )
-import Parser.Common
-  ( optCommaList
-  , prefix
-  , stoken, stoken1, stoken1Bool
-  , word1
-  )
-import Parser.Types ( Parser, parseBlockBody )
+import Parser.Common ( prefix, stoken )
+import Parser.Types ( Parser )
 
-import Control.Applicative ( (<*), (*>), optional )
-import Control.Monad ( void, mfilter )
-import Text.ParserCombinators.ReadP ( ReadP, between, choice )
+import Text.ParserCombinators.ReadP ( ReadP, choice )
 
 parsePolyWidget :: Parser -> ReadP PolyWidget
 parsePolyWidget p = choice

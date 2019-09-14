@@ -16,7 +16,6 @@ module Parser.Classic.Attached
 import Parser.Common (stoken1Bool)
 import Parser.Classic.Words (Keywords(Attached))
 
-import Control.Applicative ((*>))
 import Text.ParserCombinators.ReadP (ReadP)
 
 parseAttached :: ReadP Bool
