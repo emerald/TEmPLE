@@ -48,6 +48,7 @@ data Keywords
   | Awaiting
   | Begin
   | By
+  | Builtin
   | Checkpoint
   | CodeOf
   | Const
@@ -86,6 +87,7 @@ data Keywords
   | SynTypeOf
   | Then
   | To
+  | TypeObject
   | TypeOf
   | Unavailable
   | Unfix
@@ -106,6 +108,7 @@ instance Show Keywords where
   show Awaiting  = "awaiting"
   show Begin     = "begin"
   show By        = "by"
+  show Builtin   = "builtin"
   show Checkpoint = "checkpoint"
   show Const     = "const"
   show CodeOf    = "codeof"
@@ -144,6 +147,7 @@ instance Show Keywords where
   show SynTypeOf = "syntactictypeof"
   show Then      = "then"
   show To        = "to"
+  show TypeObject = "typeobject"
   show TypeOf    = "typeof"
   show Unavailable = "unavailable"
   show Unfix     = "unfix"

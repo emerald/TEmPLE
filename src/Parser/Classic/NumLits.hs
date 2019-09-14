@@ -1,5 +1,6 @@
 module Parser.Classic.NumLits
-  ( parseNumLit
+  ( parseIntLit
+  , parseNumLit
   ) where
 
 import Ast (Lit(LInt, LDouble))
@@ -16,17 +17,15 @@ import Text.ParserCombinators.ReadP
   , readS_to_P
   )
 
-parseOctHex :: ReadP Lit
+parseOctHex :: ReadP Int
 parseOctHex
   = string "0" *> choice [parseOct, parseHex]
     where
-      parseHex :: ReadP Lit
-      parseHex = fmap LInt $
-        string "x" *> readS_to_P readHex
+      parseHex :: ReadP Int
+      parseHex = string "x" *> readS_to_P readHex
 
-      parseOct :: ReadP Lit
-      parseOct = fmap LInt $
-        readS_to_P readOct
+      parseOct :: ReadP Int
+      parseOct = readS_to_P readOct
 
 parseFractional :: String -> ReadP Lit
 parseFractional integral = do
@@ -44,13 +43,20 @@ parseStartingWithZero = do
 
 parseStartingWithNonZero :: ReadP Lit
 parseStartingWithNonZero = do
-  first <- satisfy (`elem` ['1'..'9'])
-  rest <- munch isDigit
-  let integral = first:rest
+  integral <- parseIntegral
   choice
-    [ return $ (LInt . fst . head) $ readDec integral
+    [ return $ (LInt . integralToInt) integral
     , parseFractional integral
     ]
+
+parseIntegral :: ReadP String
+parseIntegral = do
+  first <- satisfy (`elem` ['1'..'9'])
+  rest <- munch isDigit
+  return $ first:rest
+
+integralToInt :: String -> Int
+integralToInt = fst . head . readDec
 
 parseIntFloat :: ReadP Lit
 parseIntFloat = choice
@@ -58,8 +64,14 @@ parseIntFloat = choice
   , parseStartingWithNonZero
   ]
 
+parseIntLit :: ReadP Int
+parseIntLit = token $ choice
+  [ fmap integralToInt parseIntegral
+  , parseOctHex
+  ]
+
 parseNumLit :: ReadP Lit
 parseNumLit = token $ choice
   [ parseIntFloat
-  , parseOctHex
+  , fmap LInt parseOctHex
   ]

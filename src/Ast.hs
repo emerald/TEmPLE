@@ -26,6 +26,7 @@ data Lit
   | LNil
   | LSelf
   | LObj Object
+  | LTypeObj TypeObject
   | LVec (NonEmpty Expr) (Maybe Type)
   deriving (Eq, Generic, Ord, Show)
 
@@ -63,6 +64,17 @@ newtype Operation
   deriving (Eq, Generic, Ord, Show)
 
 instance Out Operation
+
+newtype TypeObject
+  = TypeObject
+  ( Bool      -- immutable
+  , Maybe Int -- builtin
+  , Ident     -- name
+  , [OpSig]   -- ops
+  )
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out TypeObject
 
 data Object
   = Object
