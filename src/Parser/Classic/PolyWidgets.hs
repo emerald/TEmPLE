@@ -5,18 +5,19 @@ module Parser.Classic.PolyWidgets
 import Ast ( PolyWidget(..) )
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(ForAll, Where) )
+  ( Keywords(ForAll, SuchThat, Where) )
 
 import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.Idents ( parseIdent )
 import Parser.Common ( prefix, stoken )
-import Parser.Types ( Parser )
+import Parser.Types ( Parser, parseTypeObject )
 
 import Text.ParserCombinators.ReadP ( ReadP, choice )
 
 parsePolyWidget :: Parser -> ReadP PolyWidget
 parsePolyWidget p = choice
   [ parseForAll
+  , parseSuchThat p
   , parseWhere p
   ]
 
@@ -29,3 +30,10 @@ parseWhere p = prefix Where (W.Where) $ do
   stoken "<-"
   expr <- parseExpr p
   return (ident, expr)
+
+parseSuchThat :: Parser -> ReadP PolyWidget
+parseSuchThat p = prefix SuchThat (W.SuchThat) $ do
+  ident <- parseIdent
+  stoken "*>"
+  to <- parseTypeObject p
+  return (ident, to)

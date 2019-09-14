@@ -47,7 +47,7 @@ instance Out Param
 
 data PolyWidget
   = Where (Ident, Expr)
-  | SuchThat (Ident, Type)
+  | SuchThat (Ident, TypeObject)
   | ForAll Ident
   deriving (Eq, Generic, Ord, Show)
 
