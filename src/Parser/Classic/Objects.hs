@@ -1,8 +1,9 @@
 module Parser.Classic.Objects
   ( parseObject
+  , parseObjectBody
   ) where
 
-import Ast (Object(..), BlockBody, Operation)
+import Ast (Object(..), ObjectBody(..), BlockBody, Operation)
 import Parser.Common (stoken, stoken1, stoken1Bool)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.BlockBody (parseBlockBody)
@@ -24,6 +25,12 @@ parseObject p = do
   immutable <- stoken1Bool (show W.Immutable)
   monitor <- stoken1Bool (show W.Monitor)
   name <- (stoken1 (show W.Object) *> parseIdent)
+  body <- parseObjectBody p
+  void (stoken1 (show W.End) >> stoken name)
+  return $ Object immutable monitor name body
+
+parseObjectBody :: Parser -> ReadP ObjectBody
+parseObjectBody p = do
   (decls, declOps) <- fmap unzip $ many (parseAttDecl p)
   (initially, process, recovery, ops) <- parseTail
     ( parseInitially p
@@ -32,10 +39,8 @@ parseObject p = do
     , parseOperation p
     , (Nothing, Nothing, Nothing, [])
     )
-  void (stoken1 (show W.End) >> stoken name)
-  return $ Object immutable monitor
-    name decls (concat declOps ++ (reverse ops))
-    initially process recovery
+  let allOps = concat declOps ++ reverse ops
+  return $ ObjectBody (decls, allOps, initially, process, recovery)
 
 data ObjectTail
   = Initially BlockBody

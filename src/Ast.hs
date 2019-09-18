@@ -76,16 +76,23 @@ newtype TypeObject
 
 instance Out TypeObject
 
+newtype ObjectBody = ObjectBody
+  ( [(Bool, Decl)]
+  , [Operation]
+  , Maybe BlockBody
+  , Maybe BlockBody
+  , Maybe BlockBody
+  )
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out ObjectBody
+
 data Object
   = Object
   { objectImmutable :: Bool
   , objectMonitor :: Bool
   , objectName :: Ident
-  , objectDecls :: [(Bool, Decl)]
-  , objectOps :: [Operation]
-  , objectInitially :: Maybe BlockBody
-  , objectProcess   :: Maybe BlockBody
-  , objectRecovery  :: Maybe BlockBody
+  , objectBody :: ObjectBody
   }
   deriving (Eq, Generic, Ord, Show)
 
