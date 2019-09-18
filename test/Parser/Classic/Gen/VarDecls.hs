@@ -6,7 +6,7 @@ module Parser.Classic.Gen.VarDecls
 import Ast ( VarDecl(..), Expr )
 
 import Parser.GenCommon ( genValidInvalid, invalidOp, invalidOp1, validOp, validOp1 )
-import Parser.Classic.Gen.Exprs ( ValidExpr(..), InvalidExpr(..), validExprString )
+import Parser.Classic.Gen.Exprs ( ValidExpr(..), InvalidExpr(..) )
 import Parser.Classic.Gen.Idents
   ( ValidIdent(..)
   , validIdentString, invalidIdentString
