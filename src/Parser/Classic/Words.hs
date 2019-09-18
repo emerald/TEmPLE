@@ -60,6 +60,7 @@ data Keywords
   | Failure
   | For
   | ForAll
+  | Field
   | Fix
   | Function
   | If
@@ -118,6 +119,7 @@ instance Show Keywords where
   show Exit      = "exit"
   show Export    = "export"
   show Failure   = "failure"
+  show Field     = "field"
   show Fix       = "fix"
   show For       = "for"
   show ForAll    = "forall"

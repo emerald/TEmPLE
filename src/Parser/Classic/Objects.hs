@@ -24,7 +24,7 @@ parseObject p = do
   immutable <- stoken1Bool (show W.Immutable)
   monitor <- stoken1Bool (show W.Monitor)
   name <- (stoken1 (show W.Object) *> parseIdent)
-  decls <- many (parseAttDecl p)
+  (decls, declOps) <- fmap unzip $ many (parseAttDecl p)
   (initially, process, recovery, ops) <- parseTail
     ( parseInitially p
     , parseProcess p
@@ -34,7 +34,7 @@ parseObject p = do
     )
   void (stoken1 (show W.End) >> stoken name)
   return $ Object immutable monitor
-    name decls (reverse ops)
+    name decls (concat declOps ++ (reverse ops))
     initially process recovery
 
 data ObjectTail

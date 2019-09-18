@@ -21,6 +21,7 @@ import Ast
   , Decl
   , DeclStat
   , Lit
+  , Operation
   )
 
 import Text.ParserCombinators.ReadP (ReadP)
@@ -30,7 +31,7 @@ data Parser
   { parseObject' :: Parser -> ReadP Object
   , parseTypeObject' :: Parser -> ReadP TypeObject
   , parseVecLit' :: Parser -> ReadP Lit
-  , parseAttDecl' :: Parser -> ReadP (Bool, Decl)
+  , parseAttDecl' :: Parser -> ReadP ((Bool, Decl), [Operation])
   , parseConstDecl' :: Parser -> ReadP ConstDecl
   , parseVarDecl' :: Parser -> ReadP VarDecl
   , parseDecl' :: Parser -> ReadP Decl
@@ -42,7 +43,7 @@ data Parser
 parse :: (Parser -> Parser -> ReadP a) -> Parser -> ReadP a
 parse f p = f p p
 
-parseAttDecl :: Parser -> ReadP (Bool, Decl)
+parseAttDecl :: Parser -> ReadP ((Bool, Decl), [Operation])
 parseAttDecl = parse parseAttDecl'
 
 parseConstDecl :: Parser -> ReadP ConstDecl

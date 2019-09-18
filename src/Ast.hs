@@ -195,13 +195,13 @@ data Expr
 instance Out Expr
 
 newtype ConstDecl
-  = Const (Ident, (Maybe Type), Expr)
+  = Const (Ident, Maybe Type, Expr)
   deriving (Eq, Generic, Ord, Show)
 
 instance Out ConstDecl
 
 newtype VarDecl
-  = Var (NonEmpty Ident, (Maybe Type), Expr)
+  = Var (NonEmpty Ident, Type, Maybe Expr)
   deriving (Eq, Generic, Ord, Show)
 
 instance Out VarDecl

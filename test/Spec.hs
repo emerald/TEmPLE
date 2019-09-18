@@ -10,6 +10,7 @@ import qualified Parser.Classic.Test.IfThenElse as CIFT
 import qualified Parser.Classic.Test.Objects as COT
 import qualified Parser.Classic.Test.TypeObjects as CTOT
 import qualified Parser.Classic.Test.Loops as CLOOPT
+import qualified Parser.Classic.Test.Decls as CDT
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
@@ -27,6 +28,7 @@ testTree = fmap (testGroup "Classic Parser Tests") $ sequence
   , COT.testTree
   , CTOT.testTree
   , CLOOPT.testTree
+  , CDT.testTree
   ]
 
 main :: IO ()
