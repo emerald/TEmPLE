@@ -183,6 +183,7 @@ instance Out BlockBody
 data Expr
   = ELit Lit
   | EVar Ident
+  | ESelect Expr Ident
   -- Precedence 8:
   | ENegate Expr
   | ELocate Expr

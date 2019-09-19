@@ -26,11 +26,19 @@ parseExprZero = parseExpr9
 parseExprZeroList :: Parser -> ReadP (NonEmpty Expr)
 parseExprZeroList = commaList . parseExpr
 
-parseExpr9 :: Parser -> ReadP Expr
-parseExpr9 p = choice
+parseExpr10 :: Parser -> ReadP Expr
+parseExpr10 p = choice
   [ fmap ELit $ parseLit p
   , fmap EVar parseIdent
   , between (stoken "(") (stoken ")") (parseExpr p)
+  ]
+
+parseExpr9 :: Parser -> ReadP Expr
+parseExpr9 p = parseExpr10 p >>= \e -> choice
+  [ do
+      id <- stoken "$" *> parseIdent
+      return $ ESelect e id
+  , return e
   ]
 
 prec8 :: [(String, Expr -> Expr)]
