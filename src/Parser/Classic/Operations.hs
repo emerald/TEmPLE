@@ -5,13 +5,13 @@ module Parser.Classic.Operations
 import Ast (Operation(..), OpSig(..))
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(End, Export) )
+  ( Keywords( Export ) )
 
+import Parser.Classic.Common ( end )
 import Parser.Classic.OpSigs ( parseOpSig )
-import Parser.Common ( stoken1, stoken1Bool )
+import Parser.Common ( stoken1Bool )
 import Parser.Types ( Parser, parseBlockBody )
 
-import Control.Monad ( void )
 import Text.ParserCombinators.ReadP ( ReadP )
 
 parseOperation :: Parser -> ReadP Operation
@@ -20,5 +20,5 @@ parseOperation p = do
   opsig <- parseOpSig p
   body <- parseBlockBody p
   let OpSig (_, name, _, _, _) = opsig
-  void (stoken1 (show W.End) >> stoken1 name)
+  end name
   return $ Operation (export, opsig, body)

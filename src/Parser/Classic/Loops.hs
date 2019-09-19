@@ -6,6 +6,7 @@ module Parser.Classic.Loops
 
 import Ast (DeclStat(Exit, For1, For2, Loop))
 
+import Parser.Classic.Common ( endShow )
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Types (parseType)
 import Parser.Classic.AssignOrInvoke (parseAssignOrInvoke)
@@ -13,7 +14,7 @@ import Parser.Classic.Exprs (parseExpr)
 import Parser.Types (parseDeclStats)
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(By, End, Exit, For, Loop, When, While) )
+  ( Keywords(By, Exit, For, Loop, When, While) )
 
 import Parser.Common (stoken, stoken1)
 import Parser.Types (Parser)
@@ -25,8 +26,7 @@ parseLoop :: Parser -> ReadP DeclStat
 parseLoop p = do
   stoken1 (show W.Loop)
   ds <- parseDeclStats p
-  stoken1 (show W.End)
-  stoken1 (show W.Loop)
+  endShow W.Loop
   return $ Loop ds
 
 parseExit :: Parser -> ReadP DeclStat
@@ -39,9 +39,7 @@ parseFor :: Parser -> ReadP DeclStat
 parseFor p = choice
   [ parseFor1 p
   , parseFor2 p
-  ] <* do
-    stoken1 $ show W.End
-    stoken1 $ show W.For
+  ] <* endShow W.For
 
 parseFor1 :: Parser -> ReadP DeclStat
 parseFor1 p = do

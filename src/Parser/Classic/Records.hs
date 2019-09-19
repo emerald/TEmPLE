@@ -8,23 +8,23 @@ import Ast
   , Param(Param), Type(..)
   )
 
+import Parser.Classic.Common ( end )
 import Parser.Classic.Idents ( parseIdent, prefixedIdent )
 import Parser.Classic.Types ( parseType )
 import Parser.Classic.Transforms ( makeVarField )
 
 import qualified Parser.Classic.Words as W
-  ( Keywords( Attached, End, Var, Record ) )
+  ( Keywords( Attached, Var, Record ) )
 
 import Parser.Common ( stoken1, stoken1Bool )
 
-import Control.Monad ( void )
 import Text.ParserCombinators.ReadP ( ReadP, optional, many1 )
 
 parseRecord :: Bool -> ReadP Class
 parseRecord imm = do
   name <- prefixedIdent W.Record
   rFields <- many1 parseRecordField
-  void (stoken1 (show W.End) >> stoken1 name)
+  end name
   let params = map
         (\(_, i, t) -> Param (False, Just i, t)) rFields
   let (atts, fields) = unzip $ map

@@ -6,16 +6,16 @@ module Parser.Classic.Objects
 import Ast (Object(..), ObjectBody(..), BlockBody, Operation)
 import Parser.Common (stoken1)
 import Parser.Classic.Builtins ( parseBuiltin )
+import Parser.Classic.Common ( end, endShow )
 import Parser.Classic.Idents (prefixedIdent)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Classic.Operations (parseOperation)
 import Parser.Types (Parser, parseAttDecl)
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(Object, End, Initially, Process, Recovery) )
+  ( Keywords(Object, Initially, Process, Recovery) )
 
 import Control.Applicative ( optional )
-import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
   , choice, many
@@ -27,7 +27,7 @@ parseObject p imm mon = do
   name <- prefixedIdent W.Object
   builtin <- optional $ parseBuiltin
   body <- parseObjectBody p
-  void (stoken1 (show W.End) >> stoken1 name)
+  end name
   return $ Object imm mon builtin name body
 
 parseObjectBody :: Parser -> ReadP ObjectBody
@@ -73,8 +73,7 @@ parseBlock :: Show w => w -> Parser -> ReadP BlockBody
 parseBlock w p =
   stoken1 (show w) *>
   parseBlockBody p <*
-  stoken1 (show W.End) <*
-  stoken1 (show w)
+  endShow w
 
 parseInitially :: Parser -> ReadP BlockBody
 parseInitially = parseBlock W.Initially

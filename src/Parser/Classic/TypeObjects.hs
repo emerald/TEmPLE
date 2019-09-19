@@ -4,17 +4,17 @@ module Parser.Classic.TypeObjects
   ) where
 
 import Ast ( TypeObject(..) )
-import Parser.Common ( stoken1, stoken1Bool )
+import Parser.Common ( stoken1Bool )
 import Parser.Classic.Builtins ( parseBuiltin )
+import Parser.Classic.Common ( end )
 import Parser.Classic.Idents ( prefixedIdent )
 import Parser.Classic.OpSigs ( parseOpSig )
 import Parser.Types ( Parser )
 
 import qualified Parser.Classic.Words as W
-  ( Keywords( TypeObject, End, Immutable ) )
+  ( Keywords( TypeObject, Immutable ) )
 
 import Control.Applicative ( optional )
-import Control.Monad ( void )
 import Text.ParserCombinators.ReadP ( ReadP, many )
 
 parseTypeObject :: Parser -> Bool -> ReadP TypeObject
@@ -22,7 +22,7 @@ parseTypeObject p imm = do
   name <- prefixedIdent W.TypeObject
   builtin <- optional $ parseBuiltin
   opsigs <- many $ parseOpSig p
-  void (stoken1 (show W.End) >> stoken1 name)
+  end name
   return $ TypeObject
     ( imm
     , builtin

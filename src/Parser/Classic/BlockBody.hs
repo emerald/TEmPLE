@@ -4,12 +4,13 @@ module Parser.Classic.BlockBody
 
 import Ast (Ident, BlockBody(..), DeclStat)
 
+import Parser.Classic.Common ( endShow )
 import Parser.Classic.Idents (parseIdent)
 import Parser.Common (stoken, stoken1)
 import Parser.Types (Parser, parseDeclStats)
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(Failure, End, Unavailable) )
+  ( Keywords(Failure, Unavailable) )
 
 import Control.Applicative (optional)
 import Text.ParserCombinators.ReadP (ReadP, between)
@@ -29,12 +30,11 @@ parseUnavailable p = do
           (stoken "]")
           parseIdent
   ds <- parseDeclStats p
-  stoken1 $ show W.End
-  stoken1 $ show W.Unavailable
+  endShow W.Unavailable
   return (mid, ds)
 
 parseFailure :: Parser -> ReadP [DeclStat]
 parseFailure p = between
   (stoken1 $ show W.Failure)
-  (stoken1 (show W.End) *> stoken1 (show W.Failure))
+  (endShow W.Failure)
   (parseDeclStats p)

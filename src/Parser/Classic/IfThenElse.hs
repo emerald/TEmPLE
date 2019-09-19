@@ -4,11 +4,12 @@ module Parser.Classic.IfThenElse
 
 import Ast (DeclStat(IfThenElse))
 
+import Parser.Classic.Common ( endShow )
 import Parser.Classic.Exprs (parseExpr)
 import Parser.Types (parseDeclStats)
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(Else, ElseIf, End, If, Then) )
+  ( Keywords(Else, ElseIf, If, Then) )
 
 import Parser.Common (stoken1)
 import Parser.Types (Parser)
@@ -30,6 +31,5 @@ parseIfThenElse p = do
     return (e', ds')
   else_branch <- optional $
     (stoken1 $ show W.Else) *> parseDeclStats p
-  stoken1 (show W.End)
-  stoken1 (show W.If)
+  endShow W.If
   return $ IfThenElse ((e, ds), elseifs, else_branch)
