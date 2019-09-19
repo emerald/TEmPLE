@@ -35,9 +35,7 @@ parseExpr10 p = choice
 
 parseExpr9 :: Parser -> ReadP Expr
 parseExpr9 p = parseExpr10 p >>= \e -> choice
-  [ do
-      id <- stoken "$" *> parseIdent
-      return $ ESelect e id
+  [ stoken "$" *> fmap (ESelect e) parseIdent
   , return e
   ]
 
