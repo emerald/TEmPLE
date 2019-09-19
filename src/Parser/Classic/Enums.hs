@@ -4,7 +4,7 @@ module Parser.Classic.Enums
 
 import Ast ( Enumeration(Enum) )
 
-import Parser.Classic.Idents ( parseIdent )
+import Parser.Classic.Idents ( parseIdent, prefixedIdent )
 
 import qualified Parser.Classic.Words as W
   ( Keywords( Enumeration, End ) )
@@ -16,7 +16,7 @@ import Text.ParserCombinators.ReadP ( ReadP )
 
 parseEnum :: ReadP Enumeration
 parseEnum = do
-  name <- (stoken1 (show W.Enumeration) *> parseIdent)
+  name <- prefixedIdent W.Enumeration
   idents <- commaList parseIdent
   void (stoken1 (show W.End) >> stoken1 name)
   return $ Enum (name, idents)

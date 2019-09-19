@@ -6,7 +6,7 @@ import Ast ( Class(Class) )
 
 import Parser.Common ( stoken, stoken1 )
 import Parser.Classic.Builtins ( parseBuiltin )
-import Parser.Classic.Idents ( parseIdent )
+import Parser.Classic.Idents ( parseIdent, prefixedIdent )
 import Parser.Classic.Operations ( parseOperation )
 import Parser.Classic.Params ( parseOptParams )
 import Parser.Types ( Parser, parseObjectBody )
@@ -20,7 +20,7 @@ import Text.ParserCombinators.ReadP ( ReadP, between, many )
 
 parseClass :: Parser -> Bool -> Bool -> ReadP Class
 parseClass p imm mon = do
-  name <- (stoken1 (show W.Class) *> parseIdent)
+  name <- prefixedIdent W.Class
   baseclass <- optional $ between (stoken "(") (stoken ")") parseIdent
   params <- parseOptParams
   builtin <- optional $ parseBuiltin

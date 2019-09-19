@@ -8,7 +8,7 @@ import Ast
   , Param(Param), Type(..)
   )
 
-import Parser.Classic.Idents ( parseIdent )
+import Parser.Classic.Idents ( parseIdent, prefixedIdent )
 import Parser.Classic.Types ( parseType )
 import Parser.Classic.Transforms ( makeVarField )
 
@@ -22,7 +22,7 @@ import Text.ParserCombinators.ReadP ( ReadP, optional, many1 )
 
 parseRecord :: Bool -> ReadP Class
 parseRecord imm = do
-  name <- (stoken1 (show W.Record) *> parseIdent)
+  name <- prefixedIdent W.Record
   rFields <- many1 parseRecordField
   void (stoken1 (show W.End) >> stoken1 name)
   let params = map

@@ -4,10 +4,11 @@ module Parser.Classic.Idents
   , reserved
   , parseIdent
   , parseIdentList
+  , prefixedIdent
   ) where
 
 import Ast (Ident)
-import Parser.Common (commaList, token)
+import Parser.Common (commaList, token, stoken1)
 import Parser.Classic.Words (reserved)
 
 import Control.Applicative (liftA2)
@@ -33,3 +34,6 @@ parseIdent = token $ mfilter (not . (`elem` reserved)) $
 
 parseIdentList :: ReadP (NonEmpty Ident)
 parseIdentList = commaList parseIdent
+
+prefixedIdent :: Show a => a -> ReadP Ident
+prefixedIdent s = stoken1 (show s) *> parseIdent
