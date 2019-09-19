@@ -9,6 +9,7 @@ module Parser.Types
   , parseObject
   , parseObjectBody
   , parseTypeObject
+  , parseOptImmTypeObject
   , parseDeclStat
   , parseDeclStats
   , parseBlockBody
@@ -32,10 +33,11 @@ import Text.ParserCombinators.ReadP (ReadP)
 
 data Parser
   = Parser
-  { parseClass' :: Parser -> ReadP Class
-  , parseObject' :: Parser -> ReadP Object
+  { parseClass' :: Parser -> Bool -> Bool -> ReadP Class
+  , parseObject' :: Parser -> Bool -> Bool -> ReadP Object
   , parseObjectBody' :: Parser -> ReadP ObjectBody
-  , parseTypeObject' :: Parser -> ReadP TypeObject
+  , parseTypeObject' :: Parser -> Bool -> ReadP TypeObject
+  , parseOptImmTypeObject' :: Parser -> ReadP TypeObject
   , parseVecLit' :: Parser -> ReadP Lit
   , parseAttDecl' :: Parser -> ReadP ((Bool, Decl), [Operation])
   , parseConstDecl' :: Parser -> ReadP ConstDecl
@@ -46,13 +48,13 @@ data Parser
   , parseBlockBody' :: Parser -> ReadP BlockBody
   }
 
-parse :: (Parser -> Parser -> ReadP a) -> Parser -> ReadP a
+parse :: (Parser -> Parser -> a) -> Parser -> a
 parse f p = f p p
 
 parseAttDecl :: Parser -> ReadP ((Bool, Decl), [Operation])
 parseAttDecl = parse parseAttDecl'
 
-parseClass :: Parser -> ReadP Class
+parseClass :: Parser -> Bool -> Bool -> ReadP Class
 parseClass = parse parseClass'
 
 parseConstDecl :: Parser -> ReadP ConstDecl
@@ -64,14 +66,17 @@ parseVarDecl = parse parseVarDecl'
 parseDecl :: Parser -> ReadP Decl
 parseDecl = parse parseDecl'
 
-parseObject :: Parser -> ReadP Object
+parseObject :: Parser -> Bool -> Bool -> ReadP Object
 parseObject = parse parseObject'
 
 parseObjectBody :: Parser -> ReadP ObjectBody
 parseObjectBody = parse parseObjectBody'
 
-parseTypeObject :: Parser -> ReadP TypeObject
+parseTypeObject :: Parser -> Bool -> ReadP TypeObject
 parseTypeObject = parse parseTypeObject'
+
+parseOptImmTypeObject :: Parser -> ReadP TypeObject
+parseOptImmTypeObject = parse parseOptImmTypeObject'
 
 parseVecLit :: Parser -> ReadP Lit
 parseVecLit = parse parseVecLit'

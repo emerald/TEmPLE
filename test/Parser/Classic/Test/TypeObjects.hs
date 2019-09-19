@@ -1,7 +1,7 @@
 module Parser.Classic.Test.TypeObjects (testTree) where
 
 import Parser.Classic ( parser )
-import Parser.Classic.TypeObjects ( parseTypeObject )
+import Parser.Classic.Lits ( parseLit )
 import Parser.TestCommon ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
@@ -14,4 +14,4 @@ testTree = fmap (testGroup "ClassicTypeObjectsTests") $ sequence
 
 goldenTests :: IO TestTree
 goldenTests = goldenTestAll p ["TypeObjects"]
-  where p = many $ parseTypeObject parser
+  where p = many $ parseLit parser

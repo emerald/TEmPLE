@@ -10,7 +10,7 @@ import qualified Parser.Classic.Words as W
 import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.Idents ( parseIdent )
 import Parser.Common ( prefix, stoken )
-import Parser.Types ( Parser, parseTypeObject )
+import Parser.Types ( Parser, parseOptImmTypeObject )
 
 import Text.ParserCombinators.ReadP ( ReadP, choice )
 
@@ -35,5 +35,5 @@ parseSuchThat :: Parser -> ReadP PolyWidget
 parseSuchThat p = prefix SuchThat (W.SuchThat) $ do
   ident <- parseIdent
   stoken "*>"
-  to <- parseTypeObject p
+  to <- parseOptImmTypeObject p
   return (ident, to)

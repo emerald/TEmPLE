@@ -4,14 +4,14 @@ module Parser.Classic.Objects
   ) where
 
 import Ast (Object(..), ObjectBody(..), BlockBody, Operation)
-import Parser.Common (stoken1, stoken1Bool)
+import Parser.Common (stoken1)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Classic.Operations (parseOperation)
 import Parser.Types (Parser, parseAttDecl)
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(Object, End, Initially, Immutable, Monitor, Process, Recovery) )
+  ( Keywords(Object, End, Initially, Process, Recovery) )
 
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
@@ -20,18 +20,12 @@ import Text.ParserCombinators.ReadP
   , pfail
   )
 
-parseObject :: Parser -> ReadP Object
-parseObject p = do
-  immutable <- stoken1Bool (show W.Immutable)
-  monitor <- stoken1Bool (show W.Monitor)
-  parseObject' immutable monitor p
-
-parseObject' :: Bool -> Bool -> Parser -> ReadP Object
-parseObject' immutable monitor p = do
+parseObject :: Parser -> Bool -> Bool -> ReadP Object
+parseObject p imm mon = do
   name <- (stoken1 (show W.Object) *> parseIdent)
   body <- parseObjectBody p
   void (stoken1 (show W.End) >> stoken1 name)
-  return $ Object immutable monitor name body
+  return $ Object imm mon name body
 
 parseObjectBody :: Parser -> ReadP ObjectBody
 parseObjectBody p = do

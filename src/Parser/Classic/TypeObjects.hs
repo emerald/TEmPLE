@@ -1,5 +1,6 @@
 module Parser.Classic.TypeObjects
   ( parseTypeObject
+  , parseOptImmTypeObject
   ) where
 
 import Ast ( TypeObject(..) )
@@ -16,16 +17,20 @@ import Control.Applicative ( optional )
 import Control.Monad ( void )
 import Text.ParserCombinators.ReadP ( ReadP, many )
 
-parseTypeObject :: Parser -> ReadP TypeObject
-parseTypeObject p = do
-  immutable <- stoken1Bool (show W.Immutable)
+parseTypeObject :: Parser -> Bool -> ReadP TypeObject
+parseTypeObject p imm = do
   name <- (stoken1 (show W.TypeObject) *> parseIdent)
   builtin <- optional $ parseBuiltin
   opsigs <- many $ parseOpSig p
   void (stoken1 (show W.End) >> stoken1 name)
   return $ TypeObject
-    ( immutable
+    ( imm
     , builtin
     , name
     , opsigs
     )
+
+parseOptImmTypeObject :: Parser -> ReadP TypeObject
+parseOptImmTypeObject p = do
+  imm <- stoken1Bool (show W.Immutable)
+  parseTypeObject p imm

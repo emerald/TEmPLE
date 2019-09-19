@@ -4,13 +4,13 @@ module Parser.Classic.Lits
 
 import Ast (Lit(LNil, LBool, LSelf, LObj, LTypeObj, LClass))
 
-import Parser.Common (word)
+import Parser.Common (stoken1Bool, word)
 import Parser.Classic.NumLits (parseNumLit)
 import Parser.Classic.TextLits (parseTextLit)
 import Parser.Types (Parser, parseClass, parseObject, parseTypeObject, parseVecLit)
 
 import qualified Parser.Classic.Words as W
-  ( Literals(..) )
+  ( Literals(..), Keywords(Immutable, Monitor) )
 
 import Text.ParserCombinators.ReadP (ReadP, choice)
 
@@ -31,10 +31,24 @@ parseLit p = choice
   [ parseNil
   , parseSelf
   , parseBool
-  , fmap LObj $ parseObject p
-  , fmap LTypeObj $ parseTypeObject p
-  , fmap LClass $ parseClass p
   , parseNumLit
   , parseTextLit
   , parseVecLit p
+  , parseOptImmLit p
   ]
+
+parseOptImmLit :: Parser -> ReadP Lit
+parseOptImmLit p = do
+  imm <- stoken1Bool (show W.Immutable)
+  choice
+    [ fmap LTypeObj $ parseTypeObject p imm
+    , parseOptMonitorLit p imm
+    ]
+
+parseOptMonitorLit :: Parser -> Bool -> ReadP Lit
+parseOptMonitorLit p imm = do
+  mon <- stoken1Bool (show W.Monitor)
+  choice
+    [ fmap LObj $ parseObject p imm mon
+    , fmap LClass $ parseClass p imm mon
+    ]
