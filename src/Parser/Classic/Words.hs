@@ -50,6 +50,7 @@ data Keywords
   | By
   | Builtin
   | Checkpoint
+  | Class
   | CodeOf
   | Const
   | Else
@@ -111,6 +112,7 @@ instance Show Keywords where
   show By        = "by"
   show Builtin   = "builtin"
   show Checkpoint = "checkpoint"
+  show Class     = "class"
   show Const     = "const"
   show CodeOf    = "codeof"
   show Else      = "else"

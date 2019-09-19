@@ -11,6 +11,7 @@ import qualified Parser.Classic.Test.Objects as COT
 import qualified Parser.Classic.Test.TypeObjects as CTOT
 import qualified Parser.Classic.Test.Loops as CLOOPT
 import qualified Parser.Classic.Test.Decls as CDT
+import qualified Parser.Classic.Test.Classes as CCT
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
 
@@ -29,6 +30,7 @@ testTree = fmap (testGroup "Classic Parser Tests") $ sequence
   , CTOT.testTree
   , CLOOPT.testTree
   , CDT.testTree
+  , CCT.testTree
   ]
 
 main :: IO ()
