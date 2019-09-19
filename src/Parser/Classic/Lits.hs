@@ -2,9 +2,10 @@ module Parser.Classic.Lits
   ( parseLit
   ) where
 
-import Ast (Lit(LNil, LBool, LSelf, LObj, LTypeObj, LClass))
+import Ast (Lit(LNil, LBool, LSelf, LObj, LTypeObj, LClass, LEnum))
 
 import Parser.Common (stoken1Bool, word)
+import Parser.Classic.Enums (parseEnum)
 import Parser.Classic.NumLits (parseNumLit)
 import Parser.Classic.TextLits (parseTextLit)
 import Parser.Types (Parser, parseClass, parseObject, parseTypeObject, parseVecLit)
@@ -35,6 +36,7 @@ parseLit p = choice
   , parseTextLit
   , parseVecLit p
   , parseOptImmLit p
+  , fmap LEnum $ parseEnum
   ]
 
 parseOptImmLit :: Parser -> ReadP Lit

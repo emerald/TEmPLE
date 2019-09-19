@@ -29,6 +29,7 @@ data Lit
   | LObj Object
   | LTypeObj TypeObject
   | LClass Class
+  | LEnum Enumeration
   | LVec (NonEmpty Expr) (Maybe Type)
   deriving (Eq, Generic, Ord, Show)
 
@@ -77,6 +78,11 @@ newtype TypeObject
   deriving (Eq, Generic, Ord, Show)
 
 instance Out TypeObject
+
+newtype Enumeration = Enum (Ident, NonEmpty Ident)
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out Enumeration
 
 newtype Class
   = Class

@@ -56,6 +56,7 @@ data Keywords
   | Else
   | ElseIf
   | End
+  | Enumeration
   | Exit
   | Export
   | Failure
@@ -118,6 +119,7 @@ instance Show Keywords where
   show Else      = "else"
   show ElseIf    = "elseif"
   show End       = "end"
+  show Enumeration = "enumeration"
   show Exit      = "exit"
   show Export    = "export"
   show Failure   = "failure"
