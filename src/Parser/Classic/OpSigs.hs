@@ -2,32 +2,32 @@ module Parser.Classic.OpSigs
   ( parseOpSig
   ) where
 
-import Ast (Ident, OpSig(..), OpKind(..), Param(..))
+import Ast ( Ident, OpSig(..), OpKind(..) )
 
 import qualified Parser.Classic.Words as W
-  ( Keywords(Attached, Function, Op, Operation) )
+  ( Keywords( Function, Op, Operation ) )
 
 import Parser.Classic.Idents ( parseIdent )
 import Parser.Classic.Operators ( parseOperator, reservedOperators )
-import Parser.Classic.Types ( parseRawType )
+import Parser.Classic.Params ( parseParam, parseOptParams )
 import Parser.Classic.PolyWidgets ( parsePolyWidget )
 import Parser.Common
-  ( optCommaList
-  , stoken, stoken1Bool
+  ( inBrackets
+  , optCommaList
+  , stoken
   , word1
   )
 import Parser.Types ( Parser )
 
-import Control.Applicative ( (<*), (*>), optional )
+import Control.Applicative ( (*>) )
 import Control.Monad ( mfilter )
-import Text.ParserCombinators.ReadP ( ReadP, between, choice, many )
+import Text.ParserCombinators.ReadP ( ReadP, choice, many )
 
 parseOpSig :: Parser -> ReadP OpSig
 parseOpSig p = do
   opkind <- parseOpKind
   name <- parseDefOpName
-  let inBrackets = between (stoken "[") (stoken "]")
-  params <- optCommaList parseParam inBrackets
+  params <- parseOptParams
   results <- optCommaList parseParam
     (\p' -> stoken "->" *> inBrackets p')
   widgets <- many $ parsePolyWidget p
@@ -38,13 +38,6 @@ parseDefOpName = choice
   [ parseIdent
   , mfilter (not . (`elem` reservedOperators)) parseOperator
   ]
-
-parseParam :: ReadP Param
-parseParam = do
-  attached <- stoken1Bool (show W.Attached)
-  ident <- optional $ parseIdent <* (stoken ":")
-  ty <- parseRawType
-  return $ Param (attached, ident, ty)
 
 parseOpKind :: ReadP OpKind
 parseOpKind = word1

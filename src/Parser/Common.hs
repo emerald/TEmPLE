@@ -4,6 +4,7 @@ module Parser.Common
   ( ParseErrorImpl
   , fullParse, parse
   , optCommaList, commaList
+  , inBrackets
   , prefix, prefixInfix
   , skipFilling, stoken, stoken1, stoken1Bool, token
   , word, word1
@@ -17,7 +18,8 @@ import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP
   , eof, get, look
-  , char, choice, eof, many, manyTill, munch1, option
+  , between, char, choice, eof
+  , many, manyTill, munch1, option
   , pfail, satisfy
   , readP_to_S
   )
@@ -90,6 +92,9 @@ optCommaList p opt = choice
   [ opt (fmap toList $ commaList p)
   , return []
   ]
+
+inBrackets :: ReadP a -> ReadP a
+inBrackets = between (stoken "[") (stoken "]")
 
 parse :: ReadP a -> String -> [(a, String)]
 parse = readP_to_S
