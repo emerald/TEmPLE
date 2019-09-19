@@ -3,7 +3,7 @@ module Parser.Classic.Params
   , parseOptParams
   ) where
 
-import Ast ( Ident, Param(..) )
+import Ast ( Param(..) )
 
 import qualified Parser.Classic.Words as W
   ( Keywords( Attached ) )
@@ -14,7 +14,6 @@ import Parser.Common
   ( inBrackets, optCommaList
   , stoken, stoken1Bool
   )
-import Parser.Types ( Parser )
 
 import Control.Applicative ( (<*), optional )
 import Text.ParserCombinators.ReadP ( ReadP )
