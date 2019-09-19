@@ -7,7 +7,7 @@ import Ast
   , Expr(ELit, EVar), DeclStat(AssignOrInvoke)
   , AssignOrInvoke(AssignExpr)
   , Type(TIdent)
-  , Param(Param)
+  , Param, Param(Param)
   , TypeObject(TypeObject)
   , OpKind(Op, Fun)
   , OpSig(OpSig)
@@ -19,6 +19,7 @@ import Ast
 import Parser.Common ( stoken1 )
 import Parser.Classic.Idents ( parseIdent )
 import Parser.Classic.Operations ( parseOperation )
+import Parser.Classic.Params ( parseOptParams )
 import Parser.Types ( Parser, parseObjectBody )
 
 import qualified Parser.Classic.Words as W
@@ -31,13 +32,14 @@ import Text.ParserCombinators.ReadP ( ReadP, many )
 parseClass :: Bool -> Bool -> Parser -> ReadP Object
 parseClass immutable monitor p = do
   name <- (stoken1 (show W.Class) *> parseIdent)
+  params <- parseOptParams
   classOps <- many $ (stoken1 (show W.Class) *> parseOperation p)
   body <- parseObjectBody p
   void (stoken1 (show W.End) >> stoken1 name)
-  return $ classToObject (immutable, monitor, name, classOps, body)
+  return $ classToObject (immutable, monitor, name, params, classOps, body)
 
-classToObject :: (Bool, Bool, Ident, [Operation], ObjectBody) -> Object
-classToObject (immutable, monitor, name, classOps, body) =
+classToObject :: (Bool, Bool, Ident, [Param], [Operation], ObjectBody) -> Object
+classToObject (immutable, monitor, name, params, classOps, body) =
   Object immutable monitor name $ ObjectBody
     ( [ ( False
         , DConst $ Const
@@ -69,7 +71,7 @@ classToObject (immutable, monitor, name, classOps, body) =
         , OpSig
           ( Op
           , "create"
-          , []
+          , params
           , [Param (False, Just "e", TIdent name)]
           , []
           )
