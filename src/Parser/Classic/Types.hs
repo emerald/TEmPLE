@@ -8,6 +8,7 @@ import Ast (Type(..))
 import Parser.Common (stoken, token)
 import Parser.Classic.Idents ( parseIdent )
 
+import Data.List ( find )
 import Control.Applicative ((*>))
 import Text.ParserCombinators.ReadP (ReadP)
 
@@ -25,7 +26,6 @@ parseType = (*>) (stoken ":") $ parseRawType
 parseRawType :: ReadP Type
 parseRawType = token $ do
   ident <- parseIdent
-  return $ foldl
-    (\ t (s, t') -> if ident == s then t' else t)
-    (TIdent ident)
-    types
+  return $ case (find ((== ident) . fst) types) of
+    Just (_, t) -> t
+    Nothing -> TIdent ident
