@@ -9,25 +9,52 @@
 
 module Parser.Classic.Transforms
   ( classToObject
+  , makeConstField
+  , makeVarField
   ) where
 
 import Ast
-  ( Object(..), ObjectBody(..), Operation(Operation)
-  , Expr(ELit, EVar), DeclStat(AssignOrInvoke)
-  , AssignOrInvoke(AssignExpr)
-  , Type(TIdent)
-  , Param(Param)
-  , TypeObject(TypeObject)
-  , OpKind(Op, Fun)
-  , OpSig(OpSig)
-  , BlockBody(BlockBody)
-  , Lit(LObj, LTypeObj)
-  , ConstDecl(Const)
-  , Decl(DConst)
-  , Class(Class)
-  )
 
 import Data.List.NonEmpty ( NonEmpty ((:|)) )
+
+makeConstField :: (Ident, Type, Expr) -> (Decl, [Operation])
+makeConstField (i, t, e) =
+  ( DConst $ Const (i, Just t, e)
+  , [ Operation
+      ( True
+      , OpSig(Fun, "get" ++ i, [], [Param (False, Just "x", t)], [])
+      , BlockBody
+        ( [AssignOrInvoke $ AssignExpr (EVar "x" :| [], EVar i :| [])]
+        , Nothing
+        , Nothing
+        )
+      )
+    ]
+  )
+
+makeVarField :: (Ident, Type, Maybe Expr) -> (Decl, [Operation])
+makeVarField (i, t, me) =
+  ( DVar $ Var (i :| [], t, me)
+  , [ Operation
+      ( True
+      , OpSig (Fun, "get" ++ i, [], [Param (False, Just "x", t)], [])
+      , BlockBody
+        ( [AssignOrInvoke $ AssignExpr (EVar "x" :| [], EVar i :| [])]
+        , Nothing
+        , Nothing
+        )
+      )
+    , Operation
+      ( True
+      , OpSig(Op, "set" ++ i, [Param (False, Just "x", t)], [], [])
+      , BlockBody
+        ( [AssignOrInvoke $ AssignExpr (EVar i :| [], EVar "x" :| [])]
+        , Nothing
+        , Nothing
+        )
+      )
+    ]
+  )
 
 -- | Bar the baseclass, converts the class to an object. The baseclass
 -- is simply ignored here (for now). TODO: Expand to take baseclass

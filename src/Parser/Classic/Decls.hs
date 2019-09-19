@@ -5,23 +5,18 @@ module Parser.Classic.Decls
   , parseDecl
   ) where
 
-import Ast
-  ( ConstDecl(..), Decl(..), VarDecl(..)
-  , Operation(..), OpKind(..), OpSig(..), Param(..)
-  , DeclStat(AssignOrInvoke), BlockBody(BlockBody)
-  , Expr (EVar), AssignOrInvoke (AssignExpr)
-  )
+import Ast ( ConstDecl(..), Decl(..), VarDecl(..), Operation )
 import Parser.Common (stoken, stoken1, token)
 import Parser.Classic.Attached (parseAttached)
 import Parser.Classic.Idents (parseIdent, parseIdentList)
 import Parser.Classic.Types (parseType)
+import Parser.Classic.Transforms ( makeConstField, makeVarField )
 import Parser.Classic.Exprs (parseExpr)
 import Parser.Types (Parser)
 
 import qualified Parser.Classic.Words as W
   ( Keywords(Const, Field, Var))
 
-import Data.List.NonEmpty ( NonEmpty( (:|) ) )
 import Control.Applicative ((*>))
 import Control.Applicative (optional)
 import Text.ParserCombinators.ReadP (ReadP, choice)
@@ -51,43 +46,14 @@ parseConstField p = do
   i <- parseIdent
   t <- parseType
   e <- (stoken "<-" *> (parseExpr p))
-  return (DConst $ Const (i, Just t, e),
-    [ Operation
-      ( True
-      , OpSig(Fun, "get" ++ i, [], [Param (False, Just "x", t)], [])
-      , BlockBody
-        ( [AssignOrInvoke $ AssignExpr (EVar "x" :| [], EVar i :| [])]
-        , Nothing
-        , Nothing
-        )
-      )
-    ])
+  return $ makeConstField (i, t, e)
 
 parseVarField :: Parser -> ReadP (Decl, [Operation])
 parseVarField p = do
   i <- parseIdent
   t <- parseType
   me <- optional (stoken "<-" *> (parseExpr p))
-  return (DVar $ Var (i :| [], t, me),
-    [ Operation
-      ( True
-      , OpSig (Fun, "get" ++ i, [], [Param (False, Just "x", t)], [])
-      , BlockBody
-        ( [AssignOrInvoke $ AssignExpr (EVar "x" :| [], EVar i :| [])]
-        , Nothing
-        , Nothing
-        )
-      )
-    , Operation
-      ( True
-      , OpSig(Op, "set" ++ i, [Param (False, Just "x", t)], [], [])
-      , BlockBody
-        ( [AssignOrInvoke $ AssignExpr (EVar i :| [], EVar "x" :| [])]
-        , Nothing
-        , Nothing
-        )
-      )
-    ])
+  return $ makeVarField (i, t, me)
 
 parseConst :: Parser -> ReadP (Decl, [Operation])
 parseConst p = stoken1 (show W.Const) *> choice
