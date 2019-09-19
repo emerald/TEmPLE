@@ -1,6 +1,7 @@
 [LObj (Object
              {objectImmutable = False,
               objectMonitor = False,
+              objectBuiltin = Nothing,
               objectName = "x",
               objectBody = ObjectBody ([],
                                        [Operation (False,

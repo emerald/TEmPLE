@@ -86,8 +86,8 @@ instance Out Enumeration
 
 newtype Class
   = Class
-  ( Bool          -- immutable
-  , Bool          -- monitor
+  ( (Bool, Bool)  -- (immutable, monitor)
+  , Maybe Int     -- builtin
   , Ident         -- name
   , Maybe Ident   -- base class
   , [Param]       -- parameters
@@ -113,6 +113,7 @@ data Object
   = Object
   { objectImmutable :: Bool
   , objectMonitor :: Bool
+  , objectBuiltin :: Maybe Int
   , objectName :: Ident
   , objectBody :: ObjectBody
   }

@@ -33,8 +33,8 @@ parseRecord imm = do
   let vars = zip atts decls
   let ops = concat ops'
   return $ Class
-    ( imm
-    , False -- monitor
+    ( (imm, False)
+    , Nothing
     , name
     , Nothing -- base class
     , params

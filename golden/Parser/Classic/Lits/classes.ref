@@ -1,5 +1,5 @@
-[LClass (Class (True,
-                False,
+[LClass (Class ((True, False),
+                Nothing,
                 "x",
                 Nothing,
                 [Param (False, Just "a", TInt),

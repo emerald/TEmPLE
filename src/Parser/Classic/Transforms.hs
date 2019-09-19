@@ -56,12 +56,13 @@ makeVarField (i, t, me) =
     ]
   )
 
--- | Bar the baseclass, converts the class to an object. The baseclass
--- is simply ignored here (for now). TODO: Expand to take baseclass
--- into account.
+-- | Bar the baseclass, and builtin id, converts the class to an
+-- object. The baseclass and builtin id is simply ignored here
+-- (for now). TODO: Expand to take baseclass and builtin id into
+-- account.
 classToObject :: Class -> Object
-classToObject (Class (immutable, monitor, name, _, params, classOps, body)) =
-  Object immutable monitor name $ ObjectBody
+classToObject (Class ((immutable, monitor), _, name, _, params, classOps, body)) =
+  Object immutable monitor Nothing name $ ObjectBody
     ( [ ( False
         , DConst $ Const
           ( typeName
@@ -100,7 +101,7 @@ classToObject (Class (immutable, monitor, name, _, params, classOps, body)) =
           ( [AssignOrInvoke $ AssignExpr
               ( EVar "e" :| []
               , ELit (LObj $
-                  Object immutable monitor innerName body) :| []
+                  Object immutable monitor Nothing innerName body) :| []
               )]
           , Nothing
           , Nothing
