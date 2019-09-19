@@ -34,7 +34,7 @@ parseObject' :: Bool -> Bool -> Parser -> ReadP Object
 parseObject' immutable monitor p = do
   name <- (stoken1 (show W.Object) *> parseIdent)
   body <- parseObjectBody p
-  void (stoken1 (show W.End) >> stoken name)
+  void (stoken1 (show W.End) >> stoken1 name)
   return $ Object immutable monitor name body
 
 parseObjectBody :: Parser -> ReadP ObjectBody
