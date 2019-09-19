@@ -13,6 +13,7 @@ data Type
   | TChar
   | TDouble
   | TString
+  | TIdent Ident
   deriving (Eq, Generic, Ord, Show)
 
 instance Out Type

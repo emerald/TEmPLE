@@ -5,7 +5,8 @@ module Parser.Classic.Types
   ) where
 
 import Ast (Type(..))
-import Parser.Common (stoken, token, word)
+import Parser.Common (stoken, token)
+import Parser.Classic.Idents ( parseIdent )
 
 import Control.Applicative ((*>))
 import Text.ParserCombinators.ReadP (ReadP)
@@ -22,4 +23,9 @@ parseType :: ReadP Type
 parseType = (*>) (stoken ":") $ parseRawType
 
 parseRawType :: ReadP Type
-parseRawType = token $ word $ types
+parseRawType = token $ do
+  ident <- parseIdent
+  return $ foldl
+    (\ t (s, t') -> if ident == s then t' else t)
+    (TIdent ident)
+    types

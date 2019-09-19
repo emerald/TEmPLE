@@ -7,13 +7,15 @@ import Ast (Type(..))
 
 import Parser.Classic.Types (types)
 
+import Parser.Classic.Gen.Idents ( invalidIdentString )
+
 import Parser.GenCommon (token)
 
 import Control.Applicative (liftA2)
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
-  , arbitrary, elements, suchThat
+  , arbitrary, elements
   )
 
 typeClause :: String -> Gen String
@@ -31,9 +33,5 @@ instance Arbitrary ValidType where
 newtype InvalidType = InvalidType { invalidType :: String }
   deriving (Eq, Show)
 
-notAType :: String -> Bool
-notAType = not . (`elem` (map fst types))
-
 instance Arbitrary InvalidType where
-  arbitrary = fmap InvalidType $
-    suchThat arbitrary notAType >>= typeClause
+  arbitrary = fmap InvalidType $ invalidIdentString
