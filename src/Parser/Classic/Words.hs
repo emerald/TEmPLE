@@ -80,6 +80,7 @@ data Keywords
   | Operation
   | Or
   | Process
+  | Record
   | Recovery
   | Refix
   | Restrict
@@ -143,6 +144,7 @@ instance Show Keywords where
   show Operation = "operation"
   show Or        = "or"
   show Process   = "process"
+  show Record    = "record"
   show Recovery  = "recovery"
   show Refix     = "refix"
   show Restrict  = "restrict"
