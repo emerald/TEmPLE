@@ -4,11 +4,10 @@ module Parser.Classic.Objects
   ) where
 
 import Ast (Object(..), ObjectBody(..), BlockBody, Operation)
-import Parser.Common (stoken, stoken1, stoken1Bool)
+import Parser.Common (stoken1, stoken1Bool)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Classic.Operations (parseOperation)
-import Parser.Classic.Classes ( parseClass )
 import Parser.Types (Parser, parseAttDecl)
 
 import qualified Parser.Classic.Words as W
@@ -25,10 +24,7 @@ parseObject :: Parser -> ReadP Object
 parseObject p = do
   immutable <- stoken1Bool (show W.Immutable)
   monitor <- stoken1Bool (show W.Monitor)
-  choice
-    [ parseClass immutable monitor p
-    , parseObject' immutable monitor p
-    ]
+  parseObject' immutable monitor p
 
 parseObject' :: Bool -> Bool -> Parser -> ReadP Object
 parseObject' immutable monitor p = do

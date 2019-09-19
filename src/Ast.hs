@@ -28,6 +28,7 @@ data Lit
   | LSelf
   | LObj Object
   | LTypeObj TypeObject
+  | LClass Class
   | LVec (NonEmpty Expr) (Maybe Type)
   deriving (Eq, Generic, Ord, Show)
 
@@ -76,6 +77,20 @@ newtype TypeObject
   deriving (Eq, Generic, Ord, Show)
 
 instance Out TypeObject
+
+newtype Class
+  = Class
+  ( Bool          -- immutable
+  , Bool          -- monitor
+  , Ident         -- name
+  , Maybe Ident   -- base class
+  , [Param]       -- parameters
+  , [Operation]   -- class operations
+  , ObjectBody    -- remaining elements
+  )
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out Class
 
 newtype ObjectBody = ObjectBody
   ( [(Bool, Decl)]
