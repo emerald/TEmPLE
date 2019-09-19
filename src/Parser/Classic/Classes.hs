@@ -16,13 +16,13 @@ import Ast
   , ConstDecl(Const)
   , Decl(DConst)
   )
-import Parser.Common ( stoken1, stoken1Bool )
+import Parser.Common ( stoken1 )
 import Parser.Classic.Idents ( parseIdent )
 import Parser.Classic.Operations ( parseOperation )
 import Parser.Types ( Parser, parseObjectBody )
 
 import qualified Parser.Classic.Words as W
-  ( Keywords( Class, End, Immutable, Monitor ) )
+  ( Keywords( Class, End ) )
 
 import Data.List.NonEmpty ( NonEmpty ((:|)) )
 import Control.Monad ( void )
