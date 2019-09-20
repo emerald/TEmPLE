@@ -29,7 +29,7 @@ isAnyChar = not . (`elem` ('^':['0'..'7']))
 escSeqAny_to_C :: Char -> ReadP Char
 escSeqAny_to_C c =
   case (readLitChar . ('\\':)) [c] of
-    [(_, "")] -> return c
+    [(c', "")] -> return c'
     _ -> pfail
 
 escSeqUp_to_C :: Char -> Char

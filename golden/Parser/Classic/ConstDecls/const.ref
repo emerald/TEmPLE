@@ -3,4 +3,4 @@
  Const ("c", Nothing, ELit (LChar 'x')),
  Const ("d",
         Nothing,
-        ELit (LString "Hello, World!n"))]
+        ELit (LString "Hello, World!\n"))]
