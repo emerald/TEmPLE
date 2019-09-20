@@ -1,2 +1,2 @@
-ELt (ELit (LInt 4))
-    (EPlus (ELit (LInt 5)) (ELit (LInt 4)))
+[ELt (ELit (LInt 4))
+     (EPlus (ELit (LInt 5)) (ELit (LInt 4)))]

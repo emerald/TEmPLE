@@ -1,1 +1,1 @@
-ELocate (EIsFixed (EIsLocal (EAwaiting (ECodeOf (ENameOf (ETypeOf (ESynTypeOf (ENegate (ELit (LInt 4))))))))))
+[ELocate (EIsFixed (EIsLocal (EAwaiting (ECodeOf (ENameOf (ETypeOf (ESynTypeOf (ENegate (ELit (LInt 4))))))))))]

@@ -10,6 +10,7 @@ import Parser.TestCommon ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)
+import Text.ParserCombinators.ReadP ( many )
 
 prop_validExpr :: ValidExpr -> Property
 prop_validExpr (ValidExpr (s, e, _))
@@ -33,4 +34,4 @@ testTree = fmap (testGroup "ClassicExprsTests") $ sequence
 
 goldenTests :: IO TestTree
 goldenTests = goldenTestAll p ["Expr"]
-  where p = parseExpr parser
+  where p = many $ parseExpr parser
