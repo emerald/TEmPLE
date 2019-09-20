@@ -46,6 +46,7 @@ string this = do s <- look; scan this s
 anyChar :: ReadP Char
 anyChar = satisfy (\ _ -> True)
 
+-- | Skip comments and whitespace
 skipFilling :: ReadP ()
 skipFilling =
   do s <- look
@@ -55,9 +56,11 @@ skipFilling =
   skip (c:s) | isSpace c = do _ <- get; skip s
   skip _                 = do return ()
 
+-- | Skip comments and whitespace after token
 token :: ReadP a -> ReadP a
 token = flip (<*) skipFilling
 
+-- | Skip comments and whitespace after string token
 stoken :: String -> ReadP ()
 stoken = void . token . string
 
