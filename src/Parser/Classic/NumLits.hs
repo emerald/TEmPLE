@@ -18,14 +18,13 @@ import Text.ParserCombinators.ReadP
   )
 
 parseOctHex :: ReadP Int
-parseOctHex
-  = string "0" *> choice [parseOct, parseHex]
-    where
-      parseHex :: ReadP Int
-      parseHex = string "x" *> readS_to_P readHex
+parseOctHex = choice [parseOct, parseHex]
+  where
+    parseHex :: ReadP Int
+    parseHex = string "x" *> readS_to_P readHex
 
-      parseOct :: ReadP Int
-      parseOct = readS_to_P readOct
+    parseOct :: ReadP Int
+    parseOct = readS_to_P readOct
 
 parseFractional :: String -> ReadP Lit
 parseFractional integral = do
@@ -38,6 +37,7 @@ parseStartingWithZero :: ReadP Lit
 parseStartingWithZero = do
   string "0" >> choice
     [ return (LInt 0)
+    , fmap LInt parseOctHex
     , parseFractional "0"
     ]
 
@@ -58,20 +58,14 @@ parseIntegral = do
 integralToInt :: String -> Int
 integralToInt = fst . head . readDec
 
-parseIntFloat :: ReadP Lit
-parseIntFloat = choice
-  [ parseStartingWithZero
-  , parseStartingWithNonZero
-  ]
-
 parseIntLit :: ReadP Int
 parseIntLit = token $ choice
-  [ fmap integralToInt parseIntegral
-  , parseOctHex
+  [ string "0" >> choice [ return 0, parseOctHex ]
+  , fmap integralToInt parseIntegral
   ]
 
 parseNumLit :: ReadP Lit
 parseNumLit = token $ choice
-  [ parseIntFloat
-  , fmap LInt parseOctHex
+  [ parseStartingWithZero
+  , parseStartingWithNonZero
   ]
