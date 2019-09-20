@@ -5,12 +5,15 @@ module Parser.Classic.Test.Idents
 import Parser.Common (fullParse, parse)
 import Parser.Classic.Idents (reserved, parseIdent)
 
+import Parser.TestCommon ( goldenTestAll )
+
 import Parser.Classic.Gen.Idents (ValidIdent(..), InvalidIdent(..))
 
 import Control.Monad (forM_)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.Hspec (Spec, it, shouldBe, testSpec)
 import Test.Tasty.QuickCheck (Property, (===), testProperty)
+import Text.ParserCombinators.ReadP ( many )
 import Text.Printf (printf)
 
 spec_reserved :: Spec
@@ -35,4 +38,9 @@ testTree = fmap (testGroup "ClassicIdentsTests") $ sequence
   , return $ testProperty
       "Invalid names don't parse"
       prop_invalidIdent
+  , goldenTests
   ]
+
+goldenTests :: IO TestTree
+goldenTests = goldenTestAll p ["Idents"]
+  where p = many $ parseIdent
