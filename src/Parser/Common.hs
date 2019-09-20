@@ -6,7 +6,8 @@ module Parser.Common
   , optCommaList, commaList
   , inBrackets
   , prefix, prefixInfix
-  , skipFilling, stoken, stoken1, stoken1Bool, token
+  , skipFilling, stoken, stoken1, stoken1Bool
+  , token, token1
   , word, word1
   , parseFile', parseString'
   ) where
@@ -46,29 +47,42 @@ string this = do s <- look; scan this s
 anyChar :: ReadP Char
 anyChar = satisfy (\ _ -> True)
 
+anyLine :: ReadP ()
+anyLine = void $ manyTill anyChar (char '\n')
+
 -- | Skip comments and whitespace
 skipFilling :: ReadP ()
 skipFilling =
   do s <- look
      skip s
  where
-  skip ('%':_)           = (void $ manyTill anyChar (char '\n')) >> skipFilling
+  skip ('%':_)           = anyLine >> skipFilling
   skip (c:s) | isSpace c = do _ <- get; skip s
   skip _                 = do return ()
+
+-- | Skip at least one comment or whitespace
+skip1Filling :: ReadP ()
+skip1Filling = do
+  s <- look
+  case s of
+    ('%':_)           -> anyLine >> skipFilling
+    (c:_) | isSpace c -> do _ <- get; skipFilling
+    _                 -> pfail
 
 -- | Skip comments and whitespace after token
 token :: ReadP a -> ReadP a
 token = flip (<*) skipFilling
+
+-- | Skip at least one comment or whitespace after token
+token1 :: ReadP a -> ReadP a
+token1 = flip (<*) $ choice [ skip1Filling, eof ]
 
 -- | Skip comments and whitespace after string token
 stoken :: String -> ReadP ()
 stoken = void . token . string
 
 stoken1 :: String -> ReadP ()
-stoken1 s = string s >> choice
-  [ munch1 isSpace >> skipFilling
-  , eof
-  ]
+stoken1 = void . token1 . string
 
 stoken1Bool :: String -> ReadP Bool
 stoken1Bool s = option False ((stoken1 s) *> return True)
