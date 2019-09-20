@@ -1,0 +1,3 @@
+[EVar "abc",ELit (LInt 4),ELit (LChar 'c'),
+ ELit (LString "hello"),EVar "abc",EVar "abc",
+ ELit (LChar 'a')]

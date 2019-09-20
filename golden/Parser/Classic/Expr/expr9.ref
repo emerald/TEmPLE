@@ -1,0 +1,3 @@
+[ESelect (EVar "f") "foo",ESelect (EVar "f") "bar",
+ ESelect (ELit (LChar 'f')) "baz",EVar "f",EVar "f",
+ ELit (LInt 5)]
