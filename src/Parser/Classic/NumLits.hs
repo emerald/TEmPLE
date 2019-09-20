@@ -12,7 +12,7 @@ import Control.Monad (void)
 import Data.Char (isDigit)
 import Numeric (readDec, readFloat, readHex, readOct)
 import Text.ParserCombinators.ReadP
-  ( ReadP
+  ( ReadP, (<++)
   , choice, munch, munch1, satisfy, string
   , readS_to_P
   )
@@ -36,10 +36,9 @@ parseFractional integral = do
 parseStartingWithZero :: ReadP Lit
 parseStartingWithZero = do
   string "0" >> choice
-    [ return (LInt 0)
-    , fmap LInt parseOctHex
+    [ fmap LInt parseOctHex
     , parseFractional "0"
-    ]
+    ] <++ return (LInt 0)
 
 parseStartingWithNonZero :: ReadP Lit
 parseStartingWithNonZero = do
@@ -60,7 +59,7 @@ integralToInt = fst . head . readDec
 
 parseIntLit :: ReadP Int
 parseIntLit = token $ choice
-  [ string "0" >> choice [ return 0, parseOctHex ]
+  [ string "0" >> parseOctHex <++ return 0
   , fmap integralToInt parseIntegral
   ]
 
