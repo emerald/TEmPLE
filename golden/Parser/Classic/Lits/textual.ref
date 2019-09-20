@@ -1,0 +1,3 @@
+[LChar 'a',LChar '\n',LChar '\\',LChar '\'',
+ LString "",LString "ab",LString "abc",
+ LString "a\nb\nc",LString "\"\""]
