@@ -36,7 +36,7 @@ goldenTest p path =
   goldenVsFile basepath fref fout $ do
     pres <- parseFile' p fin
     let ps = case pres of
-              Left e -> show e
+              Left e -> pretty e
               Right p' -> pretty p'
     writeFile fout $ ps ++ "\n"
   where
