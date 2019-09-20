@@ -69,16 +69,13 @@ parseChar =
       , parseEscSeq
       ]
 
-parseSChar :: ReadP Char
-parseSChar = choice
-  [ satisfy isSimpleSChar
-  , parseEscSeq
-  ]
-
 parseString :: ReadP Lit
 parseString =
   between (string "\"") (string "\"") $
-    fmap LString $ many parseSChar
+    fmap LString $ many $ choice
+      [ satisfy isSimpleSChar
+      , parseEscSeq
+      ]
 
 parseTextLit :: ReadP Lit
 parseTextLit = token $ choice
