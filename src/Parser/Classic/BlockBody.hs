@@ -6,7 +6,7 @@ import Ast (Ident, BlockBody(..), DeclStat)
 
 import Parser.Classic.Common ( endShow )
 import Parser.Classic.Idents (parseIdent)
-import Parser.Common (inBrackets, stoken, stoken1)
+import Parser.Common (inBrackets, stoken1)
 import Parser.Types (Parser, parseDeclStats)
 
 import qualified Parser.Classic.Words as W
