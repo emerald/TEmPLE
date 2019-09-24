@@ -1,0 +1,8 @@
+[Decl (DConst (Const ("a", Nothing, ELit (LInt 0)))),
+ Decl (DConst (Const ("b",
+                      Just TInt,
+                      ELit (LInt 0)))),
+ Decl (DVar (Var ("e" :| [], TInt, Nothing))),
+ Decl (DVar (Var ("d" :| [],
+                  TInt,
+                  Just ELit (LInt 0))))]
