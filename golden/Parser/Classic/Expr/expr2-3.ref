@@ -1,0 +1,5 @@
+[EOr (EOr (EAnd (EVar "a") (EVar "b"))
+          (EAnd (EVar "c") (EVar "d")))
+     (EVar "e"),
+ EOr (EOr (EVar "a") (EAnd (EVar "b") (EVar "c")))
+     (EAnd (EVar "d") (EVar "e"))]

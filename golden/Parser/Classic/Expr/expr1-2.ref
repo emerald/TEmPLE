@@ -1,0 +1,12 @@
+[ERestrictTo (ERestrictTo (EVar "x")
+                          (EVar "Integer"))
+             (EVar "Integer"),
+ EViewAs (EViewAs (EVar "x") (EVar "Integer"))
+         (EVar "Integer"),
+ ERestrictTo (EViewAs (EVar "x") (EVar "Integer"))
+             (EVar "Integer"),
+ EViewAs (ERestrictTo (EVar "x") (EVar "Integer"))
+         (EVar "Integer"),
+ EViewAs (EOr (EVar "x") (EVar "y")) (EVar "Integer"),
+ EPlus (EVar "x")
+       (EViewAs (EVar "x") (EVar "Integer"))]

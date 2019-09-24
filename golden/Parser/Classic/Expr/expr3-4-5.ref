@@ -2,4 +2,6 @@
             (ENeg (ELit (LBool True)))),
  ENeg (EConfTo (EVar "a") (EVar "b")),
  EAnd (ENeg (EVar "a")) (EVar "b"),
- EAnd (ENeg (EVar "a")) (ENeg (EVar "b"))]
+ EAnd (ENeg (EVar "a")) (ENeg (EVar "b")),
+ EAnd (ENeg (EVar "a"))
+      (EViewAs (EVar "b") (EVar "Boolean"))]

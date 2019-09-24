@@ -16,8 +16,8 @@ import qualified Parser.Classic.Words as W
 
 import Data.List.NonEmpty (NonEmpty)
 import Text.ParserCombinators.ReadP
-  ( ReadP
-  , between, chainl1, choice
+  ( ReadP, (<++)
+  , between, choice
   )
 
 parseExprZero :: Parser -> ReadP Expr
@@ -67,7 +67,7 @@ prec7
     ]
 
 parseExpr7 :: Parser -> ReadP Expr
-parseExpr7 p = chainl1 (parseExpr8 p) $ word prec7
+parseExpr7 p = chainl1' p parseExpr8 $ word prec7
 
 prec6 :: [(String, Expr -> Expr -> Expr)]
 prec6
@@ -76,7 +76,7 @@ prec6
     ]
 
 parseExpr6 :: Parser -> ReadP Expr
-parseExpr6 p = chainl1 (parseExpr7 p) $ word prec6
+parseExpr6 p = chainl1' p parseExpr7 $ word prec6
 
 prec5 :: [(String, Expr -> Expr -> Expr)]
 prec5
@@ -90,20 +90,24 @@ prec5
     ]
 
 parseExpr5 :: Parser -> ReadP Expr
-parseExpr5 p = chainl1'
-  (parseExpr6 p)
-  (parseUnaryExpr p parseExpr6)
-  (word prec5)
+parseExpr5 p = chainl1' p parseExpr6 $ word prec5
 
-chainl1' :: ReadP a -> ReadP a -> ReadP (a -> a -> a) -> ReadP a
-chainl1' p1 p2 op = p1 >>= rest
+chainl1' :: Parser -> (Parser -> ReadP Expr) -> ReadP (Expr -> Expr -> Expr) -> ReadP Expr
+chainl1' p fp op = fp p >>= rest
   where
   rest x = choice
     [ return x
     , do  f <- op
-          y <- p2
+          y <- parseUnaryExpr p fp
           rest (f x y)
     ]
+
+parseUnaryExpr :: Parser -> (Parser -> ReadP Expr) -> ReadP Expr
+parseUnaryExpr p f = choice
+  [ word prec4 <*> (parseExpr4 p)
+  , prefixInfix EViewAs     W.View      W.As (parseExpr1 p)
+  , prefixInfix ERestrictTo W.Restrict  W.To (parseExpr1 p)
+  ] <++ f p
 
 prec4 :: [(String, Expr -> Expr)]
 prec4
@@ -116,12 +120,6 @@ parseExpr4 p = choice
   , parseExpr5 p
   ]
 
-parseUnaryExpr :: Parser -> (Parser -> ReadP Expr) -> ReadP Expr
-parseUnaryExpr p f = choice
-  [ word prec4 <*> (parseExpr4 p)
-  , f p
-  ]
-
 prec3 :: [(String, Expr -> Expr -> Expr)]
 prec3
   = [ ("&", EAnd)
@@ -129,7 +127,7 @@ prec3
     ]
 
 parseExpr3 :: Parser -> ReadP Expr
-parseExpr3 p = chainl1 (parseExpr4 p) $ word prec3
+parseExpr3 p = chainl1' p parseExpr4 $ word prec3
 
 prec2 :: [(String, Expr -> Expr -> Expr)]
 prec2
@@ -138,7 +136,7 @@ prec2
     ]
 
 parseExpr2 :: Parser -> ReadP Expr
-parseExpr2 p = chainl1 (parseExpr3 p) $ word prec2
+parseExpr2 p = chainl1' p parseExpr3 $ word prec2
 
 parseExpr1 :: Parser -> ReadP Expr
 parseExpr1 p = choice
