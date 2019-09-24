@@ -90,7 +90,20 @@ prec5
     ]
 
 parseExpr5 :: Parser -> ReadP Expr
-parseExpr5 p = chainl1 (parseExpr6 p) $ word prec5
+parseExpr5 p = chainl1'
+  (parseExpr6 p)
+  (parseUnaryExpr p parseExpr6)
+  (word prec5)
+
+chainl1' :: ReadP a -> ReadP a -> ReadP (a -> a -> a) -> ReadP a
+chainl1' p1 p2 op = p1 >>= rest
+  where
+  rest x = choice
+    [ return x
+    , do  f <- op
+          y <- p2
+          rest (f x y)
+    ]
 
 prec4 :: [(String, Expr -> Expr)]
 prec4
@@ -101,6 +114,12 @@ parseExpr4 :: Parser -> ReadP Expr
 parseExpr4 p = choice
   [ word prec4 <*> (parseExpr4 p)
   , parseExpr5 p
+  ]
+
+parseUnaryExpr :: Parser -> (Parser -> ReadP Expr) -> ReadP Expr
+parseUnaryExpr p f = choice
+  [ word prec4 <*> (parseExpr4 p)
+  , f p
   ]
 
 prec3 :: [(String, Expr -> Expr -> Expr)]
