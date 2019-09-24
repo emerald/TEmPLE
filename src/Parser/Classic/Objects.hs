@@ -7,10 +7,11 @@ import Ast (Object(..), ObjectBody(..), BlockBody, Operation)
 import Parser.Common (stoken1)
 import Parser.Classic.Builtins ( parseBuiltin )
 import Parser.Classic.Common ( end, endShow )
+import Parser.Classic.Decls ( parseObjConstrDecl )
 import Parser.Classic.Idents (prefixedIdent)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Classic.Operations (parseOperation)
-import Parser.Types (Parser, parseObjConstrDecl)
+import Parser.Types (Parser)
 
 import qualified Parser.Classic.Words as W
   ( Keywords(Object, Initially, Process, Recovery) )

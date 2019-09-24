@@ -1,7 +1,6 @@
 module Parser.Types
   ( Parser(Parser)
   , parseExpr
-  , parseObjConstrDecl
   , parseDecl
   , parseObject
   , parseObjectBody
@@ -33,7 +32,6 @@ data Parser
   , parseObjectBody' :: Parser -> ReadP ObjectBody
   , parseTypeObject' :: Parser -> Bool -> ReadP TypeObject
   , parseOptImmTypeObject' :: Parser -> ReadP TypeObject
-  , parseObjConstrDecl' :: Parser -> ReadP ((Bool, Decl), [Operation])
   , parseDecl' :: Parser -> ReadP Decl
   , parseDeclStat' :: Parser -> ReadP DeclStat
   , parseDeclStats' :: Parser -> ReadP [DeclStat]
@@ -45,9 +43,6 @@ parse f p = f p p
 
 parseExpr :: Parser -> ReadP Expr
 parseExpr = parse parseExpr'
-
-parseObjConstrDecl :: Parser -> ReadP ((Bool, Decl), [Operation])
-parseObjConstrDecl = parse parseObjConstrDecl'
 
 parseDecl :: Parser -> ReadP Decl
 parseDecl = parse parseDecl'

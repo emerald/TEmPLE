@@ -21,8 +21,7 @@ import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.Objects (parseObject, parseObjectBody)
 import Parser.Classic.TypeObjects (parseOptImmTypeObject, parseTypeObject)
 import Parser.Classic.Decls
-  ( parseObjConstrDecl
-  , parseConstDecl
+  ( parseConstDecl
   , parseDecl
   )
 import Parser.Classic.DeclStats
@@ -44,7 +43,6 @@ parser = Parser
   parseObjectBody
   parseTypeObject
   parseOptImmTypeObject
-  parseObjConstrDecl
   parseDecl
   parseDeclStat
   parseDeclStats
