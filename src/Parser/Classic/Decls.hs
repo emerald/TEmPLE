@@ -64,7 +64,7 @@ parseConst p = stoken1 (show W.Const) *> choice
 parseVar :: Parser -> ReadP (Decl, [Operation])
 parseVar p = choice
   [ stoken1 (show W.Field) *> parseVarField p
-  , fmap (flip (,) [] . DVar) $ parseVarDecl' p
+  , fmap (flip (,) [] . DVar) $ parseVarDecl p
   ]
 
 parseDecl :: Parser -> ReadP Decl
