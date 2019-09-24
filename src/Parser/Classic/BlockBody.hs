@@ -6,7 +6,7 @@ import Ast (Ident, BlockBody(..), DeclStat)
 
 import Parser.Classic.Common ( endShow )
 import Parser.Classic.Idents (parseIdent)
-import Parser.Common (stoken, stoken1)
+import Parser.Common (inBrackets, stoken, stoken1)
 import Parser.Types (Parser, parseDeclStats)
 
 import qualified Parser.Classic.Words as W
@@ -25,10 +25,7 @@ parseBlockBody p = do
 parseUnavailable :: Parser -> ReadP (Maybe Ident, [DeclStat])
 parseUnavailable p = do
   stoken1 $ show W.Unavailable
-  mid <- optional $ between
-          (stoken "[")
-          (stoken "]")
-          parseIdent
+  mid <- optional $ inBrackets parseIdent
   ds <- parseDeclStats p
   endShow W.Unavailable
   return (mid, ds)
