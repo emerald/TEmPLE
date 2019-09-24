@@ -4,8 +4,7 @@ module Parser.Classic.VecLits
 
 import Ast (Lit(LVec))
 
-import Parser.Types ( Parser )
-import Parser.Classic.Exprs ( parseExpr )
+import Parser.Types ( Parser, parseExpr )
 import Parser.Classic.Types ( parseType )
 import Parser.Common ( commaList, stoken )
 

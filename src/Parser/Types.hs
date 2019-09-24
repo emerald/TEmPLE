@@ -1,7 +1,6 @@
 module Parser.Types
   ( Parser(Parser)
   , parseExpr
-  , parseVecLit
   , parseObjConstrDecl
   , parseDecl
   , parseObject
@@ -34,7 +33,6 @@ data Parser
   , parseObjectBody' :: Parser -> ReadP ObjectBody
   , parseTypeObject' :: Parser -> Bool -> ReadP TypeObject
   , parseOptImmTypeObject' :: Parser -> ReadP TypeObject
-  , parseVecLit' :: Parser -> ReadP Lit
   , parseObjConstrDecl' :: Parser -> ReadP ((Bool, Decl), [Operation])
   , parseDecl' :: Parser -> ReadP Decl
   , parseDeclStat' :: Parser -> ReadP DeclStat
@@ -65,9 +63,6 @@ parseTypeObject = parse parseTypeObject'
 
 parseOptImmTypeObject :: Parser -> ReadP TypeObject
 parseOptImmTypeObject = parse parseOptImmTypeObject'
-
-parseVecLit :: Parser -> ReadP Lit
-parseVecLit = parse parseVecLit'
 
 parseDeclStat :: Parser -> ReadP DeclStat
 parseDeclStat = parse parseDeclStat'

@@ -20,7 +20,6 @@ import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
 import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.Objects (parseObject, parseObjectBody)
 import Parser.Classic.TypeObjects (parseOptImmTypeObject, parseTypeObject)
-import Parser.Classic.VecLits (parseVecLit)
 import Parser.Classic.Decls
   ( parseObjConstrDecl
   , parseConstDecl
@@ -45,7 +44,6 @@ parser = Parser
   parseObjectBody
   parseTypeObject
   parseOptImmTypeObject
-  parseVecLit
   parseObjConstrDecl
   parseDecl
   parseDeclStat

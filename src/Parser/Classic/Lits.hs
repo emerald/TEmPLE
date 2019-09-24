@@ -10,7 +10,8 @@ import Parser.Classic.Enums (parseEnum)
 import Parser.Classic.NumLits (parseNumLit)
 import Parser.Classic.Records (parseRecord)
 import Parser.Classic.TextLits (parseTextLit)
-import Parser.Types (Parser, parseObject, parseTypeObject, parseVecLit)
+import Parser.Classic.VecLits (parseVecLit)
+import Parser.Types (Parser, parseObject, parseTypeObject)
 
 import qualified Parser.Classic.Words as W
   ( Literals(..), Keywords(Immutable, Monitor) )
