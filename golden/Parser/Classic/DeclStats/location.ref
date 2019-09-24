@@ -1,0 +1,6 @@
+[MoveTo (EVar "x") (EVar "y"),
+ FixAt (EVar "x") (EVar "y"),
+ RefixAt (EVar "x") (EVar "y"),Unfix (EVar "x"),
+ Decl (DConst (Const ("n",
+                      Nothing,
+                      ELocate (EVar "x"))))]
