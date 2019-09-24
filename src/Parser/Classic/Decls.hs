@@ -11,8 +11,7 @@ import Parser.Classic.Attached (parseAttached)
 import Parser.Classic.Idents (parseIdent, parseIdentList)
 import Parser.Classic.Types (parseType)
 import Parser.Classic.Transforms ( makeConstField, makeVarField )
-import Parser.Classic.Exprs (parseExpr)
-import Parser.Types (Parser)
+import Parser.Types (Parser, parseExpr)
 
 import qualified Parser.Classic.Words as W
   ( Keywords(Const, Field, Var))

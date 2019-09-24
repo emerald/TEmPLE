@@ -18,13 +18,13 @@ module Parser.Classic
 import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
 import Parser.Classic.Classes (parseClass)
+import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.Objects (parseObject, parseObjectBody)
 import Parser.Classic.TypeObjects (parseOptImmTypeObject, parseTypeObject)
 import Parser.Classic.VecLits (parseVecLit)
 import Parser.Classic.Decls
   ( parseObjConstrDecl
   , parseConstDecl
-  , parseVarDecl
   , parseDecl
   )
 import Parser.Classic.DeclStats
@@ -42,14 +42,13 @@ type ParseError = ParseErrorImpl [ConstDecl]
 parser :: Parser
 parser = Parser
   parseClass
+  parseExpr
   parseObject
   parseObjectBody
   parseTypeObject
   parseOptImmTypeObject
   parseVecLit
   parseObjConstrDecl
-  parseConstDecl
-  parseVarDecl
   parseDecl
   parseDeclStat
   parseDeclStats
