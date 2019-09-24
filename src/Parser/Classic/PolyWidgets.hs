@@ -7,10 +7,9 @@ import Ast ( PolyWidget(..) )
 import qualified Parser.Classic.Words as W
   ( Keywords(ForAll, SuchThat, Where) )
 
-import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.Idents ( parseIdent )
 import Parser.Common ( prefix, stoken )
-import Parser.Types ( Parser, parseOptImmTypeObject )
+import Parser.Types ( Parser, parseOptImmTypeObject, parseExpr )
 
 import Text.ParserCombinators.ReadP ( ReadP, choice )
 

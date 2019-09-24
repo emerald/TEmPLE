@@ -5,11 +5,12 @@ module Parser.Classic.Lits
 import Ast (Lit(LNil, LBool, LSelf, LObj, LTypeObj, LClass, LEnum))
 
 import Parser.Common (stoken1Bool, word)
+import Parser.Classic.Classes ( parseClass )
 import Parser.Classic.Enums (parseEnum)
 import Parser.Classic.NumLits (parseNumLit)
 import Parser.Classic.Records (parseRecord)
 import Parser.Classic.TextLits (parseTextLit)
-import Parser.Types (Parser, parseClass, parseObject, parseTypeObject, parseVecLit)
+import Parser.Types (Parser, parseObject, parseTypeObject, parseVecLit)
 
 import qualified Parser.Classic.Words as W
   ( Literals(..), Keywords(Immutable, Monitor) )

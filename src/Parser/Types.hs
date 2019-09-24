@@ -1,6 +1,5 @@
 module Parser.Types
   ( Parser(Parser)
-  , parseClass
   , parseExpr
   , parseVecLit
   , parseObjConstrDecl
@@ -15,8 +14,7 @@ module Parser.Types
   ) where
 
 import Ast
-  ( Class
-  , Expr
+  ( Expr
   , Object
   , ObjectBody
   , TypeObject
@@ -31,8 +29,7 @@ import Text.ParserCombinators.ReadP (ReadP)
 
 data Parser
   = Parser
-  { parseClass' :: Parser -> Bool -> Bool -> ReadP Class
-  , parseExpr' :: Parser -> ReadP Expr
+  { parseExpr' :: Parser -> ReadP Expr
   , parseObject' :: Parser -> Bool -> Bool -> ReadP Object
   , parseObjectBody' :: Parser -> ReadP ObjectBody
   , parseTypeObject' :: Parser -> Bool -> ReadP TypeObject
@@ -53,9 +50,6 @@ parseExpr = parse parseExpr'
 
 parseObjConstrDecl :: Parser -> ReadP ((Bool, Decl), [Operation])
 parseObjConstrDecl = parse parseObjConstrDecl'
-
-parseClass :: Parser -> Bool -> Bool -> ReadP Class
-parseClass = parse parseClass'
 
 parseDecl :: Parser -> ReadP Decl
 parseDecl = parse parseDecl'
