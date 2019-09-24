@@ -20,7 +20,7 @@ import Text.ParserCombinators.ReadP
   ( ReadP
   , eof, get, look
   , between, char, choice, eof
-  , many, manyTill, munch1, option
+  , many, manyTill, option
   , pfail, satisfy
   , readP_to_S
   )
