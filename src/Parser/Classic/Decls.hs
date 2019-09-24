@@ -1,5 +1,5 @@
 module Parser.Classic.Decls
-  ( parseAttDecl
+  ( parseObjConstrDecl
   , parseConstDecl
   , parseVarDecl
   , parseDecl
@@ -73,8 +73,12 @@ parseDecl p = choice
   , fmap DVar $ parseVarDecl p
   ]
 
-parseAttDecl :: Parser -> ReadP ((Bool, Decl), [Operation])
-parseAttDecl p = token $ do
+parseObjConstrDecl :: Parser -> ReadP ((Bool, Decl), [Operation])
+-- ^ Parse a declaration inside an object constructor.
+--
+-- Here, fields are allowed, and the declarations may be attached to
+-- the object instance.
+parseObjConstrDecl p = token $ do
   a <- parseAttached
   (d, ops) <- choice [ parseConst p, parseVar p ]
   return ((a, d), ops)

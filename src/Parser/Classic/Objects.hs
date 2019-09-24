@@ -10,7 +10,7 @@ import Parser.Classic.Common ( end, endShow )
 import Parser.Classic.Idents (prefixedIdent)
 import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Classic.Operations (parseOperation)
-import Parser.Types (Parser, parseAttDecl)
+import Parser.Types (Parser, parseObjConstrDecl)
 
 import qualified Parser.Classic.Words as W
   ( Keywords(Object, Initially, Process, Recovery) )
@@ -32,7 +32,7 @@ parseObject p imm mon = do
 
 parseObjectBody :: Parser -> ReadP ObjectBody
 parseObjectBody p = do
-  (decls, declOps) <- fmap unzip $ many (parseAttDecl p)
+  (decls, declOps) <- fmap unzip $ many (parseObjConstrDecl p)
   (initially, process, recovery, ops) <- parseTail
     ( parseInitially p
     , parseProcess p

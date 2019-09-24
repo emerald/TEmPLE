@@ -22,7 +22,7 @@ import Parser.Classic.Objects (parseObject, parseObjectBody)
 import Parser.Classic.TypeObjects (parseOptImmTypeObject, parseTypeObject)
 import Parser.Classic.VecLits (parseVecLit)
 import Parser.Classic.Decls
-  ( parseAttDecl
+  ( parseObjConstrDecl
   , parseConstDecl
   , parseVarDecl
   , parseDecl
@@ -47,7 +47,7 @@ parser = Parser
   parseTypeObject
   parseOptImmTypeObject
   parseVecLit
-  parseAttDecl
+  parseObjConstrDecl
   parseConstDecl
   parseVarDecl
   parseDecl
