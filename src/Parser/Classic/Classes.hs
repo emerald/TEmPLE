@@ -8,9 +8,10 @@ import Parser.Common ( stoken, stoken1 )
 import Parser.Classic.Builtins ( parseBuiltin )
 import Parser.Classic.Common ( end )
 import Parser.Classic.Idents ( parseIdent, prefixedIdent )
+import Parser.Classic.Objects ( parseObjectBody )
 import Parser.Classic.Operations ( parseOperation )
 import Parser.Classic.Params ( parseOptParams )
-import Parser.Types ( Parser, parseObjectBody )
+import Parser.Types ( Parser )
 
 import qualified Parser.Classic.Words as W
   ( Keywords( Class ) )
