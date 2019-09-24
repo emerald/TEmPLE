@@ -2,7 +2,6 @@ module Parser.Types
   ( Parser(Parser)
   , parseExpr
   , parseDecl
-  , parseObject
   , parseObjectBody
   , parseTypeObject
   , parseOptImmTypeObject
@@ -13,7 +12,6 @@ module Parser.Types
 
 import Ast
   ( Expr
-  , Object
   , ObjectBody
   , TypeObject
   , BlockBody
@@ -28,7 +26,6 @@ import Text.ParserCombinators.ReadP (ReadP)
 data Parser
   = Parser
   { parseExpr' :: Parser -> ReadP Expr
-  , parseObject' :: Parser -> Bool -> Bool -> ReadP Object
   , parseObjectBody' :: Parser -> ReadP ObjectBody
   , parseTypeObject' :: Parser -> Bool -> ReadP TypeObject
   , parseOptImmTypeObject' :: Parser -> ReadP TypeObject
@@ -46,9 +43,6 @@ parseExpr = parse parseExpr'
 
 parseDecl :: Parser -> ReadP Decl
 parseDecl = parse parseDecl'
-
-parseObject :: Parser -> Bool -> Bool -> ReadP Object
-parseObject = parse parseObject'
 
 parseObjectBody :: Parser -> ReadP ObjectBody
 parseObjectBody = parse parseObjectBody'
