@@ -1,0 +1,2 @@
+signal x
+wait y
