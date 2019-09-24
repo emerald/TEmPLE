@@ -1,0 +1,10 @@
+[Compound (BlockBody ([Decl (DVar (Var ("x" :| [],
+                                        TInt,
+                                        Nothing))),
+                       Compound (BlockBody ([Decl (DVar (Var ("y" :| [],
+                                                              TInt,
+                                                              Nothing)))],
+                                            Nothing,
+                                            Nothing))],
+                      Nothing,
+                      Nothing))]
