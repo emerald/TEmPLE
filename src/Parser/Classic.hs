@@ -18,7 +18,7 @@ module Parser.Classic
 import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
 import Parser.Classic.Exprs ( parseExpr )
-import Parser.Classic.TypeObjects (parseOptImmTypeObject, parseTypeObject)
+import Parser.Classic.TypeObjects (parseOptImmTypeObject)
 import Parser.Classic.Decls ( parseConstDecl )
 import Parser.Classic.DeclStats ( parseDeclStats )
 import Parser.Types (Parser(Parser))
@@ -31,7 +31,6 @@ type ParseError = ParseErrorImpl [ConstDecl]
 parser :: Parser
 parser = Parser
   parseExpr
-  parseTypeObject
   parseOptImmTypeObject
   parseDeclStats
 
