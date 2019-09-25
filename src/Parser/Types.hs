@@ -8,8 +8,8 @@ module Parser.Types
 
 import Ast
   ( Expr
-  , TypeObject
   , DeclStat
+  , TypeObject
   )
 
 import Text.ParserCombinators.ReadP (ReadP)
