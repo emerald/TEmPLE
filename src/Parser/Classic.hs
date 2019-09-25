@@ -19,10 +19,7 @@ import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
 import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.TypeObjects (parseOptImmTypeObject, parseTypeObject)
-import Parser.Classic.Decls
-  ( parseConstDecl
-  , parseDecl
-  )
+import Parser.Classic.Decls ( parseConstDecl )
 import Parser.Classic.DeclStats
   ( parseDeclStat
   , parseDeclStats
@@ -39,7 +36,6 @@ parser = Parser
   parseExpr
   parseTypeObject
   parseOptImmTypeObject
-  parseDecl
   parseDeclStat
   parseDeclStats
 

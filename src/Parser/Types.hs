@@ -1,7 +1,6 @@
 module Parser.Types
   ( Parser(Parser)
   , parseExpr
-  , parseDecl
   , parseTypeObject
   , parseOptImmTypeObject
   , parseDeclStat
@@ -11,7 +10,6 @@ module Parser.Types
 import Ast
   ( Expr
   , TypeObject
-  , Decl
   , DeclStat
   , Lit
   , Operation
@@ -24,7 +22,6 @@ data Parser
   { parseExpr' :: Parser -> ReadP Expr
   , parseTypeObject' :: Parser -> Bool -> ReadP TypeObject
   , parseOptImmTypeObject' :: Parser -> ReadP TypeObject
-  , parseDecl' :: Parser -> ReadP Decl
   , parseDeclStat' :: Parser -> ReadP DeclStat
   , parseDeclStats' :: Parser -> ReadP [DeclStat]
   }
@@ -34,9 +31,6 @@ parse f p = f p p
 
 parseExpr :: Parser -> ReadP Expr
 parseExpr = parse parseExpr'
-
-parseDecl :: Parser -> ReadP Decl
-parseDecl = parse parseDecl'
 
 parseTypeObject :: Parser -> Bool -> ReadP TypeObject
 parseTypeObject = parse parseTypeObject'

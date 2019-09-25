@@ -6,6 +6,7 @@ module Parser.Classic.DeclStats
 import Ast (DeclStat(..), Expr)
 
 import Parser.Common (prefix, prefixInfix, stoken1, word1)
+import Parser.Classic.Decls ( parseDecl )
 import Parser.Classic.Exprs (parseExpr)
 import Parser.Classic.AssignOrInvoke (parseAssignOrInvoke)
 import Parser.Classic.BlockBody (parseBlockBody)
@@ -31,7 +32,7 @@ import qualified Parser.Classic.Words as W
     )
   )
 
-import Parser.Types (Parser, parseDecl)
+import Parser.Types (Parser)
 
 import Text.ParserCombinators.ReadP (ReadP, between, choice, many)
 
