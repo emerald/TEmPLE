@@ -10,8 +10,6 @@ import Ast
   ( Expr
   , TypeObject
   , DeclStat
-  , Lit
-  , Operation
   )
 
 import Text.ParserCombinators.ReadP (ReadP)
