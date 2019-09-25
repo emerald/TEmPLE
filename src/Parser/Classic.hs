@@ -27,7 +27,6 @@ import Parser.Classic.DeclStats
   ( parseDeclStat
   , parseDeclStats
   )
-import Parser.Classic.BlockBody (parseBlockBody)
 import Parser.Types (Parser(Parser))
 
 import Control.Applicative ((*>))
@@ -43,7 +42,6 @@ parser = Parser
   parseDecl
   parseDeclStat
   parseDeclStats
-  parseBlockBody
 
 parseProgram :: ReadP [ConstDecl]
 parseProgram = skipFilling *> many (parseConstDecl parser)

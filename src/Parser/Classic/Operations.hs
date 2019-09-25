@@ -7,10 +7,11 @@ import Ast (Operation(..), OpSig(..))
 import qualified Parser.Classic.Words as W
   ( Keywords( Export ) )
 
+import Parser.Classic.BlockBody ( parseBlockBody )
 import Parser.Classic.Common ( end )
 import Parser.Classic.OpSigs ( parseOpSig )
 import Parser.Common ( stoken1Bool )
-import Parser.Types ( Parser, parseBlockBody )
+import Parser.Types ( Parser )
 
 import Text.ParserCombinators.ReadP ( ReadP )
 

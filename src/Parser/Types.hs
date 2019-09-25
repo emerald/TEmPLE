@@ -6,13 +6,11 @@ module Parser.Types
   , parseOptImmTypeObject
   , parseDeclStat
   , parseDeclStats
-  , parseBlockBody
   ) where
 
 import Ast
   ( Expr
   , TypeObject
-  , BlockBody
   , Decl
   , DeclStat
   , Lit
@@ -29,7 +27,6 @@ data Parser
   , parseDecl' :: Parser -> ReadP Decl
   , parseDeclStat' :: Parser -> ReadP DeclStat
   , parseDeclStats' :: Parser -> ReadP [DeclStat]
-  , parseBlockBody' :: Parser -> ReadP BlockBody
   }
 
 parse :: (Parser -> Parser -> a) -> Parser -> a
@@ -52,6 +49,3 @@ parseDeclStat = parse parseDeclStat'
 
 parseDeclStats :: Parser -> ReadP [DeclStat]
 parseDeclStats = parse parseDeclStats'
-
-parseBlockBody :: Parser -> ReadP BlockBody
-parseBlockBody = parse parseBlockBody'
