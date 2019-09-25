@@ -6,11 +6,7 @@ module Parser.Types
   , parseDeclStats
   ) where
 
-import Ast
-  ( Expr
-  , DeclStat
-  , TypeObject
-  )
+import Ast ( Expr, DeclStat, TypeObject )
 
 import Text.ParserCombinators.ReadP (ReadP)
 
