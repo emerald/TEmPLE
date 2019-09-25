@@ -20,10 +20,7 @@ import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
 import Parser.Classic.Exprs ( parseExpr )
 import Parser.Classic.TypeObjects (parseOptImmTypeObject, parseTypeObject)
 import Parser.Classic.Decls ( parseConstDecl )
-import Parser.Classic.DeclStats
-  ( parseDeclStat
-  , parseDeclStats
-  )
+import Parser.Classic.DeclStats ( parseDeclStats )
 import Parser.Types (Parser(Parser))
 
 import Control.Applicative ((*>))
@@ -36,7 +33,6 @@ parser = Parser
   parseExpr
   parseTypeObject
   parseOptImmTypeObject
-  parseDeclStat
   parseDeclStats
 
 parseProgram :: ReadP [ConstDecl]

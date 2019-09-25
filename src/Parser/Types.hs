@@ -3,7 +3,6 @@ module Parser.Types
   , parseExpr
   , parseTypeObject
   , parseOptImmTypeObject
-  , parseDeclStat
   , parseDeclStats
   ) where
 
@@ -22,7 +21,6 @@ data Parser
   { parseExpr' :: Parser -> ReadP Expr
   , parseTypeObject' :: Parser -> Bool -> ReadP TypeObject
   , parseOptImmTypeObject' :: Parser -> ReadP TypeObject
-  , parseDeclStat' :: Parser -> ReadP DeclStat
   , parseDeclStats' :: Parser -> ReadP [DeclStat]
   }
 
@@ -37,9 +35,6 @@ parseTypeObject = parse parseTypeObject'
 
 parseOptImmTypeObject :: Parser -> ReadP TypeObject
 parseOptImmTypeObject = parse parseOptImmTypeObject'
-
-parseDeclStat :: Parser -> ReadP DeclStat
-parseDeclStat = parse parseDeclStat'
 
 parseDeclStats :: Parser -> ReadP [DeclStat]
 parseDeclStats = parse parseDeclStats'
