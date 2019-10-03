@@ -6,125 +6,111 @@ module Parser.Common
   , optCommaList, commaList
   , inBrackets
   , prefix, prefixInfix
-  , skipFilling, stoken, stoken1, stoken1Bool
+  , skipFilling
+  , stoken, stoken1, stoken1Bool
   , token, token1
   , word, word1
   , parseFile', parseString'
   ) where
 
-import Data.Char (isSpace, toUpper, toLower)
+import Parser.ParserM
+import qualified Parser.CommonPrime as P
+
 import Data.List.NonEmpty (NonEmpty((:|)), toList)
 import Control.Applicative ((<*), (*>), liftA2)
 import Control.Monad (void)
-import Text.ParserCombinators.ReadP
-  ( ReadP
-  , eof, get, look
-  , between, char, choice, eof
-  , many, manyTill, option
-  , pfail, satisfy
-  , readP_to_S
-  )
+import Control.Monad.Combinators ( between, choice, many, option )
 import Text.PrettyPrint.GenericPretty (Generic, Out)
 
-data ParseErrorImpl a
+data ParseErrorImpl e a
   = NoParse FilePath
-  | AmbiguousGrammar [a] FilePath
+  | AmbiguousGrammar [Either e a] FilePath
   | NotImplemented
+  | SyntaxError e
   deriving (Eq, Generic, Ord, Show)
 
-instance (Out a) => Out (ParseErrorImpl a)
+instance (Out e, Out a) => Out (ParseErrorImpl e a)
 
-string :: String -> ReadP String
--- ^ Case-insensitive variant of ReadP's string
-string this = do s <- look; scan this s
- where
-  scan []     _               = do return this
-  scan (x:xs) (y:ys)
-    | x == (toLower y) || x == (toUpper y)
-    = do _ <- get; scan xs ys
-  scan _      _               = do pfail
+data BasicError
+  = ExpectedString String
+  | ExpectedOneOrMoreWhiteSpace
+  deriving (Eq, Generic, Ord, Show)
 
-anyChar :: ReadP Char
-anyChar = satisfy (\ _ -> True)
+instance Out BasicError
 
-anyLine :: ReadP ()
-anyLine = void $ manyTill anyChar (char '\n')
+string :: String -> ParserM BasicError String
+-- ^ Demand that the given string be parsed
+string this = liftRP (P.string this) (ExpectedString this)
 
--- | Skip comments and whitespace
-skipFilling :: ReadP ()
-skipFilling =
-  do s <- look
-     skip s
- where
-  skip ('%':_)           = anyLine >> skipFilling
-  skip (c:s) | isSpace c = do _ <- get; skip s
-  skip _                 = do return ()
+skipFilling :: ParserM e ()
+skipFilling = liftRP' P.skipFilling
 
--- | Skip at least one comment or whitespace
-skip1Filling :: ReadP ()
-skip1Filling = do
-  s <- look
-  case s of
-    ('%':_)           -> anyLine >> skipFilling
-    (c:_) | isSpace c -> do _ <- get; skipFilling
-    _                 -> pfail
+skip1Filling :: ParserM e ()
+skip1Filling = liftRP' P.skip1Filling
 
--- | Skip comments and whitespace after token
-token :: ReadP a -> ReadP a
+token :: ParserM e a -> ParserM e a
+-- ^ Skip comments and whitespace after token
 token = flip (<*) skipFilling
 
--- | Skip at least one comment or whitespace after token
-token1 :: ReadP a -> ReadP a
-token1 = flip (<*) $ choice [ skip1Filling, eof ]
+token1 :: ParserM BasicError a -> ParserM BasicError a
+-- ^ Skip at least one comment or whitespace after token
+token1 = flip (<*) $ choice
+  [ skip1Filling
+  , eof
+  , pfail ExpectedOneOrMoreWhiteSpace
+  ]
 
--- | Skip comments and whitespace after string token
-stoken :: String -> ReadP ()
+stoken :: String -> ParserM BasicError ()
+-- ^ Skip comments and whitespace after string token
 stoken = void . token . string
 
-stoken1 :: String -> ReadP ()
+stoken1 :: String -> ParserM BasicError ()
+-- ^ Skip at least one comment or whitespace after string token
 stoken1 = void . token1 . string
 
-stoken1Bool :: String -> ReadP Bool
+stoken1Bool :: String -> ParserM BasicError Bool
 stoken1Bool s = option False ((stoken1 s) *> return True)
 
-word :: [(String, a)] -> ReadP a
+word :: [(String, a)] -> ParserM BasicError a
 word = choice . map (\(w, a) -> stoken w *> return a)
 
-word1 :: [(String, a)] -> ReadP a
+word1 :: [(String, a)] -> ParserM BasicError a
 word1 = choice . map (\(w, a) -> stoken1 w *> return a)
 
-prefix :: Show w => (a -> b) -> w -> ReadP a -> ReadP b
+prefix :: Show w => (a -> b) -> w -> ParserM BasicError a -> ParserM BasicError b
 prefix f w p = stoken1 (show w) *> fmap f p
 
 prefixInfix :: Show w =>
-  (a -> a -> b) -> w -> w -> ReadP a -> ReadP b
+  (a -> a -> b) -> w -> w -> ParserM BasicError a -> ParserM BasicError b
 prefixInfix f w1 w2 p
   = stoken1 (show w1) *> fmap f p <* stoken1 (show w2) <*> p
 
-commaList :: ReadP a -> ReadP (NonEmpty a)
+commaList :: ParserM BasicError a -> ParserM BasicError (NonEmpty a)
 commaList p = liftA2 (:|) p (many (stoken "," *> p))
 
-optCommaList :: ReadP a -> (ReadP [a] -> ReadP [a]) -> ReadP [a]
+optCommaList :: ParserM BasicError a
+  -> (ParserM BasicError [a] -> ParserM BasicError [a])
+  -> ParserM BasicError [a]
 optCommaList p opt = choice
   [ opt (fmap toList $ commaList p)
   , return []
   ]
 
-inBrackets :: ReadP a -> ReadP a
+inBrackets :: ParserM BasicError a -> ParserM BasicError a
 inBrackets = between (stoken "[") (stoken "]")
 
-parse :: ReadP a -> String -> [(a, String)]
-parse = readP_to_S
-
-fullParse :: ReadP a -> String -> [a]
+fullParse :: ParserM e a -> String -> [Either e a]
 fullParse p s = fmap fst $ parse (p <* eof) s
 
-parseString' :: ReadP a -> FilePath -> String -> Either (ParseErrorImpl a) a
+parseString' :: ParserM e a -> FilePath -> String
+  -> Either (ParseErrorImpl e a) a
 parseString' p path s =
   case fullParse p s of
     [] -> Left $ NoParse path
-    [a] -> Right a
+    [Right a] -> Right a
+    [Left e] -> Left $ SyntaxError e
     as -> Left $ AmbiguousGrammar as path
 
-parseFile' :: ReadP a -> FilePath -> IO (Either (ParseErrorImpl a) a)
+parseFile' :: ParserM e a -> FilePath
+  -> IO (Either (ParseErrorImpl e a) a)
 parseFile' p path = fmap (parseString' p path) $ readFile path
