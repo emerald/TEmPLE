@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module Parser.Classic.Idents
   ( firstChars
   , restChars
@@ -8,13 +10,15 @@ module Parser.Classic.Idents
   ) where
 
 import Ast (Ident)
-import Parser.Common (commaList, token, stoken1)
+import Parser.ParserM
+import Parser.Common (BasicError, commaList, token, stoken1)
 import Parser.Classic.Words (reserved)
 
 import Control.Applicative (liftA2)
-import Control.Monad (mfilter)
 import Data.List.NonEmpty (NonEmpty)
-import Text.ParserCombinators.ReadP (ReadP, munch, satisfy)
+import Text.ParserCombinators.ReadP (munch, satisfy)
+
+import Text.PrettyPrint.GenericPretty (Generic, Out)
 
 firstChars :: [Char]
 firstChars = ('_' : ['A'..'Z'] ++ ['a'..'z'])
@@ -28,12 +32,33 @@ first = flip elem firstChars
 rest :: Char -> Bool
 rest = flip elem restChars
 
-parseIdent :: ReadP Ident
-parseIdent = token $ mfilter (not . (`elem` reserved)) $
-  liftA2 (:) (satisfy first) (munch rest)
+data IdentError
+  = InvalidFirstIdentChar
+  | InvalidRestIdentChar
+  | ReservedIdent String
+  | InvalidIdentPrefix BasicError
+  deriving (Eq, Generic, Ord, Show)
 
-parseIdentList :: ReadP (NonEmpty Ident)
+instance Out IdentError
+
+parseIdent :: ParserM IdentError Ident
+parseIdent = token $
+    liftA2 (:) parseFirst parseRest >>= parseNonReserved
+  where
+    parseFirst :: ParserM IdentError Char
+    parseFirst = liftRP (satisfy first) InvalidFirstIdentChar
+
+    parseRest :: ParserM IdentError [Char]
+    parseRest = liftRP (munch rest) InvalidRestIdentChar
+
+    parseNonReserved :: String -> ParserM IdentError Ident
+    parseNonReserved s = liftBool
+     (not . (`elem` reserved))
+     (ReservedIdent s)
+     s
+
+parseIdentList :: ParserM IdentError (NonEmpty Ident)
 parseIdentList = commaList parseIdent
 
-prefixedIdent :: Show a => a -> ReadP Ident
-prefixedIdent s = stoken1 (show s) *> parseIdent
+prefixedIdent :: Show a => a -> ParserM IdentError Ident
+prefixedIdent s = emap InvalidIdentPrefix (stoken1 (show s)) *> parseIdent

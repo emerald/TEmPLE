@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module Parser.Common
-  ( ParseErrorImpl
+  ( BasicError, ParseErrorImpl
   , fullParse, parse
   , optCommaList, commaList
   , inBrackets
@@ -90,12 +90,10 @@ prefixInfix :: Show w =>
 prefixInfix f w1 w2 p
   = stoken1 (show w1) *> fmap f p <* stoken1 (show w2) <*> p
 
-commaList :: ParserM BasicError a -> ParserM BasicError (NonEmpty a)
-commaList p = liftA2 (:|) p (many (stoken "," *> p))
+commaList :: ParserM e a -> ParserM e (NonEmpty a)
+commaList p = liftA2 (:|) p (many ((liftRP' (P.stoken ",")) *> p))
 
-optCommaList :: ParserM BasicError a
-  -> (ParserM BasicError [a] -> ParserM BasicError [a])
-  -> ParserM BasicError [a]
+optCommaList :: ParserM e a -> (ParserM e [a] -> ParserM e [a]) -> ParserM e [a]
 optCommaList p opt = choice
   [ opt (fmap toList $ commaList p)
   , return []
@@ -104,18 +102,19 @@ optCommaList p opt = choice
 inBrackets :: ParserM BasicError a -> ParserM BasicError a
 inBrackets = between (stoken "[") (stoken "]")
 
-fullParse :: ParserM e a -> String -> [Either e a]
-fullParse p s = fmap fst $ parse (p <* eof) s
+fullParse :: (BasicError -> e) -> ParserM e a -> String -> [Either e a]
+fullParse f p s = fmap fst $ parse (p <* emap f eof) s
 
-parseString' :: ParserM e a -> FilePath -> String
+parseString' :: (BasicError -> e)
+  -> ParserM e a -> FilePath -> String
   -> Either (ParseErrorImpl e a) a
-parseString' p path s =
-  case fullParse p s of
+parseString' f p path s =
+  case fullParse f p s of
     [] -> Left $ NoParse path
     [Right a] -> Right a
     [Left e] -> Left $ SyntaxError e
     as -> Left $ AmbiguousGrammar as path
 
-parseFile' :: ParserM e a -> FilePath
+parseFile' :: (BasicError -> e) -> ParserM e a -> FilePath
   -> IO (Either (ParseErrorImpl e a) a)
-parseFile' p path = fmap (parseString' p path) $ readFile path
+parseFile' f p path = fmap (parseString' f p path) $ readFile path

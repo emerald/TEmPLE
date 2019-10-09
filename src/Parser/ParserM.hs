@@ -1,6 +1,7 @@
 module Parser.ParserM
   ( ParserM
-  , liftRP, liftRP'
+  , emap
+  , liftBool, liftRP, liftRP'
   , parse
   , pfail
   ) where
@@ -46,6 +47,19 @@ liftRP' p = ParserM $ (p >>= return . Right)
 
 liftRP :: ReadP a -> e -> ParserM e a
 liftRP p e = ParserM $ (p >>= return . Right) <++ (return $ Left e)
+
+liftBool :: (a -> Bool) -> e -> a -> ParserM e a
+liftBool f e a =
+  case f a of
+    True  -> return a
+    False -> pfail e
+
+emap :: (e1 -> e2) -> ParserM e1 a -> ParserM e2 a
+emap f (ParserM r) = ParserM $ do
+  v <- r
+  case v of
+    Left e -> (return . Left . f) e
+    Right a -> (return . Right) a
 
 parse :: ParserM e a -> String -> [(Either e a, String)]
 parse p = readP_to_S (runParserM p)
