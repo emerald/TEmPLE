@@ -1,0 +1,12 @@
+[Const ("tob",
+        Nothing,
+        ELit (LObj (Object
+                          {objectImmutable = False,
+                           objectMonitor = False,
+                           objectBuiltin = Nothing,
+                           objectName = "tob",
+                           objectBody = ObjectBody ([],
+                                                    [],
+                                                    Nothing,
+                                                    Nothing,
+                                                    Nothing)})))]

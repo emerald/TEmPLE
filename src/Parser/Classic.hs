@@ -12,6 +12,7 @@ module Parser.Classic
   ( ParseError
   , parseString
   , parseFile
+  , parseProgram
   , parser
   ) where
 
