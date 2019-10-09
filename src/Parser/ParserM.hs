@@ -1,13 +1,12 @@
 module Parser.ParserM
   ( ParserM
-  , eof
   , liftRP, liftRP'
   , parse
   , pfail
   ) where
 
 import Text.ParserCombinators.ReadP ( ReadP, (<++), readP_to_S )
-import qualified Text.ParserCombinators.ReadP as R ( eof, pfail )
+import qualified Text.ParserCombinators.ReadP as R ( pfail )
 
 import Control.Applicative ( Alternative ( empty, (<|>) ) )
 import Control.Monad ( MonadPlus ( mzero, mplus ) )
@@ -41,9 +40,6 @@ instance MonadPlus (ParserM e) where
 
 pfail :: e -> ParserM e a
 pfail = ParserM . return . Left
-
-eof :: ParserM e ()
-eof = liftRP' R.eof
 
 liftRP' :: ReadP a -> ParserM e a
 liftRP' p = ParserM $ (p >>= return . Right)

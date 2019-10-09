@@ -21,6 +21,7 @@ import Control.Applicative ((<*), (*>), liftA2)
 import Control.Monad (void)
 import Control.Monad.Combinators ( between, choice, many, option )
 import Text.PrettyPrint.GenericPretty (Generic, Out)
+import qualified Text.ParserCombinators.ReadP as R ( eof )
 
 data ParseErrorImpl e a
   = NoParse FilePath
@@ -34,9 +35,13 @@ instance (Out e, Out a) => Out (ParseErrorImpl e a)
 data BasicError
   = ExpectedString String
   | ExpectedOneOrMoreWhiteSpace
+  | ExpectedEOF
   deriving (Eq, Generic, Ord, Show)
 
 instance Out BasicError
+
+eof :: ParserM BasicError ()
+eof = liftRP R.eof ExpectedEOF
 
 string :: String -> ParserM BasicError String
 -- ^ Demand that the given string be parsed
