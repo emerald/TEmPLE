@@ -34,7 +34,7 @@ instance (Out e, Out a) => Out (ParseErrorImpl e a)
 
 data BasicError
   = ExpectedString String
-  | ExpectedOneOrMoreWhiteSpace
+  | ExpectedWhitespaceOrEOF
   | ExpectedEOF
   deriving (Eq, Generic, Ord, Show)
 
@@ -62,7 +62,7 @@ token1 :: ParserM BasicError a -> ParserM BasicError a
 token1 = flip (<*) $ choice
   [ skip1Filling
   , eof
-  , pfail ExpectedOneOrMoreWhiteSpace
+  , pfail ExpectedWhitespaceOrEOF
   ]
 
 stoken :: String -> ParserM BasicError ()
