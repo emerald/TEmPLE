@@ -2,24 +2,16 @@ module Parser.Classic.AssignOrInvoke
   ( parseAssignOrInvoke
   ) where
 
-import Ast
-  ( AssignOrInvoke(..)
-  , ArgType(..), ProcInvoc(..), Expr
-  )
+import Ast ( AssignOrInvoke(..) )
 
-import Parser.Classic.Idents (parseIdent)
-import Parser.Classic.Operators (parseOperator)
+import Parser.Classic.ProcInvocs ( parseProcInvoc )
 
-import Parser.Classic.Exprs
-  ( parseExpr, parseExprList
-  , parseExprZero, parseExprZeroList
-  )
+import Parser.Classic.Exprs ( parseExprList, parseExprZeroList )
 
-import Parser.Common (optCommaList, stoken, word1)
+import Parser.Common (stoken)
 import Parser.Types (Parser)
 
-import Control.Applicative (liftA2)
-import Text.ParserCombinators.ReadP (ReadP, between, choice)
+import Text.ParserCombinators.ReadP (ReadP, choice)
 
 parseAssignOrInvoke :: Parser -> ReadP AssignOrInvoke
 parseAssignOrInvoke p = choice
@@ -35,23 +27,3 @@ parseAssign p = do
     [ parseExprList p >>= return . AssignExpr . ((,) il)
     , parseProcInvoc p >>= return . AssignInvoke . ((,) il)
     ]
-
-parseProcInvoc :: Parser -> ReadP ProcInvoc
-parseProcInvoc p = do
-  e <- parseExprZero p
-  stoken "."
-  op <- choice [ parseIdent, parseOperator ]
-  args <- parseArgs p
-  return $ ProcInvoc (e, op, args)
-
-parseArgs :: Parser -> ReadP [(ArgType, Expr)]
-parseArgs p = optCommaList (parseArg p)
-  (between (stoken "[") (stoken "]"))
-
-parseArg :: Parser -> ReadP (ArgType, Expr)
-parseArg p = liftA2 (,)
-  (choice
-    [ word1 [("move", ArgMove), ("visit", ArgVisit)]
-    , return ArgSend
-    ])
-  (parseExpr p)
