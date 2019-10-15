@@ -1,0 +1,5 @@
+[Const ("x",
+        Nothing,
+        EInvoke (ProcInvoc (EVar "tat",
+                            "create",
+                            [(ArgSend, EVar "stdout")])))]

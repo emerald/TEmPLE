@@ -3,9 +3,9 @@
              ELit (LInt 5) :| [ELit (LInt 6)]),
  AssignExpr (EVar "x" :| [EVar "y",EVar "z"],
              ELit (LInt 5) :| [ELit (LInt 6),ELit (LInt 7)]),
- AssignInvoke (EVar "x" :| [],
-               ProcInvoc (EVar "foo", "x", [])),
- AssignInvoke (EVar "x" :| [EVar "y"],
-               ProcInvoc (EVar "bar", "xy", [])),
- AssignInvoke (EVar "x" :| [EVar "y",EVar "z"],
-               ProcInvoc (EVar "baz", "xyz", []))]
+ AssignExpr (EVar "x" :| [],
+             EInvoke (ProcInvoc (EVar "foo", "x", [])) :| []),
+ AssignExpr (EVar "x" :| [EVar "y"],
+             EInvoke (ProcInvoc (EVar "bar", "xy", [])) :| []),
+ AssignExpr (EVar "x" :| [EVar "y",EVar "z"],
+             EInvoke (ProcInvoc (EVar "baz", "xyz", [])) :| [])]

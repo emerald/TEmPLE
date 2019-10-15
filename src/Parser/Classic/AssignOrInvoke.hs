@@ -23,7 +23,4 @@ parseAssign :: Parser -> ReadP AssignOrInvoke
 parseAssign p = do
   il <- parseExprZeroList p
   stoken "<-"
-  choice
-    [ parseExprList p >>= return . AssignExpr . ((,) il)
-    , parseProcInvoc p >>= return . AssignInvoke . ((,) il)
-    ]
+  parseExprList p >>= return . AssignExpr . ((,) il)

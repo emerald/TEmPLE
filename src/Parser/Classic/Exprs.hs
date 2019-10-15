@@ -9,6 +9,7 @@ import Ast (Expr(..))
 import Parser.Common (commaList, prefixInfix, stoken, word)
 import Parser.Classic.Idents (parseIdent)
 import Parser.Classic.Lits (parseLit)
+import Parser.Classic.ProcInvocs (parseProcInvoc')
 import Parser.Types (Parser)
 
 import qualified Parser.Classic.Words as W
@@ -36,6 +37,7 @@ parseExpr10 p = choice
 parseExpr9 :: Parser -> ReadP Expr
 parseExpr9 p = parseExpr10 p >>= \e -> choice
   [ stoken "$" *> fmap (ESelect e) parseIdent
+  , stoken "." *> fmap EInvoke (parseProcInvoc' p e)
   , return e
   ]
 
