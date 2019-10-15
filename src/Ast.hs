@@ -123,7 +123,6 @@ instance Out Object
 
 data AssignOrInvoke
   = AssignExpr ((NonEmpty Expr), (NonEmpty Expr))
-  | AssignInvoke ((NonEmpty Expr), ProcInvoc)
   | Invoke ProcInvoc
   deriving (Eq, Generic, Ord, Show)
 
@@ -185,6 +184,7 @@ data Expr
   = ELit Lit
   | EVar Ident
   | ESelect Expr Ident
+  | EInvoke ProcInvoc
   -- Precedence 8:
   | ENegate Expr
   | ELocate Expr

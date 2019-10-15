@@ -3,6 +3,7 @@ import qualified Parser.Classic.Test.TextLits as CTLT
 import qualified Parser.Classic.Test.Lits as CLT
 import qualified Parser.Classic.Test.Types as CTT
 import qualified Parser.Classic.Test.Exprs as CET
+import qualified Parser.Classic.Test.Examples as CExT
 import qualified Parser.Classic.Test.ConstDecls as CCDT
 import qualified Parser.Classic.Test.VarDecls as CVDT
 import qualified Parser.Classic.Test.AssignOrInvoke as CAOIT
@@ -29,6 +30,7 @@ testTree = fmap (testGroup "Classic Parser Tests") $ sequence
   , CLOOPT.testTree
   , CDT.testTree
   , CDST.testTree
+  , CExT.testTree
   ]
 
 main :: IO ()
