@@ -1,22 +1,34 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module Parser.Classic.Enums
-  ( parseEnum
+  ( EnumError(..)
+  , parseEnum
   ) where
 
 import Ast ( Enumeration(Enum) )
 
+import Parser.ParserM ( ParserM, emap )
 import Parser.Classic.Common ( end )
-import Parser.Classic.Idents ( parseIdent, prefixedIdent )
+import Parser.Classic.Idents ( IdentError, parseIdent, prefixedIdent )
 
 import qualified Parser.Classic.Words as W
   ( Keywords( Enumeration ) )
 
-import Parser.Common ( commaList )
+import Parser.Common ( BasicError, commaList )
 
-import Text.ParserCombinators.ReadP ( ReadP )
+import Text.PrettyPrint.GenericPretty ( Generic, Out )
 
-parseEnum :: ReadP Enumeration
+data EnumError
+  = Start IdentError
+  | Item IdentError
+  | End BasicError
+  deriving (Eq, Generic, Ord, Show)
+
+instance Out EnumError
+
+parseEnum :: ParserM EnumError Enumeration
 parseEnum = do
-  name <- prefixedIdent W.Enumeration
-  idents <- commaList parseIdent
-  end name
+  name <- emap Start $ prefixedIdent W.Enumeration
+  idents <- emap Item $ commaList parseIdent
+  emap End $ end name
   return $ Enum (name, idents)

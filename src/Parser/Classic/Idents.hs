@@ -1,7 +1,8 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module Parser.Classic.Idents
-  ( firstChars
+  ( IdentError(..)
+  , firstChars
   , restChars
   , reserved
   , parseIdent
