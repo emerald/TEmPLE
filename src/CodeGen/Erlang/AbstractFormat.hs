@@ -1,25 +1,31 @@
 {-|
 Module      : CodeGen.Erlang.Ast
-Description : An abstract syntax tree for Erlang code
+Description : The Erlang Abstract Format in terms of Haskell types
 Copyright   : (c) Oleks Shturmov, 2019
 License     : BSD 3-Clause (see the file LICENSE)
 
 Maintainer  : oleks@oleks.info
 
-We define an abstract syntax tree, to enable the generation of both
-Erlang source code, and Erlang code in the Erlang Abstract Format, as
-used by the Erlang compiler. This module will be accompanied by two
-adjacent pretty-printers.
+To enable the generation of Erlang source code, this modiles defines
+the [Erlang Abstract
+Format](http://erlang.org/doc/apps/erts/absform.html) in terms of
+Haskell types.
+
+This module is accompanied by a pretty-printer:
+"CodeGen.Erlang.PrettyAbstractFormat". Another pretty-printer is
+concievable, pretty-printing abstractly formatted code as actual
+pretty Erlang source code. However, such a tool may already exist
+elsewhere..
 
 A description of the Erlang Abstract Foramt is available at (1):
 <http://erlang.org/doc/apps/erts/absform.html>. This module closely
-follows this description.
+follows this description, with one notable exception: line-numbers are
+omitted. These are to be induced by actual pretty-printers, if need
+be.
 -}
 module CodeGen.Erlang.AbstractFormat where
 
 -- | Atomic literals as defined in [(1), Section 8.2](http://erlang.org/doc/apps/erts/absform.html#atomic-literals).
--- The AST here lacks line numbers, these should be induced by latter
--- pretty printers, if needed.
 data AtomicLit
   = Atom    String
   | Char    Char

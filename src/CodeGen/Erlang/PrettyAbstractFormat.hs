@@ -1,6 +1,6 @@
 {-|
 Module      : CodeGen.Erlang.PrettyAbstractFormat
-Description : An abstract syntax tree for Erlang code
+Description : A pretty-printer for the Erlang Abstract Format
 Copyright   : (c) Oleks Shturmov, 2019
 License     : BSD 3-Clause (see the file LICENSE)
 
