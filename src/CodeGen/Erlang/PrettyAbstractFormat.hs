@@ -1,4 +1,4 @@
-{-
+{-|
 Module      : CodeGen.Erlang.PrettyAbstractFormat
 Description : An abstract syntax tree for Erlang code
 Copyright   : (c) Oleks Shturmov, 2019
