@@ -23,7 +23,10 @@ import CodeGen.Erlang.Ast
 import Data.Text.Prettyprint.Doc
   ( Doc
   , Pretty ( pretty )
-  , comma, enclose, punctuate
+  , braces
+  , comma
+  , dquotes
+  , punctuate
   , cat, sep
   )
 
@@ -44,18 +47,15 @@ instance Pretty PrettyAtomicLit where
         Char    -> makeNonString "char"
         Float   -> makeNonString "float"
         Integer -> makeNonString "integer"
-        String  -> makeString atom
+        String  -> makeString "string"
     where
       makeNonString :: String -> Doc ann
       makeNonString = makeAtom $ pretty atom
 
       makeString :: String -> Doc an
-      makeString = makeAtom $
-        enclose (pretty "[") (pretty "]") $
-          commaSep $ map pretty atom
+      makeString = makeAtom $ dquotes $ pretty atom
 
       makeAtom :: Doc ann -> String -> Doc ann
-      makeAtom patom skind
-        = enclose (pretty "{") (pretty "}") $
-            commaCat [pretty skind, pretty line, patom]
+      makeAtom patom skind = braces $
+        commaCat [pretty skind, pretty line, patom]
 
