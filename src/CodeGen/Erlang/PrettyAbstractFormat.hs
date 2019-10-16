@@ -16,7 +16,7 @@ follows this description.
 -}
 module CodeGen.Erlang.PrettyAbstractFormat where
 
-import CodeGen.Erlang.Ast
+import CodeGen.Erlang.AbstractFormat
 
 import Data.Char ( ord )
 import Data.Text.Prettyprint.Doc
