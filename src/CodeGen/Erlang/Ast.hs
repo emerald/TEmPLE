@@ -19,17 +19,12 @@ This module closely follows this descrition.
 -}
 module CodeGen.Erlang.Ast where
 
-type Atom = String
 type Line = Integer
 
-data AtomicLitKind
-  = Atom
-  | Char
-  | Float
-  | Integer
-  | String
-  deriving (Eq, Ord, Show)
-
-newtype AtomicLit
-  = AtomicLit (AtomicLitKind, Line,  Atom)
+data AtomicLit
+  = Atom    Line String
+  | Char    Line Char
+  | Float   Line Double
+  | Integer Line Integer
+  | String  Line String
   deriving (Eq, Ord, Show)

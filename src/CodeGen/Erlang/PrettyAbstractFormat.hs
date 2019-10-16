@@ -20,6 +20,7 @@ module CodeGen.Erlang.PrettyAbstractFormat where
 
 import CodeGen.Erlang.Ast
 
+import Data.Char ( ord )
 import Data.Text.Prettyprint.Doc
   ( Doc
   , Pretty ( pretty )
@@ -41,21 +42,15 @@ commaSep :: [Doc ann] -> Doc ann
 commaSep = sep . (punctuate comma)
 
 instance Pretty PrettyAtomicLit where
-  pretty (PrettyAtomicLit (AtomicLit (kind, line, atom)))
-    = case kind of
-        Atom    -> makeNonString "atom"
-        Char    -> makeNonString "char"
-        Float   -> makeNonString "float"
-        Integer -> makeNonString "integer"
-        String  -> makeString "string"
+  pretty (PrettyAtomicLit lit)
+    = case lit of
+        Atom    l x -> makeAtom "atom"    l (pretty x)
+        Char    l x -> makeAtom "char"    l (pretty $ ord x)
+        Float   l x -> makeAtom "float"   l (pretty x)
+        Integer l x -> makeAtom "integer" l (pretty x)
+        String  l x -> makeAtom "string"  l (dquotes $ pretty x)
     where
-      makeNonString :: String -> Doc ann
-      makeNonString = makeAtom $ pretty atom
-
-      makeString :: String -> Doc an
-      makeString = makeAtom $ dquotes $ pretty atom
-
-      makeAtom :: Doc ann -> String -> Doc ann
-      makeAtom patom skind = braces $
-        commaCat [pretty skind, pretty line, patom]
+      makeAtom :: String -> Integer -> Doc ann -> Doc ann
+      makeAtom kind line atom = braces $
+        commaCat [pretty kind, pretty line, atom]
 
