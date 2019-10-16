@@ -11,17 +11,15 @@ Erlang source code, and Erlang code in the Erlang Abstract Format, as
 used by the Erlang compiler. This module will be accompanied by two
 adjacent pretty-printers.
 
-A description of the Erlang Abstract Foramt is available at:
-
-    http://erlang.org/doc/apps/erts/absform.html
-
-This module closely follows this descrition.
+A description of the Erlang Abstract Foramt is available at (1):
+<http://erlang.org/doc/apps/erts/absform.html>. This module closely
+follows this descrition.
 -}
 module CodeGen.Erlang.Ast where
 
--- | Atomic literals as defined in Section 8.2. The AST here lacks
--- line numbers, these should be induced by latter pretty printers,
--- if needed.
+-- | Atomic literals as defined in [(1), Section 8.2](http://erlang.org/doc/apps/erts/absform.html#atomic-literals).
+-- The AST here lacks line numbers, these should be induced by latter
+-- pretty printers, if needed.
 data AtomicLit
   = Atom    String
   | Char    Char

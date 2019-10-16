@@ -10,11 +10,9 @@ A pretty printer for Erlang abstract syntax tree (see also
 "CodeGen.Erlang.Ast"), printing valid Erlang code in Erlang Abstract
 Format, as used by the Erlang compiler.
 
-A description of the Erlang Abstract Foramt is available at:
-
-    http://erlang.org/doc/apps/erts/absform.html
-
-This module closely follows this descrition.
+A description of the Erlang Abstract Foramt is available at (1):
+<http://erlang.org/doc/apps/erts/absform.html>. This module closely
+follows this descrition.
 -}
 module CodeGen.Erlang.PrettyAbstractFormat where
 
