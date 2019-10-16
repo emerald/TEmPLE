@@ -33,3 +33,19 @@ data AtomicLit
   | Integer Int
   | String  String
   deriving (Eq, Ord, Show)
+
+type PrintName = String
+
+-- | Expressions as defined in [(1), Section 8.4](http://erlang.org/doc/apps/erts/absform.html#expressions).
+data Expr
+  = Lit AtomicLit
+  | Var PrintName
+--
+  | Rem Expr Expr
+  | Div Expr Expr
+  | Times Expr Expr
+--
+  | Plus Expr Expr
+  | Minus Expr Expr
+--
+  deriving (Eq, Ord, Show)

@@ -24,14 +24,10 @@ import Data.Text.Prettyprint.Doc
   , Pretty ( pretty )
   , braces
   , comma
-  , dquotes
+  , dquotes, squotes
   , punctuate
   , cat, sep
   )
-
-newtype PrettyAtomicLit
-  = PrettyAtomicLit AtomicLit
-  deriving (Eq, Ord, Show)
 
 commaCat :: [Doc ann] -> Doc ann
 commaCat = cat . (punctuate comma)
@@ -39,16 +35,45 @@ commaCat = cat . (punctuate comma)
 commaSep :: [Doc ann] -> Doc ann
 commaSep = sep . (punctuate comma)
 
+makeAtom :: String -> [Doc ann] -> Doc ann
+makeAtom kind rest = braces $ commaCat $
+  [pretty kind, pretty "0"] ++ rest
+
+newtype PrettyAtomicLit
+  = PrettyAtomicLit AtomicLit
+  deriving (Eq, Ord, Show)
+
 instance Pretty PrettyAtomicLit where
   pretty (PrettyAtomicLit lit)
     = case lit of
-        Atom    x -> makeAtom "atom"    0 (pretty x)
-        Char    x -> makeAtom "char"    0 (pretty $ ord x)
-        Float   x -> makeAtom "float"   0 (pretty x)
-        Integer x -> makeAtom "integer" 0 (pretty x)
-        String  x -> makeAtom "string"  0 (dquotes $ pretty x)
-    where
-      makeAtom :: String -> Integer -> Doc ann -> Doc ann
-      makeAtom kind line atom = braces $
-        commaCat [pretty kind, pretty line, atom]
+        Atom    x -> makeAtom "atom"    [(pretty x)]
+        Char    x -> makeAtom "char"    [(pretty $ ord x)]
+        Float   x -> makeAtom "float"   [(pretty x)]
+        Integer x -> makeAtom "integer" [(pretty x)]
+        String  x -> makeAtom "string"  [(dquotes $ pretty x)]
 
+prettyName :: PrintName -> Doc ann
+prettyName n = squotes $ pretty n
+
+prettyExpr :: Expr -> Doc ann
+prettyExpr = pretty . PrettyExpr
+
+newtype PrettyExpr
+  = PrettyExpr Expr
+  deriving (Eq, Ord, Show)
+
+instance Pretty PrettyExpr where
+  pretty (PrettyExpr expr)
+    = case expr of
+        Lit l -> pretty $ PrettyAtomicLit l
+        Var n -> makeAtom "var" [prettyName n]
+        Rem e1 e2 -> makeAtom "op"
+            [ prettyName "rem", prettyExpr e1, prettyExpr e2 ]
+        Div e1 e2 -> makeAtom "op"
+            [ prettyName "div", prettyExpr e1, prettyExpr e2 ]
+        Times e1 e2 -> makeAtom "op"
+          [ prettyName "*", prettyExpr e1, prettyExpr e2 ]
+        Plus e1 e2 -> makeAtom "op"
+          [ prettyName "+", prettyExpr e1, prettyExpr e2 ]
+        Minus e1 e2 -> makeAtom "op"
+          [ prettyName "-", prettyExpr e1, prettyExpr e2 ]
