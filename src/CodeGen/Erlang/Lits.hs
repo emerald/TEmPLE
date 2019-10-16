@@ -1,7 +1,7 @@
 module CodeGen.Erlang.Lits where
 
 import Ast
-import qualified CodeGen.Erlang.Ast as E
+import qualified CodeGen.Erlang.AbstractFormat as E
 
 genLit :: Lit -> E.AtomicLit
 genLit lit

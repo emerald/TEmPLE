@@ -15,7 +15,7 @@ A description of the Erlang Abstract Foramt is available at (1):
 <http://erlang.org/doc/apps/erts/absform.html>. This module closely
 follows this description.
 -}
-module CodeGen.Erlang.Ast where
+module CodeGen.Erlang.AbstractFormat where
 
 -- | Atomic literals as defined in [(1), Section 8.2](http://erlang.org/doc/apps/erts/absform.html#atomic-literals).
 -- The AST here lacks line numbers, these should be induced by latter
