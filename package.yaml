@@ -27,6 +27,7 @@ library:
   - -Wall
   dependencies:
   - GenericPretty >= 1.2.2
+  - prettyprinter >= 1.2.1
 
 executables:
   emerald:
