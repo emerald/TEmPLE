@@ -11,7 +11,6 @@ import Parser.Classic.Operators (parseOperator)
 import Parser.Common (optCommaList, stoken, word1)
 import Parser.Types (Parser)
 
-import Data.List.NonEmpty (toList)
 import Control.Applicative (liftA2)
 
 import Text.ParserCombinators.ReadP (ReadP, between, choice)
