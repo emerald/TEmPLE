@@ -20,8 +20,8 @@ instance Out Type
 
 data Lit
   = LInt Int
-  | LDouble Double
   | LChar Char
+  | LDouble Double
   | LString String
   | LBool Bool
   | LNil
