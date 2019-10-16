@@ -13,7 +13,7 @@ adjacent pretty-printers.
 
 A description of the Erlang Abstract Foramt is available at (1):
 <http://erlang.org/doc/apps/erts/absform.html>. This module closely
-follows this descrition.
+follows this description.
 -}
 module CodeGen.Erlang.Ast where
 
