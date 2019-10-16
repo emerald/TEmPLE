@@ -19,12 +19,13 @@ This module closely follows this descrition.
 -}
 module CodeGen.Erlang.Ast where
 
-type Line = Integer
-
+-- | Atomic literals as defined in Section 8.2. The AST here lacks
+-- line numbers, these should be induced by latter pretty printers,
+-- if needed.
 data AtomicLit
-  = Atom    Line String
-  | Char    Line Char
-  | Float   Line Double
-  | Integer Line Integer
-  | String  Line String
+  = Atom    String
+  | Char    Char
+  | Float   Double
+  | Integer Int
+  | String  String
   deriving (Eq, Ord, Show)

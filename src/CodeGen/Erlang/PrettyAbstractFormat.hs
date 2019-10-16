@@ -44,11 +44,11 @@ commaSep = sep . (punctuate comma)
 instance Pretty PrettyAtomicLit where
   pretty (PrettyAtomicLit lit)
     = case lit of
-        Atom    l x -> makeAtom "atom"    l (pretty x)
-        Char    l x -> makeAtom "char"    l (pretty $ ord x)
-        Float   l x -> makeAtom "float"   l (pretty x)
-        Integer l x -> makeAtom "integer" l (pretty x)
-        String  l x -> makeAtom "string"  l (dquotes $ pretty x)
+        Atom    x -> makeAtom "atom"    0 (pretty x)
+        Char    x -> makeAtom "char"    0 (pretty $ ord x)
+        Float   x -> makeAtom "float"   0 (pretty x)
+        Integer x -> makeAtom "integer" 0 (pretty x)
+        String  x -> makeAtom "string"  0 (dquotes $ pretty x)
     where
       makeAtom :: String -> Integer -> Doc ann -> Doc ann
       makeAtom kind line atom = braces $
