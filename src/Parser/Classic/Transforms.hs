@@ -62,7 +62,7 @@ makeVarField (i, t, me) =
 -- account.
 classToObject :: Class -> Object
 classToObject (Class ((immutable, monitor), _, name, _, params, classOps, body)) =
-  Object immutable monitor Nothing name $ ObjectBody
+  Object (immutable, monitor, Nothing, name, ObjectBody
     ( [ ( False
         , DConst $ Const
           ( typeName
@@ -101,7 +101,7 @@ classToObject (Class ((immutable, monitor), _, name, _, params, classOps, body))
           ( [AssignOrInvoke $ AssignExpr
               ( EVar "e" :| []
               , ELit (LObj $
-                  Object immutable monitor Nothing innerName body) :| []
+                  Object (immutable, monitor, Nothing, innerName, body)) :| []
               )]
           , Nothing
           , Nothing
@@ -112,7 +112,7 @@ classToObject (Class ((immutable, monitor), _, name, _, params, classOps, body))
     , Nothing
     , Nothing
     , Nothing
-    )
+    ))
   where
     typeName = name ++ "Type"
     getOps (ObjectBody (_, ops, _, _, _)) = ops

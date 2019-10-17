@@ -109,14 +109,14 @@ newtype ObjectBody = ObjectBody
 
 instance Out ObjectBody
 
-data Object
+newtype Object
   = Object
-  { objectImmutable :: Bool
-  , objectMonitor :: Bool
-  , objectBuiltin :: Maybe Int
-  , objectName :: Ident
-  , objectBody :: ObjectBody
-  }
+  ( Bool        -- immutable
+  , Bool        -- monitor
+  , Maybe Int   -- builtin
+  , Ident       -- name
+  , ObjectBody  -- body
+  )
   deriving (Eq, Generic, Ord, Show)
 
 instance Out Object

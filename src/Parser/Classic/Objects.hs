@@ -29,7 +29,7 @@ parseObject p imm mon = do
   builtin <- optional $ parseBuiltin
   body <- parseObjectBody p
   end name
-  return $ Object imm mon builtin name body
+  return $ Object (imm, mon, builtin, name, body)
 
 parseObjectBody :: Parser -> ReadP ObjectBody
 parseObjectBody p = do
