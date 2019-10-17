@@ -99,11 +99,11 @@ newtype Class
 instance Out Class
 
 newtype ObjectBody = ObjectBody
-  ( [(Bool, Decl)]
-  , [Operation]
-  , Maybe BlockBody
-  , Maybe BlockBody
-  , Maybe BlockBody
+  ( [(Bool, Decl)]    -- declarations
+  , [Operation]       -- operations
+  , Maybe BlockBody   -- initially
+  , Maybe BlockBody   -- process
+  , Maybe BlockBody   -- recovery
   )
   deriving (Eq, Generic, Ord, Show)
 
