@@ -28,9 +28,20 @@ module CodeGen.Erlang.AbstractFormat where
 type Name = String
 type Arity = Int
 
+newtype ModuleDecl
+  = ModuleDecl [Form]
+  deriving (Eq, Ord, Show)
+
+data Attr
+  = File String Int
+  | Module String
+  deriving (Eq, Ord, Show)
+
 -- | Forms as defined in [(1), Section 8.1](http://erlang.org/doc/apps/erts/absform.html#module-declarations-and-forms).
 data Form
-  = Function Name Arity [Clause]
+  = Attribute Attr
+  | Function Name Arity [Clause]
+  | Eof
   deriving (Eq, Ord, Show)
 
 -- | Atomic literals as defined in [(1), Section 8.2](http://erlang.org/doc/apps/erts/absform.html#atomic-literals).

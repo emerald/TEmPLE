@@ -42,6 +42,27 @@ makeAtom kind rest = braces $ commaCat $
 prettyList :: Pretty b => (a -> b) -> [a] -> Doc ann
 prettyList f = brackets . commaSep . (map (pretty . f))
 
+newtype PrettyModuleDecl
+  = PrettyModuleDecl ModuleDecl
+  deriving (Eq, Ord, Show)
+
+prettyModuleDecl :: ModuleDecl -> Doc ann
+prettyModuleDecl = pretty . PrettyModuleDecl
+
+instance Pretty PrettyModuleDecl where
+  pretty (PrettyModuleDecl (ModuleDecl fs))
+    = prettyList PrettyForm fs
+
+prettyAttr :: Attr -> [Doc ann]
+prettyAttr attr
+  = case attr of
+      File path line ->
+        [ pretty "file"
+        , braces . commaCat $
+          [dquotes . pretty $ path, pretty line]
+        ]
+      Module name -> [ pretty "module", pretty name ]
+
 newtype PrettyForm
   = PrettyForm Form
   deriving (Eq, Ord, Show)
@@ -52,8 +73,10 @@ prettyForm = pretty . PrettyForm
 instance Pretty PrettyForm where
   pretty (PrettyForm form)
     = case form of
+        Attribute attr -> makeAtom "attribute" $ prettyAttr attr
         Function name arity cls -> makeAtom "function" $
           [pretty name, pretty arity, prettyClauseList cls]
+        Eof -> makeAtom "eof" []
 
 newtype PrettyAtomicLit
   = PrettyAtomicLit AtomicLit
