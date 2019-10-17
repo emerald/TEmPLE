@@ -27,7 +27,12 @@ library:
   - -Wall
   dependencies:
   - GenericPretty >= 1.2.2
+  - containers >= 0.6.0
+  - filepath >= 1.4.2
+  - mtl >= 1.1.0
   - prettyprinter >= 1.2.1
+  - process >= 1.6.5
+  - text >= 1.2.3
 
 executables:
   emerald:
@@ -41,6 +46,7 @@ executables:
     dependencies:
     - Emerald
     - GenericPretty >= 1.2.2
+    - prettyprinter >= 1.2.1
 
 tests:
   Emerald-test:

@@ -2,12 +2,15 @@ module Main (main) where
 
 import Ast (Compilation)
 import Parser (parseFile, ParseError)
+import CodeGen.Erlang ( genCode, genBEAM, genErl )
 
 import Data.List (intercalate)
 import System.Environment (getArgs)
 import System.Exit (exitWith, ExitCode (ExitFailure))
 import System.IO (hPutStrLn, stderr)
 import Text.PrettyPrint.GenericPretty (pp, pretty)
+
+import Data.Text.Prettyprint.Doc.Render.Text ( putDoc )
 
 errReport :: String -> IO ()
 errReport = hPutStrLn stderr
@@ -46,4 +49,10 @@ main = do
     [] -> noCommand
     ["parse", path] ->
       parseOrShowError path >>= pp
+    ["showErlAF", path] ->
+      parseOrShowError path >>= \ c -> putDoc $ genCode path c
+    ["erl", path] ->
+      parseOrShowError path >>= \ c -> genErl path c
+    ["beam", path] ->
+      parseOrShowError path >>= \ c -> genBEAM path c
     l -> invalidCommand l
