@@ -43,6 +43,9 @@ newtype PrettyAtomicLit
   = PrettyAtomicLit AtomicLit
   deriving (Eq, Ord, Show)
 
+prettyAtomicLit :: AtomicLit -> Doc ann
+prettyAtomicLit = pretty . PrettyAtomicLit
+
 instance Pretty PrettyAtomicLit where
   pretty (PrettyAtomicLit lit)
     = case lit of
@@ -65,7 +68,7 @@ newtype PrettyExpr
 instance Pretty PrettyExpr where
   pretty (PrettyExpr expr)
     = case expr of
-        Lit l -> pretty $ PrettyAtomicLit l
+        Lit l -> prettyAtomicLit l
         Var n -> makeAtom "var" [prettyName n]
         Rem e1 e2 -> makeAtom "op"
             [ prettyName "rem", prettyExpr e1, prettyExpr e2 ]
