@@ -22,7 +22,7 @@ import Data.Char ( ord )
 import Data.Text.Prettyprint.Doc
   ( Doc
   , Pretty ( pretty )
-  , braces
+  , braces, brackets
   , comma
   , dquotes, squotes
   , punctuate
@@ -38,6 +38,22 @@ commaSep = sep . (punctuate comma)
 makeAtom :: String -> [Doc ann] -> Doc ann
 makeAtom kind rest = braces $ commaCat $
   [pretty kind, pretty "0"] ++ rest
+
+prettyList :: Pretty b => (a -> b) -> [a] -> Doc ann
+prettyList f = brackets . commaSep . (map (pretty . f))
+
+newtype PrettyForm
+  = PrettyForm Form
+  deriving (Eq, Ord, Show)
+
+prettyForm :: Form -> Doc ann
+prettyForm = pretty . PrettyForm
+
+instance Pretty PrettyForm where
+  pretty (PrettyForm form)
+    = case form of
+        Function name arity cls -> makeAtom "function" $
+          [pretty name, pretty arity, prettyClauseList cls]
 
 newtype PrettyAtomicLit
   = PrettyAtomicLit AtomicLit
@@ -55,6 +71,21 @@ instance Pretty PrettyAtomicLit where
         Integer x -> makeAtom "integer" [(pretty x)]
         String  x -> makeAtom "string"  [(dquotes $ pretty x)]
 
+newtype PrettyPattern
+  = PrettyPattern Pattern
+  deriving (Eq, Ord, Show)
+
+prettyPattern :: Pattern -> Doc ann
+prettyPattern = pretty . PrettyPattern
+
+prettyPatternList :: [Pattern] -> Doc ann
+prettyPatternList = prettyList PrettyPattern
+
+instance Pretty PrettyPattern where
+  pretty (PrettyPattern pat)
+    = case pat of
+        PatternLit l -> prettyAtomicLit l
+
 prettyName :: PrintName -> Doc ann
 prettyName n = squotes $ pretty n
 
@@ -64,6 +95,9 @@ newtype PrettyExpr
 
 prettyExpr :: Expr -> Doc ann
 prettyExpr = pretty . PrettyExpr
+
+prettyExprList :: [Expr] -> Doc ann
+prettyExprList = prettyList PrettyExpr
 
 instance Pretty PrettyExpr where
   pretty (PrettyExpr expr)
@@ -80,3 +114,33 @@ instance Pretty PrettyExpr where
           [ prettyName "+", prettyExpr e1, prettyExpr e2 ]
         Minus e1 e2 -> makeAtom "op"
           [ prettyName "-", prettyExpr e1, prettyExpr e2 ]
+
+newtype PrettyClause
+  = PrettyClause Clause
+  deriving (Eq, Ord, Show)
+
+prettyClause :: Clause -> Doc ann
+prettyClause = pretty . PrettyClause
+
+prettyClauseList :: [Clause] -> Doc ann
+prettyClauseList = prettyList PrettyClause
+
+instance Pretty PrettyClause where
+  pretty (PrettyClause (Clause (ps, gs, es)))
+    = makeAtom "clause" $
+        [prettyPatternList ps, prettyGuardList gs, prettyExprList es]
+
+newtype PrettyGuard
+  = PrettyGuard Guard
+  deriving (Eq, Ord, Show)
+
+prettyGuard :: Guard -> Doc ann
+prettyGuard = pretty . PrettyGuard
+
+prettyGuardList :: [Guard] -> Doc ann
+prettyGuardList = prettyList PrettyGuard
+
+instance Pretty PrettyGuard where
+  pretty (PrettyGuard guard)
+    = case guard of
+        GuardLit l -> prettyAtomicLit l

@@ -25,6 +25,14 @@ be.
 -}
 module CodeGen.Erlang.AbstractFormat where
 
+type Name = String
+type Arity = Int
+
+-- | Forms as defined in [(1), Section 8.1](http://erlang.org/doc/apps/erts/absform.html#module-declarations-and-forms).
+data Form
+  = Function Name Arity [Clause]
+  deriving (Eq, Ord, Show)
+
 -- | Atomic literals as defined in [(1), Section 8.2](http://erlang.org/doc/apps/erts/absform.html#atomic-literals).
 data AtomicLit
   = Atom    String
@@ -32,6 +40,11 @@ data AtomicLit
   | Float   Double
   | Integer Int
   | String  String
+  deriving (Eq, Ord, Show)
+
+-- | Patterns as defined in [(1), Section 8.3](http://erlang.org/doc/apps/erts/absform.html#patterns).
+data Pattern
+  = PatternLit AtomicLit
   deriving (Eq, Ord, Show)
 
 type PrintName = String
@@ -48,4 +61,14 @@ data Expr
   | Plus Expr Expr
   | Minus Expr Expr
 --
+  deriving (Eq, Ord, Show)
+
+-- | Clauses as defined in [(1), Section 8.5](http://erlang.org/doc/apps/erts/absform.html#clauses).
+newtype Clause
+  = Clause ([Pattern], [Guard], [Expr])
+  deriving (Eq, Ord, Show)
+
+-- | Guards as defined in [(1), Section 8.6](http://erlang.org/doc/apps/erts/absform.html#guards).
+data Guard
+  = GuardLit AtomicLit
   deriving (Eq, Ord, Show)
