@@ -58,12 +58,12 @@ instance Pretty PrettyAtomicLit where
 prettyName :: PrintName -> Doc ann
 prettyName n = squotes $ pretty n
 
-prettyExpr :: Expr -> Doc ann
-prettyExpr = pretty . PrettyExpr
-
 newtype PrettyExpr
   = PrettyExpr Expr
   deriving (Eq, Ord, Show)
+
+prettyExpr :: Expr -> Doc ann
+prettyExpr = pretty . PrettyExpr
 
 instance Pretty PrettyExpr where
   pretty (PrettyExpr expr)
