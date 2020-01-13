@@ -27,6 +27,7 @@ library:
   - -Wall
   dependencies:
   - GenericPretty >= 1.2.2
+  - megaparsec >= 7.0.5
 
 executables:
   emerald:
