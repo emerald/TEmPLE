@@ -1,6 +1,6 @@
 -- |
 -- Module     : TEmPLE.Parser.ClassicMegaparsec
--- Copyright  : (c) Oleks Shturmov 2020
+-- Copyright  : (c) Oleks Shturmov, 2020
 -- License    : BSD 3-Clause (see the file LICENSE)
 --
 -- Maintainer : oleks@oleks.info
