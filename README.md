@@ -104,5 +104,4 @@ This will generate some HTML-based documentation located roughly at:
     .stack-work/dist/.../doc/html/Emerald/index.html
 
 For a description of the haddock annotation language, see
-
-    https://haskell-haddock.readthedocs.io/en/latest/markup.html
+[this](https://haskell-haddock.readthedocs.io/en/latest/markup.html).
