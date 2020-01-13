@@ -1,11 +1,10 @@
 -- |
--- Module     : TEmPLE.Parser.ClassicMegaparsec
--- Copyright  : (c) Oleks Shturmov, 2020
--- License    : BSD 3-Clause (see the file LICENSE)
+-- Module       : TEmPLE.Parser.ClassicMegaparsec
+-- Description  : An efficient, user-friendly parser for classical Emerald
+-- Copyright    : (c) Oleks Shturmov, 2020
+-- License      : BSD 3-Clause (see the file LICENSE)
 --
--- Maintainer : oleks@oleks.info
---
--- An efficient, user-friendly parser for classical Emerald.
+-- Maintainer   : oleks@oleks.info
 
 module Parser.ClassicMegaparsec
   ( ParseError
