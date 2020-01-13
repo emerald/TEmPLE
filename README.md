@@ -85,3 +85,24 @@ Start up GHCi with the source files loaded:
 Start up GHCi with the test files loaded:
 
     stack ghci Emerald:Emerald-test
+
+### Reference Documentation
+
+[Haddock](https://www.haskell.org/haddock/) is a popular documentation
+generator for Haskell.
+
+TEmPLE source code, for the time being, is only sporadically decorated
+with haddock annotations. However, automatically generated
+documentation can provide for an alternative overview of the code.
+
+You can generate the documentation as follows:
+
+    stack haddock
+
+This will generate some HTML-based documentation located roughly at:
+
+    .stack-work/dist/.../doc/html/Emerald/index.html
+
+For a description of the haddock annotation language, see
+
+    https://haskell-haddock.readthedocs.io/en/latest/markup.html
