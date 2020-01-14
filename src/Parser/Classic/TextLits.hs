@@ -3,6 +3,7 @@ module Parser.Classic.TextLits
   , escSeqOct_to_C
   , escSeqUp_to_C
   , isAnyChar
+  , isOctChar
   , isSimpleCChar
   , isSimpleSChar
   , parseTextLit
@@ -11,6 +12,7 @@ module Parser.Classic.TextLits
 import Ast (Lit(LChar, LString))
 
 import Parser.Common (token)
+import Util ( liftMaybe )
 
 import Control.Applicative ((*>))
 import Data.Bits (clearBit)
@@ -20,39 +22,41 @@ import Text.ParserCombinators.ReadP
   ( ReadP
   , (<++)
   , between, choice, count, get, many, satisfy, string
-  , pfail
   )
 
 isAnyChar :: Char -> Bool
 isAnyChar = not . (`elem` ('^':['0'..'7']))
 
-escSeqAny_to_C :: Char -> ReadP Char
+isOctChar :: Char -> Bool
+isOctChar = (`elem` ['0'..'7'])
+
+escSeqAny_to_C :: Char -> Maybe Char
 escSeqAny_to_C c =
   case (readLitChar . ('\\':)) [c] of
-    [(c', "")] -> return c'
-    _ -> pfail
+    [(c', "")] -> Just c'
+    _ -> Nothing
 
 escSeqUp_to_C :: Char -> Char
 escSeqUp_to_C =
   chr . (`clearBit` 7) . (`clearBit` 6) . ord
 
-escSeqOct_to_C :: String -> ReadP Char
+escSeqOct_to_C :: String -> Maybe Char
 escSeqOct_to_C s =
   case readOct s of
-    [(c, "")] -> return $ chr c
-    _ -> pfail
+    [(c, "")] -> Just $ chr c
+    _ -> Nothing
 
 parseOctChar :: ReadP Char
 parseOctChar = satisfy (`elem` ['0'..'7'])
 
 parseEscSeq :: ReadP Char
 parseEscSeq = string "\\" *> choice
-  [ satisfy isAnyChar >>= escSeqAny_to_C
+  [ satisfy isAnyChar >>= liftMaybe . escSeqAny_to_C
   , string "^" *> fmap escSeqUp_to_C get
   , ((count 3 parseOctChar)
     <++ (count 2 parseOctChar)
     <++ (count 1 parseOctChar)
-    ) >>= escSeqOct_to_C
+    ) >>= liftMaybe . escSeqOct_to_C
   ]
 
 isSimpleCChar :: Char -> Bool
