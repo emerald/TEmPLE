@@ -17,7 +17,6 @@ import Parser.Common ( stoken1 )
 import Parser.Classic.Words ( Keywords( Builtin ) )
 import Parser.Classic.NumLits ( parseIntLit )
 
-import Control.Applicative ( (*>) )
 import Text.ParserCombinators.ReadP (ReadP)
 
 parseBuiltin :: ReadP Int

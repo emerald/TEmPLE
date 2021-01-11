@@ -14,7 +14,7 @@ module Parser.Common
 
 import Data.Char (isSpace, toUpper, toLower)
 import Data.List.NonEmpty (NonEmpty((:|)), toList)
-import Control.Applicative ((<*), (*>), liftA2)
+import Control.Applicative (liftA2)
 import Control.Monad (void)
 import Text.ParserCombinators.ReadP
   ( ReadP

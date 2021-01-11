@@ -24,7 +24,6 @@ import Parser.Classic.Decls ( parseConstDecl )
 import Parser.Classic.DeclStats ( parseDeclStats )
 import Parser.Types (Parser(Parser))
 
-import Control.Applicative ((*>))
 import Text.ParserCombinators.ReadP (ReadP, many)
 
 type ParseError = ParseErrorImpl [ConstDecl]

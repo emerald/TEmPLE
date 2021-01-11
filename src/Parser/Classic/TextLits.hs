@@ -14,7 +14,6 @@ import Ast (Lit(LChar, LString))
 import Parser.Common (token)
 import Util ( liftMaybe )
 
-import Control.Applicative ((*>))
 import Data.Bits (clearBit)
 import Data.Char (chr, ord, readLitChar)
 import Numeric (readOct)

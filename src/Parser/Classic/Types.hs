@@ -9,7 +9,6 @@ import Parser.Common (stoken, token)
 import Parser.Classic.Idents ( parseIdent )
 
 import Data.List ( find )
-import Control.Applicative ((*>))
 import Text.ParserCombinators.ReadP (ReadP)
 
 types :: [(String, Type)]

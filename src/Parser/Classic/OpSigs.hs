@@ -19,7 +19,6 @@ import Parser.Common
   )
 import Parser.Types ( Parser )
 
-import Control.Applicative ( (*>) )
 import Control.Monad ( mfilter )
 import Text.ParserCombinators.ReadP ( ReadP, choice, many )
 
