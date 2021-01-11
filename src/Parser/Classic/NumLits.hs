@@ -7,7 +7,6 @@ import Ast (Lit(LInt, LDouble))
 
 import Parser.Common (token)
 
-import Control.Applicative ((*>))
 import Control.Monad (void)
 import Data.Char (isDigit)
 import Numeric (readDec, readFloat, readHex, readOct)

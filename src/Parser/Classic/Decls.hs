@@ -16,7 +16,6 @@ import Parser.Types (Parser, parseExpr)
 import qualified Parser.Classic.Words as W
   ( Keywords(Const, Field, Var))
 
-import Control.Applicative ((*>))
 import Control.Applicative (optional)
 import Text.ParserCombinators.ReadP (ReadP, choice)
 

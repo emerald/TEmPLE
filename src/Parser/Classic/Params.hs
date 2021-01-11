@@ -15,7 +15,7 @@ import Parser.Common
   , stoken, stoken1Bool
   )
 
-import Control.Applicative ( (<*), optional )
+import Control.Applicative ( optional )
 import Text.ParserCombinators.ReadP ( ReadP )
 
 parseParam :: ReadP Param
