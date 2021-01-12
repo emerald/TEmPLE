@@ -16,15 +16,15 @@ errReport = hPutStrLn stderr
 failReport :: String -> IO a
 failReport s = errReport s >> exitWith (ExitFailure 1)
 
-parseOrShowError :: FilePath -> IO Compilation
-parseOrShowError path = do
+parseClassicReadP :: FilePath -> IO Compilation
+parseClassicReadP path = do
   result <- ClassicReadPParser.parseFile path
   case result of
     Right compilation -> pure compilation
     Left e -> failReport $ pretty e
 
-parseOrShowErrorM :: FilePath -> IO Compilation
-parseOrShowErrorM path = do
+parseClassicMegaparsec :: FilePath -> IO Compilation
+parseClassicMegaparsec path = do
   result <- ClassicMegaparsecParser.parseFile path
   case result of
     Right compilation -> pure compilation
@@ -50,7 +50,7 @@ main = do
   case args of
     [] -> noCommand
     ["parse", "--readp", path] ->
-      parseOrShowError path >>= pp
+      parseClassicReadP path >>= pp
     ["parse", path] ->
-      parseOrShowErrorM path >>= pp
+      parseClassicMegaparsec path >>= pp
     l -> invalidCommand l
