@@ -1,7 +1,8 @@
 module Main (main) where
 
 import Ast (Compilation)
-import Parser (parseFile, ParseError)
+import qualified Parser.Classic as ClassicReadPParser
+import qualified Parser.ClassicMegaparsec as ClassicMegaparsecParser
 
 import Data.List (intercalate)
 import System.Environment (getArgs)
@@ -15,15 +16,19 @@ errReport = hPutStrLn stderr
 failReport :: String -> IO a
 failReport s = errReport s >> exitWith (ExitFailure 1)
 
-parseError :: ParseError -> IO a
-parseError e = failReport $ pretty e
-
-parseOrShowError :: FilePath -> IO Compilation
-parseOrShowError path = do
-  result <- parseFile path
+parseClassicReadP :: FilePath -> IO Compilation
+parseClassicReadP path = do
+  result <- ClassicReadPParser.parseFile path
   case result of
     Right compilation -> pure compilation
-    Left e -> parseError e
+    Left e -> failReport $ pretty e
+
+parseClassicMegaparsec :: FilePath -> IO Compilation
+parseClassicMegaparsec path = do
+  result <- ClassicMegaparsecParser.parseFile path
+  case result of
+    Right compilation -> pure compilation
+    Left e -> failReport $ show e
 
 noCommand :: IO a
 noCommand = failReport "Tell me what to do!"
@@ -44,6 +49,8 @@ main = do
   args <- getArgs
   case args of
     [] -> noCommand
+    ["parse", "--readp", path] ->
+      parseClassicReadP path >>= pp
     ["parse", path] ->
-      parseOrShowError path >>= pp
+      parseClassicMegaparsec path >>= pp
     l -> invalidCommand l
