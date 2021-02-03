@@ -1,4 +1,4 @@
-module Parser.Classic.Decls
+module Parser.Classic.ReadP.Decls
   ( parseObjConstrDecl
   , parseConstDecl
   , parseVarDecl
@@ -7,10 +7,10 @@ module Parser.Classic.Decls
 
 import Ast ( ConstDecl(..), Decl(..), VarDecl(..), Operation )
 import Parser.Common (stoken, stoken1, token)
-import Parser.Classic.Attached (parseAttached)
-import Parser.Classic.Idents (parseIdent, parseIdentList)
-import Parser.Classic.Types (parseType)
-import Parser.Classic.Transforms ( makeConstField, makeVarField )
+import Parser.Classic.ReadP.Attached (parseAttached)
+import Parser.Classic.ReadP.Idents (parseIdent, parseIdentList)
+import Parser.Classic.ReadP.Types (parseType)
+import Parser.Classic.ReadP.Transforms ( makeConstField, makeVarField )
 import Parser.Types (Parser, parseExpr)
 
 import qualified Parser.Classic.Words as W

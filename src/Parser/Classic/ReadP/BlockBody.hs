@@ -1,11 +1,11 @@
-module Parser.Classic.BlockBody
+module Parser.Classic.ReadP.BlockBody
   ( parseBlockBody
   ) where
 
 import Ast (Ident, BlockBody(..), DeclStat)
 
-import Parser.Classic.Common ( endShow )
-import Parser.Classic.Idents (parseIdent)
+import Parser.Classic.ReadP.Common ( endShow )
+import Parser.Classic.ReadP.Idents (parseIdent)
 import Parser.Common (inBrackets, stoken1)
 import Parser.Types (Parser, parseDeclStats)
 

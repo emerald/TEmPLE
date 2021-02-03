@@ -1,16 +1,16 @@
-module Parser.Classic.Classes
+module Parser.Classic.ReadP.Classes
   ( parseClass
   ) where
 
 import Ast ( Class(Class) )
 
 import Parser.Common ( stoken, stoken1 )
-import Parser.Classic.Builtins ( parseBuiltin )
-import Parser.Classic.Common ( end )
-import Parser.Classic.Idents ( parseIdent, prefixedIdent )
-import Parser.Classic.Objects ( parseObjectBody )
-import Parser.Classic.Operations ( parseOperation )
-import Parser.Classic.Params ( parseOptParams )
+import Parser.Classic.ReadP.Builtins ( parseBuiltin )
+import Parser.Classic.ReadP.Common ( end )
+import Parser.Classic.ReadP.Idents ( parseIdent, prefixedIdent )
+import Parser.Classic.ReadP.Objects ( parseObjectBody )
+import Parser.Classic.ReadP.Operations ( parseOperation )
+import Parser.Classic.ReadP.Params ( parseOptParams )
 import Parser.Types ( Parser )
 
 import qualified Parser.Classic.Words as W

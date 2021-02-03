@@ -1,4 +1,4 @@
-module Parser.Classic.NumLits
+module Parser.Classic.ReadP.NumLits
   ( parseIntLit
   , parseNumLit
   ) where

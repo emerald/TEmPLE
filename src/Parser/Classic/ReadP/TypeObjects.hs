@@ -1,14 +1,14 @@
-module Parser.Classic.TypeObjects
+module Parser.Classic.ReadP.TypeObjects
   ( parseTypeObject
   , parseOptImmTypeObject
   ) where
 
 import Ast ( TypeObject(..) )
 import Parser.Common ( stoken1Bool )
-import Parser.Classic.Builtins ( parseBuiltin )
-import Parser.Classic.Common ( end )
-import Parser.Classic.Idents ( prefixedIdent )
-import Parser.Classic.OpSigs ( parseOpSig )
+import Parser.Classic.ReadP.Builtins ( parseBuiltin )
+import Parser.Classic.ReadP.Common ( end )
+import Parser.Classic.ReadP.Idents ( prefixedIdent )
+import Parser.Classic.ReadP.OpSigs ( parseOpSig )
 import Parser.Types ( Parser )
 
 import qualified Parser.Classic.Words as W

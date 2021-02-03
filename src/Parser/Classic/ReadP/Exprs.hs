@@ -1,4 +1,4 @@
-module Parser.Classic.Exprs
+module Parser.Classic.ReadP.Exprs
   ( parseExpr, parseExprList
   , parseExprZero, parseExprZeroList
   , prec2, prec3, prec4
@@ -7,9 +7,9 @@ module Parser.Classic.Exprs
 
 import Ast (Expr(..))
 import Parser.Common (commaList, prefixInfix, stoken, word)
-import Parser.Classic.Idents (parseIdent)
-import Parser.Classic.Lits (parseLit)
-import Parser.Classic.ProcInvocs (parseProcInvoc')
+import Parser.Classic.ReadP.Idents (parseIdent)
+import Parser.Classic.ReadP.Lits (parseLit)
+import Parser.Classic.ReadP.ProcInvocs (parseProcInvoc')
 import Parser.Types (Parser)
 
 import qualified Parser.Classic.Words as W

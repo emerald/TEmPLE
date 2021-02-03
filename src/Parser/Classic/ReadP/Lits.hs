@@ -1,18 +1,18 @@
-module Parser.Classic.Lits
+module Parser.Classic.ReadP.Lits
   ( parseLit
   ) where
 
 import Ast (Lit(LNil, LBool, LSelf, LObj, LTypeObj, LClass, LEnum))
 
 import Parser.Common (stoken1Bool, word)
-import Parser.Classic.Classes ( parseClass )
-import Parser.Classic.Enums (parseEnum)
-import Parser.Classic.NumLits (parseNumLit)
-import Parser.Classic.Objects ( parseObject )
-import Parser.Classic.Records (parseRecord)
-import Parser.Classic.TextLits (parseTextLit)
-import Parser.Classic.TypeObjects ( parseTypeObject )
-import Parser.Classic.VecLits (parseVecLit)
+import Parser.Classic.ReadP.Classes ( parseClass )
+import Parser.Classic.ReadP.Enums (parseEnum)
+import Parser.Classic.ReadP.NumLits (parseNumLit)
+import Parser.Classic.ReadP.Objects ( parseObject )
+import Parser.Classic.ReadP.Records (parseRecord)
+import Parser.Classic.ReadP.TextLits (parseTextLit)
+import Parser.Classic.ReadP.TypeObjects ( parseTypeObject )
+import Parser.Classic.ReadP.VecLits (parseVecLit)
 import Parser.Types (Parser)
 
 import qualified Parser.Classic.Words as W

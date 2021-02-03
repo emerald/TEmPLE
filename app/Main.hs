@@ -1,7 +1,7 @@
 module Main (main) where
 
 import Ast (Compilation)
-import qualified Parser.Classic as ClassicReadPParser
+import qualified Parser.Classic.ReadP as ClassicReadPParser
 import qualified Parser.ClassicMegaparsec as ClassicMegaparsecParser
 
 import Data.List (intercalate)

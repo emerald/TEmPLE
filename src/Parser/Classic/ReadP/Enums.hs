@@ -1,11 +1,11 @@
-module Parser.Classic.Enums
+module Parser.Classic.ReadP.Enums
   ( parseEnum
   ) where
 
 import Ast ( Enumeration(Enum) )
 
-import Parser.Classic.Common ( end )
-import Parser.Classic.Idents ( parseIdent, prefixedIdent )
+import Parser.Classic.ReadP.Common ( end )
+import Parser.Classic.ReadP.Idents ( parseIdent, prefixedIdent )
 
 import qualified Parser.Classic.Words as W
   ( Keywords( Enumeration ) )

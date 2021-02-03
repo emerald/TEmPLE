@@ -1,4 +1,4 @@
-module Parser.Classic.Operations
+module Parser.Classic.ReadP.Operations
   ( parseOperation
   ) where
 
@@ -7,9 +7,9 @@ import Ast (Operation(..), OpSig(..))
 import qualified Parser.Classic.Words as W
   ( Keywords( Export ) )
 
-import Parser.Classic.BlockBody ( parseBlockBody )
-import Parser.Classic.Common ( end )
-import Parser.Classic.OpSigs ( parseOpSig )
+import Parser.Classic.ReadP.BlockBody ( parseBlockBody )
+import Parser.Classic.ReadP.Common ( end )
+import Parser.Classic.ReadP.OpSigs ( parseOpSig )
 import Parser.Common ( stoken1Bool )
 import Parser.Types ( Parser )
 

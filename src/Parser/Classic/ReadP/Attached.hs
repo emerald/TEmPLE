@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Module      :  TEmPLE.Parser.Classic.Attached
+-- Module      :  TEmPLE.Parser.Classic.ReadP.Attached
 -- Copyright   :  (c) Oleks Shturmov
 -- License     :  BSD 3-Clause (see the file LICENSE)
 --
@@ -9,7 +9,7 @@
 -- Introduced as there are a couple places where the `attached`
 -- keyword (optionally) occurs in classical Emerald.
 
-module Parser.Classic.Attached
+module Parser.Classic.ReadP.Attached
   ( parseAttached
   ) where
 

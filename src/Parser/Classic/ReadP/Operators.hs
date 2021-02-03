@@ -1,4 +1,4 @@
-module Parser.Classic.Operators
+module Parser.Classic.ReadP.Operators
   ( operatorChars
   , parseOperator
   , reservedOperators

@@ -1,4 +1,4 @@
-module Parser.Classic.Common ( end, endShow ) where
+module Parser.Classic.ReadP.Common ( end, endShow ) where
 
 import Ast ( Ident )
 import Parser.Common ( stoken1 )

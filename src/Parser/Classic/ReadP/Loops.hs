@@ -1,4 +1,4 @@
-module Parser.Classic.Loops
+module Parser.Classic.ReadP.Loops
   ( parseExit
   , parseLoop
   , parseFor
@@ -6,11 +6,11 @@ module Parser.Classic.Loops
 
 import Ast (DeclStat(Exit, For1, For2, Loop))
 
-import Parser.Classic.Common ( endShow )
-import Parser.Classic.Idents (parseIdent)
-import Parser.Classic.Types (parseType)
-import Parser.Classic.AssignOrInvoke (parseAssignOrInvoke)
-import Parser.Classic.Exprs (parseExpr)
+import Parser.Classic.ReadP.Common ( endShow )
+import Parser.Classic.ReadP.Idents (parseIdent)
+import Parser.Classic.ReadP.Types (parseType)
+import Parser.Classic.ReadP.AssignOrInvoke (parseAssignOrInvoke)
+import Parser.Classic.ReadP.Exprs (parseExpr)
 import Parser.Types (parseDeclStats)
 
 import qualified Parser.Classic.Words as W

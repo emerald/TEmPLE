@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Module      :  TEmPLE.Parser.Classic
+-- Module      :  TEmPLE.Parser.Classic.ReadP
 -- Copyright   :  (c) Oleks Shturmov
 -- License     :  BSD 3-Clause (see the file LICENSE)
 --
@@ -8,7 +8,7 @@
 --
 -- A parser for classical Emerald; no funny business.
 
-module Parser.Classic
+module Parser.Classic.ReadP
   ( ParseError
   , parseString
   , parseFile
@@ -18,10 +18,10 @@ module Parser.Classic
 
 import Ast (ConstDecl)
 import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
-import Parser.Classic.Exprs ( parseExpr, parseExprZero )
-import Parser.Classic.TypeObjects (parseOptImmTypeObject)
-import Parser.Classic.Decls ( parseConstDecl )
-import Parser.Classic.DeclStats ( parseDeclStats )
+import Parser.Classic.ReadP.Exprs ( parseExpr, parseExprZero )
+import Parser.Classic.ReadP.TypeObjects (parseOptImmTypeObject)
+import Parser.Classic.ReadP.Decls ( parseConstDecl )
+import Parser.Classic.ReadP.DeclStats ( parseDeclStats )
 import Parser.Types (Parser(Parser))
 
 import Text.ParserCombinators.ReadP (ReadP, many)

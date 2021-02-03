@@ -1,11 +1,11 @@
-module Parser.Classic.VecLits
+module Parser.Classic.ReadP.VecLits
   ( parseVecLit
   ) where
 
 import Ast (Lit(LVec))
 
 import Parser.Types ( Parser, parseExpr )
-import Parser.Classic.Types ( parseType )
+import Parser.Classic.ReadP.Types ( parseType )
 import Parser.Common ( commaList, stoken )
 
 import Control.Applicative ( liftA2, optional )

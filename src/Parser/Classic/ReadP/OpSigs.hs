@@ -1,4 +1,4 @@
-module Parser.Classic.OpSigs
+module Parser.Classic.ReadP.OpSigs
   ( parseOpSig
   ) where
 
@@ -7,10 +7,10 @@ import Ast ( Ident, OpSig(..), OpKind(..) )
 import qualified Parser.Classic.Words as W
   ( Keywords( Function, Op, Operation ) )
 
-import Parser.Classic.Idents ( parseIdent )
-import Parser.Classic.Operators ( parseOperator, reservedOperators )
-import Parser.Classic.Params ( parseParam, parseOptParams )
-import Parser.Classic.PolyWidgets ( parsePolyWidget )
+import Parser.Classic.ReadP.Idents ( parseIdent )
+import Parser.Classic.ReadP.Operators ( parseOperator, reservedOperators )
+import Parser.Classic.ReadP.Params ( parseParam, parseOptParams )
+import Parser.Classic.ReadP.PolyWidgets ( parsePolyWidget )
 import Parser.Common
   ( inBrackets
   , optCommaList
