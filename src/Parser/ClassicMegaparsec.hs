@@ -14,7 +14,7 @@ module Parser.ClassicMegaparsec
 
 import Ast ( Compilation )
 
-import Text.Megaparsec ( ParseError )
+import Parser.ClassicMegaparsec.Types ( ParseError )
 
 parseFile :: FilePath -> IO (Either String Compilation)
 parseFile = undefined
