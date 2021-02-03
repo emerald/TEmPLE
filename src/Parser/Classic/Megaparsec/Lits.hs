@@ -2,10 +2,10 @@ module Parser.Classic.Megaparsec.Lits
   ( parseLit
   ) where
 
-import Control.Applicative (empty)
+import Control.Applicative ((<|>), empty)
 import qualified Text.Megaparsec.Char as C
 import qualified Text.Megaparsec.Char.Lexer as L
-import Ast (Lit(LNil))
+import Ast (Lit(LNil, LSelf))
 import Parser.Classic.Megaparsec.Types
 import qualified Parser.Classic.Words as W
 
@@ -18,5 +18,8 @@ symbol = L.symbol space
 parseNil :: Parser Lit
 parseNil = symbol (show W.Nil) *> return LNil
 
+parseSelf :: Parser Lit
+parseSelf = symbol (show W.Self) *> return LSelf
+
 parseLit :: Parser Lit
-parseLit = parseNil
+parseLit = parseNil <|> parseSelf
