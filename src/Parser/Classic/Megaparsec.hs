@@ -1,12 +1,12 @@
 -- |
--- Module       : TEmPLE.Parser.ClassicMegaparsec
+-- Module       : TEmPLE.Parser.Classic.Megaparsec
 -- Description  : An efficient, user-friendly parser for classical Emerald
 -- Copyright    : (c) Oleks Shturmov, 2020-2021
 -- License      : BSD 3-Clause (see the file LICENSE)
 --
 -- Maintainer   : oleks@oleks.info
 
-module Parser.ClassicMegaparsec
+module Parser.Classic.Megaparsec
   ( ParseError
   , parseFile
   , parseString
@@ -14,7 +14,7 @@ module Parser.ClassicMegaparsec
 
 import Ast ( Compilation )
 
-import Parser.ClassicMegaparsec.Types ( ParseError )
+import Parser.Classic.Megaparsec.Types ( ParseError )
 
 parseFile :: FilePath -> IO (Either String Compilation)
 parseFile = undefined

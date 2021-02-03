@@ -1,4 +1,4 @@
-module Parser.ClassicMegaparsec.Types
+module Parser.Classic.Megaparsec.Types
   ( Parser,
     ParseError
   ) where
