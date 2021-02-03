@@ -12,9 +12,6 @@ import qualified Parser.Classic.Words as W
 space :: Parser ()
 space = L.space C.space1 empty empty
 
-lexeme :: Parser a -> Parser a
-lexeme = L.lexeme space
-
 symbol :: String -> Parser String
 symbol = L.symbol space
 
