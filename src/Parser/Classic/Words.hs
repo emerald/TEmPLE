@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Module      :  TEmPLE.Parser.ClassicAttached
+-- Module      :  TEmPLE.Parser.Classic.Words
 -- Copyright   :  (c) Oleks Shturmov
 -- License     :  BSD 3-Clause (see the file LICENSE)
 --
