@@ -11,7 +11,7 @@ import Parser.Types (parseDeclStats)
 import qualified Parser.Classic.Words as W
   ( Keywords(Else, ElseIf, If, Then) )
 
-import Parser.Common (stoken1)
+import Parser.Utils.ReadP (stoken1)
 import Parser.Types (Parser)
 
 import Control.Applicative (optional)

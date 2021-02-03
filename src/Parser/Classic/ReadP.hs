@@ -17,7 +17,7 @@ module Parser.Classic.ReadP
   ) where
 
 import Ast (ConstDecl)
-import Parser.Common (ParseErrorImpl, skipFilling, parseFile', parseString')
+import Parser.Utils.ReadP (ParseErrorImpl, skipFilling, parseFile', parseString')
 import Parser.Classic.ReadP.Exprs ( parseExpr, parseExprZero )
 import Parser.Classic.ReadP.TypeObjects (parseOptImmTypeObject)
 import Parser.Classic.ReadP.Decls ( parseConstDecl )

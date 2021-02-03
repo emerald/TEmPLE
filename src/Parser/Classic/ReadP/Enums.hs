@@ -10,7 +10,7 @@ import Parser.Classic.ReadP.Idents ( parseIdent, prefixedIdent )
 import qualified Parser.Classic.Words as W
   ( Keywords( Enumeration ) )
 
-import Parser.Common ( commaList )
+import Parser.Utils.ReadP ( commaList )
 
 import Text.ParserCombinators.ReadP ( ReadP )
 

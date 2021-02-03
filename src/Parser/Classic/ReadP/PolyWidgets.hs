@@ -8,7 +8,7 @@ import qualified Parser.Classic.Words as W
   ( Keywords(ForAll, SuchThat, Where) )
 
 import Parser.Classic.ReadP.Idents ( parseIdent )
-import Parser.Common ( prefix, stoken )
+import Parser.Utils.ReadP ( prefix, stoken )
 import Parser.Types ( Parser, parseOptImmTypeObject, parseExpr )
 
 import Text.ParserCombinators.ReadP ( ReadP, choice )

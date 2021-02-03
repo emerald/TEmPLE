@@ -4,7 +4,7 @@ module Parser.Classic.ReadP.Classes
 
 import Ast ( Class(Class) )
 
-import Parser.Common ( stoken, stoken1 )
+import Parser.Utils.ReadP ( stoken, stoken1 )
 import Parser.Classic.ReadP.Builtins ( parseBuiltin )
 import Parser.Classic.ReadP.Common ( end )
 import Parser.Classic.ReadP.Idents ( parseIdent, prefixedIdent )

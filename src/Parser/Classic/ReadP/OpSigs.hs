@@ -11,7 +11,7 @@ import Parser.Classic.ReadP.Idents ( parseIdent )
 import Parser.Classic.ReadP.Operators ( parseOperator, reservedOperators )
 import Parser.Classic.ReadP.Params ( parseParam, parseOptParams )
 import Parser.Classic.ReadP.PolyWidgets ( parsePolyWidget )
-import Parser.Common
+import Parser.Utils.ReadP
   ( inBrackets
   , optCommaList
   , stoken

@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module Parser.Common
+module Parser.Utils.ReadP
   ( ParseErrorImpl
   , fullParse, parse
   , optCommaList, commaList

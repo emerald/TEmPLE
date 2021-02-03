@@ -5,7 +5,7 @@ module Parser.Classic.ReadP.Types
   ) where
 
 import Ast (Type(..))
-import Parser.Common (stoken, token)
+import Parser.Utils.ReadP (stoken, token)
 import Parser.Classic.ReadP.Idents ( parseIdent )
 
 import Data.List ( find )

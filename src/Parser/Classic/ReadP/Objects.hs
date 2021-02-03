@@ -4,7 +4,7 @@ module Parser.Classic.ReadP.Objects
   ) where
 
 import Ast (Object(..), ObjectBody(..), BlockBody, Operation)
-import Parser.Common (stoken1)
+import Parser.Utils.ReadP (stoken1)
 import Parser.Classic.ReadP.Builtins ( parseBuiltin )
 import Parser.Classic.ReadP.Common ( end, endShow )
 import Parser.Classic.ReadP.Decls ( parseObjConstrDecl )

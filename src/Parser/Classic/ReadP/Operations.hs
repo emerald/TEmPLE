@@ -10,7 +10,7 @@ import qualified Parser.Classic.Words as W
 import Parser.Classic.ReadP.BlockBody ( parseBlockBody )
 import Parser.Classic.ReadP.Common ( end )
 import Parser.Classic.ReadP.OpSigs ( parseOpSig )
-import Parser.Common ( stoken1Bool )
+import Parser.Utils.ReadP ( stoken1Bool )
 import Parser.Types ( Parser )
 
 import Text.ParserCombinators.ReadP ( ReadP )

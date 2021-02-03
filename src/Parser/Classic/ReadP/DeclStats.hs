@@ -5,7 +5,7 @@ module Parser.Classic.ReadP.DeclStats
 
 import Ast (DeclStat(..), Expr)
 
-import Parser.Common (prefix, prefixInfix, stoken1, word1)
+import Parser.Utils.ReadP (prefix, prefixInfix, stoken1, word1)
 import Parser.Classic.ReadP.Decls ( parseDecl )
 import Parser.Classic.ReadP.Exprs (parseExpr)
 import Parser.Classic.ReadP.AssignOrInvoke (parseAssignOrInvoke)

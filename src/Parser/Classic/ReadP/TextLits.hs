@@ -11,7 +11,7 @@ module Parser.Classic.ReadP.TextLits
 
 import Ast (Lit(LChar, LString))
 
-import Parser.Common (token)
+import Parser.Utils.ReadP (token)
 import Util ( liftMaybe )
 
 import Data.Bits (clearBit)

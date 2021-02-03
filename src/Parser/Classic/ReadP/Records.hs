@@ -16,7 +16,7 @@ import Parser.Classic.ReadP.Transforms ( makeVarField )
 import qualified Parser.Classic.Words as W
   ( Keywords( Attached, Var, Record ) )
 
-import Parser.Common ( stoken1, stoken1Bool )
+import Parser.Utils.ReadP ( stoken1, stoken1Bool )
 
 import Text.ParserCombinators.ReadP ( ReadP, optional, many1 )
 

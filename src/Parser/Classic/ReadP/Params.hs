@@ -10,7 +10,7 @@ import qualified Parser.Classic.Words as W
 
 import Parser.Classic.ReadP.Idents ( parseIdent )
 import Parser.Classic.ReadP.Types ( parseRawType )
-import Parser.Common
+import Parser.Utils.ReadP
   ( inBrackets, optCommaList
   , stoken, stoken1Bool
   )

@@ -13,7 +13,7 @@ module Parser.Classic.ReadP.Builtins
   ( parseBuiltin
   ) where
 
-import Parser.Common ( stoken1 )
+import Parser.Utils.ReadP ( stoken1 )
 import Parser.Classic.Words ( Keywords( Builtin ) )
 import Parser.Classic.ReadP.NumLits ( parseIntLit )
 

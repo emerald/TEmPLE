@@ -16,7 +16,7 @@ import Parser.Types (parseDeclStats)
 import qualified Parser.Classic.Words as W
   ( Keywords(By, Exit, For, Loop, When, While) )
 
-import Parser.Common (stoken, stoken1)
+import Parser.Utils.ReadP (stoken, stoken1)
 import Parser.Types (Parser)
 
 import Control.Applicative ( optional )

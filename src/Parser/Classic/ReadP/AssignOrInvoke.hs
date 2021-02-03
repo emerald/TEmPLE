@@ -8,7 +8,7 @@ import Parser.Classic.ReadP.ProcInvocs ( parseProcInvoc )
 
 import Parser.Classic.ReadP.Exprs ( parseExprList, parseExprZeroList )
 
-import Parser.Common (stoken)
+import Parser.Utils.ReadP (stoken)
 import Parser.Types (Parser)
 
 import Text.ParserCombinators.ReadP (ReadP, choice)

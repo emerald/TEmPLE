@@ -1,7 +1,7 @@
 module Parser.Classic.ReadP.Common ( end, endShow ) where
 
 import Ast ( Ident )
-import Parser.Common ( stoken1 )
+import Parser.Utils.ReadP ( stoken1 )
 import Parser.Classic.Words as W ( Keywords( End ) )
 
 import Control.Monad ( void )

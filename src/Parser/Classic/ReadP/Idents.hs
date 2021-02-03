@@ -8,7 +8,7 @@ module Parser.Classic.ReadP.Idents
   ) where
 
 import Ast (Ident)
-import Parser.Common (commaList, token, stoken1)
+import Parser.Utils.ReadP (commaList, token, stoken1)
 import Parser.Classic.Words (reserved)
 
 import Control.Applicative (liftA2)

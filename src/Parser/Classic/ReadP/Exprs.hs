@@ -6,7 +6,7 @@ module Parser.Classic.ReadP.Exprs
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (commaList, prefixInfix, stoken, word)
+import Parser.Utils.ReadP (commaList, prefixInfix, stoken, word)
 import Parser.Classic.ReadP.Idents (parseIdent)
 import Parser.Classic.ReadP.Lits (parseLit)
 import Parser.Classic.ReadP.ProcInvocs (parseProcInvoc')

@@ -6,7 +6,7 @@ module Parser.Classic.ReadP.Operators
 
 import Ast (Ident)
 
-import Parser.Common (token)
+import Parser.Utils.ReadP (token)
 
 import Text.ParserCombinators.ReadP (ReadP, munch1)
 

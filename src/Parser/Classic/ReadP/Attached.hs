@@ -13,7 +13,7 @@ module Parser.Classic.ReadP.Attached
   ( parseAttached
   ) where
 
-import Parser.Common (stoken1Bool)
+import Parser.Utils.ReadP (stoken1Bool)
 import Parser.Classic.Words (Keywords(Attached))
 
 import Text.ParserCombinators.ReadP (ReadP)

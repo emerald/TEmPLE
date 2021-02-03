@@ -6,7 +6,7 @@ import Ast (Lit(LVec))
 
 import Parser.Types ( Parser, parseExpr )
 import Parser.Classic.ReadP.Types ( parseType )
-import Parser.Common ( commaList, stoken )
+import Parser.Utils.ReadP ( commaList, stoken )
 
 import Control.Applicative ( liftA2, optional )
 import Text.ParserCombinators.ReadP ( ReadP, between )

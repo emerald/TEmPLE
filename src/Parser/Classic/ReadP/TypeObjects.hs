@@ -4,7 +4,7 @@ module Parser.Classic.ReadP.TypeObjects
   ) where
 
 import Ast ( TypeObject(..) )
-import Parser.Common ( stoken1Bool )
+import Parser.Utils.ReadP ( stoken1Bool )
 import Parser.Classic.ReadP.Builtins ( parseBuiltin )
 import Parser.Classic.ReadP.Common ( end )
 import Parser.Classic.ReadP.Idents ( prefixedIdent )

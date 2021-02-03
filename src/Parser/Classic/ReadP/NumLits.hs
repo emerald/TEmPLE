@@ -5,7 +5,7 @@ module Parser.Classic.ReadP.NumLits
 
 import Ast (Lit(LInt, LDouble))
 
-import Parser.Common (token)
+import Parser.Utils.ReadP (token)
 
 import Control.Monad (void)
 import Data.Char (isDigit)

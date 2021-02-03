@@ -6,7 +6,7 @@ module Parser.Classic.ReadP.Decls
   ) where
 
 import Ast ( ConstDecl(..), Decl(..), VarDecl(..), Operation )
-import Parser.Common (stoken, stoken1, token)
+import Parser.Utils.ReadP (stoken, stoken1, token)
 import Parser.Classic.ReadP.Attached (parseAttached)
 import Parser.Classic.ReadP.Idents (parseIdent, parseIdentList)
 import Parser.Classic.ReadP.Types (parseType)

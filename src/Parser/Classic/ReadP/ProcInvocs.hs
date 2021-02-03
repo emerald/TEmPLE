@@ -8,7 +8,7 @@ import Parser.Types (parseExpr, parseExprZero)
 import Parser.Classic.ReadP.Idents (parseIdent)
 import Parser.Classic.ReadP.Operators (parseOperator)
 
-import Parser.Common (optCommaList, stoken, word1)
+import Parser.Utils.ReadP (optCommaList, stoken, word1)
 import Parser.Types (Parser)
 
 import Control.Applicative (liftA2)

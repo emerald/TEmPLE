@@ -4,7 +4,7 @@ module Parser.Classic.ReadP.Lits
 
 import Ast (Lit(LNil, LBool, LSelf, LObj, LTypeObj, LClass, LEnum))
 
-import Parser.Common (stoken1Bool, word)
+import Parser.Utils.ReadP (stoken1Bool, word)
 import Parser.Classic.ReadP.Classes ( parseClass )
 import Parser.Classic.ReadP.Enums (parseEnum)
 import Parser.Classic.ReadP.NumLits (parseNumLit)
