@@ -5,10 +5,8 @@ module Parser.Classic.Megaparsec.Lits
 import Control.Applicative (empty)
 import qualified Text.Megaparsec.Char as C
 import qualified Text.Megaparsec.Char.Lexer as L
-import Text.Megaparsec.Stream (Tokens)
 import Ast (Lit(LNil))
 import Parser.Classic.Megaparsec.Types
-import Data.Text (Text)
 import qualified Parser.Classic.Words as W
 
 space :: Parser ()
