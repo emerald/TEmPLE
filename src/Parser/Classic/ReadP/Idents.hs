@@ -1,4 +1,4 @@
-module Parser.Classic.Idents
+module Parser.Classic.ReadP.Idents
   ( firstChars
   , restChars
   , reserved

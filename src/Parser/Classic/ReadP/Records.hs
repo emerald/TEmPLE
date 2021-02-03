@@ -1,4 +1,4 @@
-module Parser.Classic.Records
+module Parser.Classic.ReadP.Records
   ( parseRecord
   ) where
 
@@ -8,10 +8,10 @@ import Ast
   , Param(Param), Type(..)
   )
 
-import Parser.Classic.Common ( end )
-import Parser.Classic.Idents ( parseIdent, prefixedIdent )
-import Parser.Classic.Types ( parseType )
-import Parser.Classic.Transforms ( makeVarField )
+import Parser.Classic.ReadP.Common ( end )
+import Parser.Classic.ReadP.Idents ( parseIdent, prefixedIdent )
+import Parser.Classic.ReadP.Types ( parseType )
+import Parser.Classic.ReadP.Transforms ( makeVarField )
 
 import qualified Parser.Classic.Words as W
   ( Keywords( Attached, Var, Record ) )

@@ -1,11 +1,11 @@
-module Parser.Classic.IfThenElse
+module Parser.Classic.ReadP.IfThenElse
   ( parseIfThenElse
   ) where
 
 import Ast (DeclStat(IfThenElse))
 
-import Parser.Classic.Common ( endShow )
-import Parser.Classic.Exprs (parseExpr)
+import Parser.Classic.ReadP.Common ( endShow )
+import Parser.Classic.ReadP.Exprs (parseExpr)
 import Parser.Types (parseDeclStats)
 
 import qualified Parser.Classic.Words as W

@@ -1,4 +1,4 @@
-module Parser.Classic.PolyWidgets
+module Parser.Classic.ReadP.PolyWidgets
   ( parsePolyWidget
   ) where
 
@@ -7,7 +7,7 @@ import Ast ( PolyWidget(..) )
 import qualified Parser.Classic.Words as W
   ( Keywords(ForAll, SuchThat, Where) )
 
-import Parser.Classic.Idents ( parseIdent )
+import Parser.Classic.ReadP.Idents ( parseIdent )
 import Parser.Common ( prefix, stoken )
 import Parser.Types ( Parser, parseOptImmTypeObject, parseExpr )
 

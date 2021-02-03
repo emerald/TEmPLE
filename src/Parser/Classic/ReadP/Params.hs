@@ -1,4 +1,4 @@
-module Parser.Classic.Params
+module Parser.Classic.ReadP.Params
   ( parseParam
   , parseOptParams
   ) where
@@ -8,8 +8,8 @@ import Ast ( Param(..) )
 import qualified Parser.Classic.Words as W
   ( Keywords( Attached ) )
 
-import Parser.Classic.Idents ( parseIdent )
-import Parser.Classic.Types ( parseRawType )
+import Parser.Classic.ReadP.Idents ( parseIdent )
+import Parser.Classic.ReadP.Types ( parseRawType )
 import Parser.Common
   ( inBrackets, optCommaList
   , stoken, stoken1Bool

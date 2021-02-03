@@ -1,4 +1,4 @@
-module Parser.Classic.Types
+module Parser.Classic.ReadP.Types
   ( types
   , parseType
   , parseRawType
@@ -6,7 +6,7 @@ module Parser.Classic.Types
 
 import Ast (Type(..))
 import Parser.Common (stoken, token)
-import Parser.Classic.Idents ( parseIdent )
+import Parser.Classic.ReadP.Idents ( parseIdent )
 
 import Data.List ( find )
 import Text.ParserCombinators.ReadP (ReadP)

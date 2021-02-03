@@ -1,5 +1,5 @@
 -- |
--- Module   : TEmPLE.Parser.Classic.Transforms
+-- Module   : TEmPLE.Parser.Classic.ReadP.Transforms
 -- Copyright   :  (c) Oleks Shturmov
 -- License     :  BSD 3-Clause (see the file LICENSE)
 --
@@ -7,7 +7,7 @@
 --
 -- Declares various syntactical transformations.
 
-module Parser.Classic.Transforms
+module Parser.Classic.ReadP.Transforms
   ( classToObject
   , makeConstField
   , makeVarField

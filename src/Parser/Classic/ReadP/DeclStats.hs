@@ -1,4 +1,4 @@
-module Parser.Classic.DeclStats
+module Parser.Classic.ReadP.DeclStats
   ( parseDeclStat
   , parseDeclStats
   ) where
@@ -6,12 +6,12 @@ module Parser.Classic.DeclStats
 import Ast (DeclStat(..), Expr)
 
 import Parser.Common (prefix, prefixInfix, stoken1, word1)
-import Parser.Classic.Decls ( parseDecl )
-import Parser.Classic.Exprs (parseExpr)
-import Parser.Classic.AssignOrInvoke (parseAssignOrInvoke)
-import Parser.Classic.BlockBody (parseBlockBody)
-import Parser.Classic.Loops (parseExit, parseFor, parseLoop)
-import Parser.Classic.IfThenElse (parseIfThenElse)
+import Parser.Classic.ReadP.Decls ( parseDecl )
+import Parser.Classic.ReadP.Exprs (parseExpr)
+import Parser.Classic.ReadP.AssignOrInvoke (parseAssignOrInvoke)
+import Parser.Classic.ReadP.BlockBody (parseBlockBody)
+import Parser.Classic.ReadP.Loops (parseExit, parseFor, parseLoop)
+import Parser.Classic.ReadP.IfThenElse (parseIfThenElse)
 
 import qualified Parser.Classic.Words as W
   ( Keywords

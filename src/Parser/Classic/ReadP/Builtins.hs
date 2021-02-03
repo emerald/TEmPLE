@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Module      :  TEmPLE.Parser.Classic.Builtins
+-- Module      :  TEmPLE.Parser.Classic.ReadP.Builtins
 -- Copyright   :  (c) Oleks Shturmov
 -- License     :  BSD 3-Clause (see the file LICENSE)
 --
@@ -9,13 +9,13 @@
 -- Introduced as there are a couple places where the `builtin`
 -- keyword (optionally) occurs in classical Emerald.
 
-module Parser.Classic.Builtins
+module Parser.Classic.ReadP.Builtins
   ( parseBuiltin
   ) where
 
 import Parser.Common ( stoken1 )
 import Parser.Classic.Words ( Keywords( Builtin ) )
-import Parser.Classic.NumLits ( parseIntLit )
+import Parser.Classic.ReadP.NumLits ( parseIntLit )
 
 import Text.ParserCombinators.ReadP (ReadP)
 
