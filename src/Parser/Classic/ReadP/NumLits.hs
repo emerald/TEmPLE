@@ -6,10 +6,11 @@ module Parser.Classic.ReadP.NumLits
 import Ast (Lit(LInt, LDouble))
 
 import Parser.Utils.ReadP (token)
+import Parser.Utils.Numeric ( integralToInt )
 
 import Control.Monad (void)
 import Data.Char (isDigit)
-import Numeric (readDec, readFloat, readHex, readOct)
+import Numeric (readFloat, readHex, readOct)
 import Text.ParserCombinators.ReadP
   ( ReadP, (<++)
   , choice, munch, munch1, satisfy, string
@@ -52,9 +53,6 @@ parseIntegral = do
   first <- satisfy (`elem` ['1'..'9'])
   rest <- munch isDigit
   return $ first:rest
-
-integralToInt :: String -> Int
-integralToInt = fst . head . readDec
 
 parseIntLit :: ReadP Int
 parseIntLit = token $ choice
