@@ -2,7 +2,6 @@ module Parser.Classic.Megaparsec.Lits
   ( parseLit
   ) where
 
-import Control.Applicative ( (<|>) )
 import Data.Foldable ( asum )
 
 import Ast ( Lit( LNil, LSelf, LBool ) )
