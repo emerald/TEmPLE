@@ -3,12 +3,13 @@ module Parser.Classic.Megaparsec.Lits
   ) where
 
 import Control.Applicative ( (<|>) )
+import Data.Foldable ( asum )
 
-import Ast ( Lit( LNil, LSelf ) )
+import Ast ( Lit( LNil, LSelf, LBool ) )
 import Parser.Classic.Megaparsec.Base ( word )
 import Parser.Classic.Megaparsec.Types ( Parser )
 import qualified Parser.Classic.Words as W
-  ( Literals( Nil, Self ) )
+  ( Literals( Nil, Self, True, False ) )
 
 parseNil :: Parser Lit
 parseNil = word [(show W.Nil, LNil)]
@@ -16,5 +17,15 @@ parseNil = word [(show W.Nil, LNil)]
 parseSelf :: Parser Lit
 parseSelf = word [(show W.Self, LSelf)]
 
+parseBool :: Parser Lit
+parseBool = word
+  [ (show W.True,  LBool True )
+  , (show W.False, LBool False )
+  ]
+
 parseLit :: Parser Lit
-parseLit = parseNil <|> parseSelf
+parseLit = asum
+  [ parseNil
+  , parseSelf
+  , parseBool
+  ]
