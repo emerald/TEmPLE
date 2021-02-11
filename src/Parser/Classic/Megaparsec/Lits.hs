@@ -5,8 +5,10 @@ module Parser.Classic.Megaparsec.Lits
 import Data.Foldable ( asum )
 
 import Ast ( Lit( LNil, LSelf, LBool ) )
+
 import Parser.Classic.Megaparsec.Base ( word )
 import Parser.Classic.Megaparsec.Types ( Parser )
+
 import qualified Parser.Classic.Words as W
   ( Literals( Nil, Self, True, False ) )
 
