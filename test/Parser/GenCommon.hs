@@ -6,7 +6,6 @@ module Parser.GenCommon
   , validOp, validOp1
   ) where
 
-import Control.Applicative ( (<*>) )
 import Test.Tasty.QuickCheck
   ( Gen
   , arbitrary, choose, elements
