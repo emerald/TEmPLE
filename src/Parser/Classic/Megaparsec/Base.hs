@@ -5,7 +5,7 @@ module Parser.Classic.Megaparsec.Base
 
 import Control.Applicative ( empty )
 import qualified Text.Megaparsec.Char.Lexer as L
-  ( space, symbol )
+  ( space, symbol' )
 import qualified Text.Megaparsec.Char as C
   ( space1 )
 import Data.Foldable ( asum )
@@ -16,7 +16,7 @@ space :: Parser ()
 space = L.space C.space1 empty empty
 
 symbol :: String -> Parser String
-symbol = L.symbol space
+symbol = L.symbol' space
 
 word :: [(String, a)] -> Parser a
 word = asum . map (\(w, a) -> symbol w *> return a)
