@@ -12,7 +12,6 @@ import Parser.Classic.TextLits
   , isSimpleCChar
   , isSimpleSChar
   )
-import Parser.Common (fullParse)
 
 import Test.Tasty.QuickCheck
   ( Arbitrary, Gen
@@ -39,9 +38,8 @@ escChars = ['\'', '"', '\\', 'a', 'b', 'f', 'n', 'r', 't', 'v']
 genAnySeq :: Gen (String, Char)
 genAnySeq = do
   c <- elements escChars
-  case fullParse (escSeqAny_to_C c) "" of
-    [c'] -> return ('\\':[c], c')
-    _ -> fail $ show c
+  let Just c' = escSeqAny_to_C c
+  return ('\\':[c], c')
 
 genUpSeq :: Gen (String, Char)
 genUpSeq = do
@@ -53,7 +51,7 @@ genOctSeq :: (String -> String) -> Gen (String, Char)
 genOctSeq normalize = do
   n <- choose(1, 3)
   s <- vectorOf n (elements ['0'..'7'])
-  let [c'] = fullParse (escSeqOct_to_C s) ""
+  let Just c' = escSeqOct_to_C s
   return ('\\' : normalize s, c')
 
 genEscSeq :: (String -> String) -> Gen (String, Char)
