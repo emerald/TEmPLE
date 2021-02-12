@@ -37,7 +37,7 @@ genValidNumLit = do
 
 textLit_to_Lit :: ValidTextLit -> ValidLit
 textLit_to_Lit (ValidTextLit (s, l, sls))
-  = ValidLit (s, l, error $ show $ length sls)--map textLit_to_Lit sls)
+  = ValidLit (s, l, error $ show $ length sls)
 
 genValidTextLit :: Gen (String, Lit, [ValidLit])
 genValidTextLit = fmap (validLit . textLit_to_Lit) arbitrary
