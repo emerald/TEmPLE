@@ -14,24 +14,21 @@ module Parser.Classic.Megaparsec.TextLits
 
 import Ast ( Lit ( LChar, LString ) )
 
-import Parser.Classic.ReadP.TextLits
+import Parser.Classic.Megaparsec.Types ( Parser )
+import Parser.Classic.TextLits
   ( escSeqAny_to_C  , escSeqOct_to_C  , escSeqUp_to_C
   , isAnyChar       , isOctChar
   , isSimpleCChar   , isSimpleSChar
   )
 import Util ( liftMaybe )
 
-import Data.Text ( Text )
-import Data.Void ( Void )
 import Text.Megaparsec
-  ( Parsec    , (<?>)
+  ( (<?>)
   , anySingle , between , choice
   , count     , many    , satisfy
   , try
   )
 import Text.Megaparsec.Char ( string )
-
-type Parser = Parsec Void Text
 
 parseOctChar :: Parser Char
 parseOctChar = satisfy isOctChar
