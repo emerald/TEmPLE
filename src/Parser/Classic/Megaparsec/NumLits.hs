@@ -12,7 +12,6 @@ import Data.Foldable ( asum )
 
 import Numeric ( readDec, readFloat, readHex, readOct )
 
-import Parser.Classic.Megaparsec.Base ( symbol )
 import Parser.Classic.Megaparsec.Types ( Parser )
 
 import Text.Megaparsec ( (<?>), many, satisfy, some )
