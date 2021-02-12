@@ -5,7 +5,7 @@ module Parser.Classic.Gen.TextLits
 
 import Ast (Lit(LChar, LString))
 
-import Parser.Classic.ReadP.TextLits
+import Parser.Classic.TextLits
   ( escSeqAny_to_C
   , escSeqOct_to_C
   , escSeqUp_to_C
