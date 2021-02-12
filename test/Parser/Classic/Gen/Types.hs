@@ -5,7 +5,7 @@ module Parser.Classic.Gen.Types
 
 import Ast (Type(..))
 
-import Parser.Classic.Types (types)
+import Parser.Classic.ReadP.Types (types)
 
 import Parser.Classic.Gen.Idents ( invalidIdentString )
 

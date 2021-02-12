@@ -1,8 +1,8 @@
 module Parser.Classic.Test.Exprs (testTree) where
 
-import Parser.Common (fullParse, parse)
-import Parser.Classic (parser)
-import Parser.Classic.Exprs (parseExpr)
+import Parser.Utils.ReadP (fullParse, parse)
+import Parser.Classic.ReadP (parser)
+import Parser.Classic.ReadP.Exprs (parseExpr)
 
 import Parser.Classic.Gen.Exprs (ValidExpr(..), InvalidExpr(..))
 

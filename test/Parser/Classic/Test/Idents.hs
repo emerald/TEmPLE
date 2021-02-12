@@ -2,8 +2,8 @@ module Parser.Classic.Test.Idents
   ( testTree
   ) where
 
-import Parser.Common (fullParse, parse)
-import Parser.Classic.Idents (reserved, parseIdent)
+import Parser.Utils.ReadP (fullParse, parse)
+import Parser.Classic.ReadP.Idents (reserved, parseIdent)
 
 import Parser.TestCommon ( goldenTestAll )
 

@@ -1,7 +1,7 @@
 module Parser.Classic.Test.Decls (testTree) where
 
-import Parser.Classic ( parser )
-import Parser.Classic.Decls ( parseObjConstrDecl )
+import Parser.Classic.ReadP ( parser )
+import Parser.Classic.ReadP.Decls ( parseObjConstrDecl )
 import Parser.TestCommon ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)

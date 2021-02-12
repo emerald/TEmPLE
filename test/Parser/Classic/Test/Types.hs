@@ -1,7 +1,7 @@
 module Parser.Classic.Test.Types (testTree) where
 
-import Parser.Common (parse)
-import Parser.Classic.Types (parseType)
+import Parser.Utils.ReadP (parse)
+import Parser.Classic.ReadP.Types (parseType)
 
 import Parser.Classic.Gen.Types (ValidType(..), InvalidType(..))
 

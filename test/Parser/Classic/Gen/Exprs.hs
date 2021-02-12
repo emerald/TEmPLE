@@ -5,10 +5,10 @@ module Parser.Classic.Gen.Exprs
   ) where
 
 import Ast (Expr(..))
-import Parser.Common (fullParse)
-import Parser.Classic (parser)
-import Parser.Classic.Lits (parseLit)
-import Parser.Classic.Exprs (prec8, prec7, prec6, prec5)
+import Parser.Utils.ReadP (fullParse)
+import Parser.Classic.ReadP (parser)
+import Parser.Classic.ReadP.Lits (parseLit)
+import Parser.Classic.ReadP.Exprs (prec8, prec7, prec6, prec5)
 
 import Parser.GenCommon (token, token1)
 import Parser.Classic.Gen.Lits (ValidLit(..))

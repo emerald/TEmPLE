@@ -5,7 +5,7 @@ module Parser.Classic.Gen.Idents
 
 import Ast (Ident)
 
-import Parser.Classic.Idents (firstChars, restChars, reserved)
+import Parser.Classic.ReadP.Idents (firstChars, restChars, reserved)
 
 import Parser.GenCommon (spaces)
 

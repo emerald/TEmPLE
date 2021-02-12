@@ -1,8 +1,8 @@
 module Parser.Classic.Test.Lits (testTree) where
 
-import Parser.Common (fullParse)
-import Parser.Classic (parser)
-import Parser.Classic.Lits (parseLit)
+import Parser.Utils.ReadP (fullParse)
+import Parser.Classic.ReadP (parser)
+import Parser.Classic.ReadP.Lits (parseLit)
 
 import Parser.TestCommon ( goldenTestAll )
 

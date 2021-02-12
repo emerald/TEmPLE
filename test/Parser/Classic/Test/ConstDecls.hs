@@ -1,8 +1,8 @@
 module Parser.Classic.Test.ConstDecls (testTree) where
 
-import Parser.Common (fullParse, parse)
-import Parser.Classic (parser)
-import Parser.Classic.Decls (parseConstDecl)
+import Parser.Utils.ReadP (fullParse, parse)
+import Parser.Classic.ReadP (parser)
+import Parser.Classic.ReadP.Decls (parseConstDecl)
 
 import Parser.Classic.Gen.ConstDecls
   ( ValidConstDecl(..)

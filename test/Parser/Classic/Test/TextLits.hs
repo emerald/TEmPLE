@@ -1,7 +1,7 @@
 module Parser.Classic.Test.TextLits (testTree) where
 
-import Parser.Common (fullParse)
-import Parser.Classic.TextLits (parseTextLit)
+import Parser.Utils.ReadP (fullParse)
+import Parser.Classic.ReadP.TextLits (parseTextLit)
 
 import Parser.Classic.Gen.TextLits (ValidTextLit(..), InvalidTextLit(..))
 

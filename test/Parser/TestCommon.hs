@@ -2,7 +2,7 @@ module Parser.TestCommon
   ( goldenTest, goldenTestAll
   ) where
 
-import Parser.Common ( parseFile' )
+import Parser.Utils.ReadP ( parseFile' )
 
 import System.Directory ( listDirectory )
 import System.FilePath ( (</>) )

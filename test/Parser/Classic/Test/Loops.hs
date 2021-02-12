@@ -1,7 +1,7 @@
 module Parser.Classic.Test.Loops (testTree) where
 
-import Parser.Classic ( parser )
-import Parser.Classic.DeclStats ( parseDeclStat )
+import Parser.Classic.ReadP ( parser )
+import Parser.Classic.ReadP.DeclStats ( parseDeclStat )
 import Parser.TestCommon ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
