@@ -1,4 +1,4 @@
-module Parser.Classic.Test.TextLits (testTree) where
+module Parser.Classic.ReadP.Test.TextLits (testTree) where
 
 import Parser.Utils.ReadP (fullParse)
 import Parser.Classic.ReadP.TextLits (parseTextLit)

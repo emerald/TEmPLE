@@ -1,4 +1,4 @@
-module Parser.Classic.Test.Types (testTree) where
+module Parser.Classic.ReadP.Test.Types (testTree) where
 
 import Parser.Utils.ReadP (parse)
 import Parser.Classic.ReadP.Types (parseType)

@@ -1,4 +1,4 @@
-module Parser.Classic.Test.Decls (testTree) where
+module Parser.Classic.ReadP.Test.Decls (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.Decls ( parseObjConstrDecl )

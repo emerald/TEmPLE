@@ -1,4 +1,4 @@
-module Parser.Classic.Test.Objects (testTree) where
+module Parser.Classic.ReadP.Test.Objects (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.Lits ( parseLit )

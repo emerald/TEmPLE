@@ -1,4 +1,4 @@
-module Parser.Classic.Test.DeclStats (testTree) where
+module Parser.Classic.ReadP.Test.DeclStats (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.DeclStats ( parseDeclStats )

@@ -1,4 +1,4 @@
-module Parser.Classic.Test.ConstDecls (testTree) where
+module Parser.Classic.ReadP.Test.ConstDecls (testTree) where
 
 import Parser.Utils.ReadP (fullParse, parse)
 import Parser.Classic.ReadP (parser)

@@ -1,4 +1,4 @@
-module Parser.Classic.Test.AssignOrInvoke (testTree) where
+module Parser.Classic.ReadP.Test.AssignOrInvoke (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.AssignOrInvoke ( parseAssignOrInvoke )

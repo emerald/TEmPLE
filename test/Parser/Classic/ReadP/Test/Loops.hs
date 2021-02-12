@@ -1,4 +1,4 @@
-module Parser.Classic.Test.Loops (testTree) where
+module Parser.Classic.ReadP.Test.Loops (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.DeclStats ( parseDeclStat )

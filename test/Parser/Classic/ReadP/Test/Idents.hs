@@ -1,4 +1,4 @@
-module Parser.Classic.Test.Idents
+module Parser.Classic.ReadP.Test.Idents
   ( testTree
   ) where
 

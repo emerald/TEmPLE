@@ -1,4 +1,4 @@
-module Parser.Classic.Test.Examples (testTree) where
+module Parser.Classic.ReadP.Test.Examples (testTree) where
 
 import Parser.Classic.ReadP ( parseProgram )
 import Parser.TestCommon ( goldenTestAll )

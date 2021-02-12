@@ -1,4 +1,4 @@
-module Parser.Classic.Test.IfThenElse (testTree) where
+module Parser.Classic.ReadP.Test.IfThenElse (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.IfThenElse ( parseIfThenElse )
