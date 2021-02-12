@@ -9,6 +9,7 @@ import Ast ( Lit( LNil, LSelf, LBool ) )
 import Parser.Classic.Megaparsec.Base ( word )
 import Parser.Classic.Megaparsec.Types ( Parser )
 import Parser.Classic.Megaparsec.NumLits ( parseNumLit )
+import Parser.Classic.Megaparsec.TextLits ( parseTextLit )
 
 import qualified Parser.Classic.Words as W
   ( Literals( Nil, Self, True, False ) )
@@ -31,4 +32,5 @@ parseLit = asum
   , parseSelf
   , parseBool
   , parseNumLit
+  , parseTextLit
   ]
