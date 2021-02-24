@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Copyright   :  (c) Oleks Shturmov
+-- Copyright   :  (c) Oleks Shturmov, 2020-2021
 -- License     :  BSD 3-Clause (see the file LICENSE)
 --
 -- Maintainer  :  oleks@oleks.info
