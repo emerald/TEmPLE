@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedStrings #-}
-
 -----------------------------------------------------------------------------
 -- |
 -- Description  : Parsing character and string literals
