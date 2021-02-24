@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 -- |
--- Module       : TEmPLE.Parser.Classic.Megaparsec.TextLits
 -- Description  : Parsing character and string literals
 -- Copyright    : (c) Oleks Shturmov, 2020
 -- License      : BSD 3-Clause (see the file LICENSE)

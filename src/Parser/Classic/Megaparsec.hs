@@ -1,5 +1,4 @@
 -- |
--- Module       : TEmPLE.Parser.Classic.Megaparsec
 -- Description  : An efficient, user-friendly parser for classical Emerald
 -- Copyright    : (c) Oleks Shturmov, 2020-2021
 -- License      : BSD 3-Clause (see the file LICENSE)

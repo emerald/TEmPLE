@@ -1,5 +1,4 @@
 -- |
--- Module   : TEmPLE.Parser.Classic.ReadP.Transforms
 -- Copyright   :  (c) Oleks Shturmov
 -- License     :  BSD 3-Clause (see the file LICENSE)
 --
