@@ -4,7 +4,7 @@ import Parser.Utils.ReadP (fullParse)
 import Parser.Classic.ReadP (parser)
 import Parser.Classic.ReadP.Lits (parseLit)
 
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Parser.Classic.Gen.Lits (ValidLit(..), InvalidLit(..))
 

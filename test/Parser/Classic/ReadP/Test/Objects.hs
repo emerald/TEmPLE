@@ -2,7 +2,7 @@ module Parser.Classic.ReadP.Test.Objects (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.Lits ( parseLit )
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
 

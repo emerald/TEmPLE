@@ -2,7 +2,7 @@ module Parser.Classic.ReadP.Test.AssignOrInvoke (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.AssignOrInvoke ( parseAssignOrInvoke )
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Text.ParserCombinators.ReadP ( many )
 import Test.Tasty (TestTree, testGroup)

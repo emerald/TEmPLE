@@ -5,7 +5,7 @@ module Parser.Classic.ReadP.Test.Idents
 import Parser.Utils.ReadP (fullParse, parse)
 import Parser.Classic.ReadP.Idents (reserved, parseIdent)
 
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Parser.Classic.Gen.Idents (ValidIdent(..), InvalidIdent(..))
 

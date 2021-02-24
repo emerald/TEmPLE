@@ -6,7 +6,7 @@ import Parser.Classic.ReadP.Exprs (parseExpr)
 
 import Parser.Classic.Gen.Exprs (ValidExpr(..), InvalidExpr(..))
 
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)

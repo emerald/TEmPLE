@@ -1,4 +1,4 @@
-module Parser.TestCommon
+module Parser.Classic.ReadP.Test.Golden
   ( goldenTest, goldenTestAll
   ) where
 

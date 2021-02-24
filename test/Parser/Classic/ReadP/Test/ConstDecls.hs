@@ -8,7 +8,7 @@ import Parser.Classic.Gen.ConstDecls
   ( ValidConstDecl(..)
   , InvalidConstDecl(..)
   )
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (Property, (===), property, testProperty)

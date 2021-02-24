@@ -1,7 +1,7 @@
 module Parser.Classic.ReadP.Test.Examples (testTree) where
 
 import Parser.Classic.ReadP ( parseProgram )
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
 

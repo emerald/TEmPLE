@@ -2,7 +2,7 @@ module Parser.Classic.ReadP.Test.Decls (testTree) where
 
 import Parser.Classic.ReadP ( parser )
 import Parser.Classic.ReadP.Decls ( parseObjConstrDecl )
-import Parser.TestCommon ( goldenTestAll )
+import Parser.Classic.ReadP.Test.Golden ( goldenTestAll )
 
 import Test.Tasty (TestTree, testGroup)
 import Text.ParserCombinators.ReadP ( many )
