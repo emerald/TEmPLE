@@ -13,6 +13,7 @@ import qualified Parser.Classic.ReadP.Test.Loops as CLOOPT
 import qualified Parser.Classic.ReadP.Test.Decls as CDT
 import qualified Parser.Classic.ReadP.Test.DeclStats as CDST
 
+import qualified Parser.Classic.Megaparsec.Test.Idents as CMIT
 import qualified Parser.Classic.Megaparsec.Test.TextLits as CMTLT
 
 import Test.Tasty (TestTree, defaultMain, testGroup)
@@ -33,6 +34,7 @@ testTree = fmap (testGroup "Classic Parser Tests") $ sequence
   , CDT.testTree
   , CDST.testTree
   , CExT.testTree
+--  , CMIT.testTree
   , CMTLT.testTree
   ]
 

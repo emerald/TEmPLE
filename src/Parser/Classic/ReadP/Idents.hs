@@ -1,7 +1,5 @@
 module Parser.Classic.ReadP.Idents
-  ( firstChars
-  , restChars
-  , reserved
+  ( reserved
   , parseIdent
   , parseIdentList
   , prefixedIdent
@@ -16,21 +14,11 @@ import Control.Monad (mfilter)
 import Data.List.NonEmpty (NonEmpty)
 import Text.ParserCombinators.ReadP (ReadP, munch, satisfy)
 
-firstChars :: [Char]
-firstChars = ('_' : ['A'..'Z'] ++ ['a'..'z'])
-
-restChars :: [Char]
-restChars = firstChars ++ ['0'..'9']
-
-first :: Char -> Bool
-first = flip elem firstChars
-
-rest :: Char -> Bool
-rest = flip elem restChars
+import Parser.Classic.Idents ( isFirstChar, isRestChar )
 
 parseIdent :: ReadP Ident
 parseIdent = token $ mfilter (not . (`elem` reserved)) $
-  liftA2 (:) (satisfy first) (munch rest)
+  liftA2 (:) (satisfy isFirstChar) (munch isRestChar)
 
 parseIdentList :: ReadP (NonEmpty Ident)
 parseIdentList = commaList parseIdent
