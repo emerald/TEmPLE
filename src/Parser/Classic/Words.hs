@@ -9,7 +9,7 @@
 --
 -- Classical Emerald makes a distinction between reserved literals
 -- (e.g., `nil`) and keywords (e.g., `object`) — so do we.
-
+-----------------------------------------------------------------------------
 module Parser.Classic.Words
   ( Keywords(..)
   , Literals(..)

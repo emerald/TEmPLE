@@ -7,7 +7,7 @@
 --
 -- Introduced as there are a couple places where the `builtin`
 -- keyword (optionally) occurs in classical Emerald.
-
+-----------------------------------------------------------------------------
 module Parser.Classic.ReadP.Builtins
   ( parseBuiltin
   ) where

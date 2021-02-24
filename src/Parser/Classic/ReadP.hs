@@ -6,7 +6,7 @@
 -- Maintainer  :  oleks@oleks.info
 --
 -- A parser for classical Emerald; no funny business.
-
+-----------------------------------------------------------------------------
 module Parser.Classic.ReadP
   ( ParseError
   , parseString

@@ -7,7 +7,7 @@
 --
 -- Introduced as there are a couple places where the `attached`
 -- keyword (optionally) occurs in classical Emerald.
-
+-----------------------------------------------------------------------------
 module Parser.Classic.ReadP.Attached
   ( parseAttached
   ) where

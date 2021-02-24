@@ -1,12 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-----------------------------------------------------------------------------
 -- |
 -- Description  : Parsing character and string literals
 -- Copyright    : (c) Oleks Shturmov, 2020
 -- License      : BSD 3-Clause (see the file LICENSE)
 --
 -- Maintainer   : oleks@oleks.info
-
+-----------------------------------------------------------------------------
 module Parser.Classic.Megaparsec.TextLits
   ( parseTextLit
   ) where

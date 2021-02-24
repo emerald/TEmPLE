@@ -1,3 +1,4 @@
+-----------------------------------------------------------------------------
 -- |
 -- Copyright   :  (c) Oleks Shturmov
 -- License     :  BSD 3-Clause (see the file LICENSE)
@@ -5,7 +6,7 @@
 -- Maintainer  :  oleks@oleks.info
 --
 -- Declares various syntactical transformations.
-
+-----------------------------------------------------------------------------
 module Parser.Classic.ReadP.Transforms
   ( classToObject
   , makeConstField
